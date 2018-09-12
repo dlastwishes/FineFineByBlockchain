@@ -49,10 +49,12 @@ contract trafficTicket {
         _;
     }
 	
-	modifier checkShowTicket(string _trafficticket , string personid) {
-		require(_trafficticket.toSlice().len() >0 );
+	modifier checkShowTicket(string _trafficticket , string personid ) {
+
+		require(_trafficticket.toSlice().len() > 0);
 		require(personid.toSlice().len() >0);
 		require(personid.toSlice().equals(trafficList[_trafficticket].conveyList.conv_personalNo.toSlice()));
+
 	_;
 	}
     
