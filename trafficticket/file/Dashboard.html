@@ -180,158 +180,20 @@
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table">
-                          <thead class="" style="text-align: center">
-                            <th>
-                              เลขที่ใบสั่ง
-                            </th>
-                            <th>
-                              ชื่อ-นามสกุล ผู้กระทำความผิด
-                            </th>
-                            <th>
-                              สถานะใบสั่ง
-                            </th>
-                            <th>
-                              วัน/เวลาที่ออกใบสั่ง
-                            </th>
-                            <th style="text-align: center">
-                              ตัวเลือก
-                            </th>
-
-
-                          </thead>
-                          <tbody>
-                            <tr style="text-align: center">
-                              <td>
-                                1
-                              </td>
-                              <td>
-                                Dakota Rice
-                              </td>
-                              <td>
-                                Niger
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-
-                              <td>
-                                
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-danger btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                2
-                              </td>
-                              <td>
-                                Minerva Hooper
-                              </td>
-                              <td>
-                                Curaçao
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td>
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-danger btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                3
-                              </td>
-                              <td>
-                                Sage Rodriguez
-                              </td>
-                              <td>
-                                Netherlands
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td>
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-primary btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                4
-                              </td>
-                              <td>
-                                Philip Chaney
-                              </td>
-                              <td>
-                                Korea, South
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td>
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-primary btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                5
-                              </td>
-                              <td>
-                                Doris Greene
-                              </td>
-                              <td>
-                                Malawi
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td>
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-primary btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                6
-                              </td>
-                              <td>
-                                Mason Porter
-                              </td>
-                              <td>
-                                Chile
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td>
-                                  <button type="button" rel="tooltip" title="ดูใบสั่ง" class="btn btn-primary btn-link btn-sm">
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                          </tbody>
-                        </table>
+                        <script language="javascript" type="text/javascript">
+                            
+                          document.write("<table class='table' id='trafficList'>");
+                          document.write(" <thead class='text-primary' style='text-align: center'> <th> เลขที่ใบสั่ง </th> <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th> <th>  สถานะใบสั่ง  </th> <th>  วัน/เวลาที่ออกใบสั่ง </th><th style='text-align: center'> ตัวเลือก</th></thead><tbody>")
+                                  for (var a=0; a < 10; a++) {
+                                  document.write("<tr style='text-align: center'>");
+                                      document.write(" <td> <label id='reportcase_trafficNo'> </label> </td> <td>  <label id='convey_name'> </td> <td> <label id='status'> </label> </td> <td> Not Available </td>");
+                                      document.write("<td> <button type='button' rel='tooltip' title='แก้ไข' class='btn btn-primary btn-link btn-sm'> <i class='material-icons'>edit</i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>");
+                              document.write("</tr>  ");
+                              }
+                          document.write("</tbody></table>");
+                           
+                          </script>
+                      <input type="button" value="load more" id="load"/>
                       </div>
                     </div>
                   </div>
@@ -345,10 +207,7 @@
             <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
             <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
             <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-            <!--  Google Maps Plugin    -->
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-            <!-- Chartist JS -->
-            <script src="../assets/js/plugins/chartist.min.js"></script>
+
             <!--  Notifications Plugin    -->
             <script src="../assets/js/plugins/bootstrap-notify.js"></script>
             <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
@@ -356,6 +215,21 @@
             <!-- Material Dashboard DEMO methods, don't include it in your project! -->
             <script src="../assets/demo/demo.js"></script>
             <script>
+
+                 $(document).on('click','#load',function(){
+                var more;
+
+                for (var i=0; i < 10; i++) {
+
+                         more += "<tr style='text-align: center'>"
+                          more += " <td> 1 </td> <td> Dakota Rice </td> <td> Niger </td> <td>16/12/22 15:21:21</td>"
+                          more += "<td> <button type='button' rel='tooltip' title='แก้ไข' class='btn btn-primary btn-link btn-sm'> <i class='material-icons'>edit</i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                         more += "</tr> "
+                                }
+
+                $('#trafficList').append(more);
+              })
+
               $(document).ready(function () {
                 // Javascript method's body can be found in assets/js/demos.js
                 md.initDashboardPageCharts();
