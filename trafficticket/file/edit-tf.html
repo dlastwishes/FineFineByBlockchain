@@ -27,58 +27,17 @@
       $("#header").load("header.html");
     });
   </script>
+    <script> 
+        $(function () {
+          $("#nev").load("nev.html");
+        });
+      </script>
 </head>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          FineFine
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
-              <i class="fa fa-clone"></i>
-              <p>ใบสั่ง</p>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="./create-tf-office-info.html">
-              <i class="fa fa-edit fa"></i>
-              <p>สร้างใบสั่ง</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item ">
-            <a class="nav-link" href="./ADMINmanage.html">
-              <i class="fa fa-user-plus"></i>
-              <p>จัดการเจ้าหน้าที่</p>
-            </a>
-          </li> -->
-          <li class="nav-item  ">
-            <a class="nav-link" href="./user.html">
-              <i class="material-icons">person</i>
-              <p>ข้อมูลผู้ใช้</p>
-            </a>
-          </li>
-          
-          </li>
-          <li class="nav-item active-pro ">
-                <a class="nav-link" href="">
-                    <i class="fa fa-sign-out"></i>
-                    <p>ออกจากระบบ</p>
-                </a>
-            </li>
-        </ul>
-      </div>
-    </div>
+    
+      <div id="nev"></div>
     <div class="main-panel">
       <!-- Navbar -->
       <div id='header'></div>
