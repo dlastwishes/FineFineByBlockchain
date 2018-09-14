@@ -1,9 +1,5 @@
 
-	/* 
-
-	
-	*/ 
-		     if (typeof web3 !== 'undefined') {
+if (typeof web3 !== 'undefined') {
 
          web3 = new Web3(web3.currentProvider);
 		 console.log("existing web3: provider " + web3);
@@ -30,7 +26,7 @@
 		
 		 var traffic = TrafficConstract.at(contractAddr);
 		
-		 traffic.getConveyance( "B1200" , "5175012312031"  , function(error, result)
+		 traffic.getConveyance( trafficNo , personno , function(error, result)
 	{
             if(!error)
                 {

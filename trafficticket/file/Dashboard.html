@@ -2,42 +2,76 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     home
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-  />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
-  />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-
+  <script src="../script/startState.js"> </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script> 
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script>
     $(function () {
       $("#header").load("header.html");
     });
-  </script>
-   <script> 
+
     $(function () {
       $("#nev").load("nev.html");
     });
+
+    var key = 0;
+
+    var Web3 = require('web3');
+
+    if (typeof web3 !== 'undefined') {
+
+      web3 = new Web3(web3.currentProvider);
+      console.log("existing web3: provider " + web3);
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+    }
+
+    else {
+
+      web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
+      console.log("new provider " + typeof web3);
+
+    }
+
+    console.log(web3.isConnected());
+
+    if (web3.isConnected()) {
+
+      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [], "name": "destroyTrafficTicket", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }, { "name": "new_re_addr", "type": "string" }, { "name": "new_re_tel", "type": "string" }, { "name": "new_re_zipcode", "type": "string" }], "name": "editReporter", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "targetPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }, { "name": "re_addr", "type": "string" }, { "name": "re_tel", "type": "string" }, { "name": "re_zipcode", "type": "string" }], "name": "setReporter", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var ticketAddr = "0x8c7bEa0d865CF7A89ea9aeCb0582CEf1567A59b4";
+      var traffic = TrafficConstract.at(ticketAddr);
+
+      var payTrafficTicket = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var payTicketAddr = "0x14eaCbA550cC9aD315EEe7b2428EC523DAF8136e";
+      var payTicket = payTrafficTicket.at(payTicketAddr);
+
+    } else {
+      console.log('not connect');
+    }
+
+
   </script>
 </head>
 
-<body class=" ">
+<body>
   <div class="wrapper card-header-info">
 
     <div id="nev"></div>
-    
+
     <div class="main-panel">
       <!-- Init Navbar -->
       <div id='header'></div>
@@ -53,7 +87,7 @@
                       <i class="material-icons">content_copy</i>
                     </div>
                     <p class="card-category">ใบสั่งทั้งหมด</p>
-                    <h3 class="card-title">50
+                    <h3 class="card-title" id="totalTicket">
                       <small></small>
                     </h3>
                   </div>
@@ -65,134 +99,195 @@
 
                   </div>
             </a>
-            </div>
-            </div>
-            <a href="Dashboard-paid.html">
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header card-header-success card-header-icon">
-                    <div class="card-icon">
-                      <i class="fa fa-edit fa fa-check-square-o"></i>
-                    </div>
-                    <p class="card-category">ใบสั่งที่จ่ายแล้ว</p>
-                    <h3 class="card-title">30</h3>
-                  </div>
-                  <div class="card-footer">
-                    <!-- <div class="stats">
+          </div>
+        </div>
+        <a href="Dashboard-paid.html">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                  <i class="fa fa-edit fa fa-check-square-o"></i>
+                </div>
+                <p class="card-category">ใบสั่งที่จ่ายแล้ว</p>
+                <h3 class="card-title">30</h3>
+              </div>
+              <div class="card-footer">
+                <!-- <div class="stats">
                     <i class="material-icons">date_range</i> Last 24 Hours
                   </div> -->
-                  </div>
-            </a>
-            </div>
-            </div>
+              </div>
+        </a>
+      </div>
+    </div>
 
-            <a href="Dashboard-not-pay.html">
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header card-header-warning card-header-icon">
+    <a href="Dashboard-not-pay.html">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-warning card-header-icon">
 
-                    <div class="card-icon">
-                      <i class="fa fa-exclamation"></i>
-                    </div>
-                    <p class="card-category">ใบสั่งที่ยังไม่จ่าย</p>
-                    <h3 class="card-title">20</h3>
-                  </div>
-                  <div class="card-footer">
-                    <!-- <div class="stats">
+            <div class="card-icon">
+              <i class="fa fa-exclamation"></i>
+            </div>
+            <p class="card-category">ใบสั่งที่ยังไม่จ่าย</p>
+            <h3 class="card-title">20</h3>
+          </div>
+          <div class="card-footer">
+            <!-- <div class="stats">
                     <i class="material-icons">local_offer</i> Tracked from Github
                   </div> -->
-                  </div>
-            </a>
-            </div>
-            </div>
-            <a href="Dashboard-report.html">
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header  card-header-danger card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons">info_outline</i>
+          </div>
+    </a>
+  </div>
+  </div>
+  <a href="Dashboard-report.html">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header  card-header-danger card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">info_outline</i>
 
-                    </div>
-                    <p class="card-category">ใบสั่งที่ถูกรายงาน</p>
-                    <h3 class="card-title">4</h3>
-                  </div>
-                  <div class="card-footer">
-                    <!-- <div class="stats">
+          </div>
+          <p class="card-category">ใบสั่งที่ถูกรายงาน</p>
+          <h3 class="card-title">4</h3>
+        </div>
+        <div class="card-footer">
+          <!-- <div class="stats">
                     <i class="material-icons">update</i> Just Updated
                   </div> -->
-                  </div>
-            </a>
-            </div>
-            </div>
-          </div>
+        </div>
+  </a>
+  </div>
+  </div>
+  </div>
 
-          <div class="content">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header card-header-info">
-                      <h4 class="card-title ">ใบสั่งทั้งหมด</h4>
-                      <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <script language="javascript" type="text/javascript">
-                            
-                          document.write("<table class='table' id='trafficList'>");
-                          document.write(" <thead class='' style='text-align: center'> <th> เลขที่ใบสั่ง </th> <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th> <th>  สถานะใบสั่ง  </th> <th>  วัน/เวลาที่ออกใบสั่ง </th><th style='text-align: center'> ตัวเลือก</th></thead><tbody>")
-                                  for (var a=0; a < 10; a++) {
-                                  document.write("<tr style='text-align: center'>");
-                                      document.write(" <td> <label id='reportcase_trafficNo'> </label> </td> <td>  <label id='convey_name'> </td> <td> <label id='status'> </label> </td> <td> Not Available </td>");
-                                      document.write("<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>");
-                              document.write("</tr>  ");
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-info">
+              <h4 class="card-title ">ใบสั่งทั้งหมด</h4>
+              <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class='table' id='trafficList'>
+                  <thead class='' style='text-align: center'>
+                    <th> เลขที่ใบสั่ง </th>
+                    <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th>
+                    <th> สถานะใบสั่ง </th>
+                    <th> วัน/เวลาที่ออกใบสั่ง </th>
+                    <th style='text-align: center'> ตัวเลือก</th>
+                  </thead>
+                  <tbody>
+
+                    <script>
+
+                      traffic.getTotalTicket((error, result) => {
+                        let tableCode;
+                        if (!error) {
+                          let totalTicket = result;
+         
+                          for (let i = 0; i < 10; i++) {
+
+                            tableCode += "<tr style='text-align: center'>"
+                            tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                            tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                            tableCode += "</tr>"
+                            key++;
+                          }
+
+                          $('#trafficList').append(tableCode);
+
+                          for (let i = 0; i < result; i++) {
+                            let ticketNo, conveyName;
+                            traffic.getTicketNo(i, (error, result) => {
+                              if (!error) {
+                                ticketNo = result;
+                                $("#reportcase_trafficNo" + i).html(ticketNo);
+
+                                traffic.getTicket(ticketNo, (error, res) => {
+                                  if (!error) {
+                                    console.log(res);
+                                    $("#convey_name" + i).html(res);
+
+                                    payTicket.isPay(ticketNo, (error, result) => {
+                                      if (!error) {
+                                        let status = "";
+                                        console.log(result);
+                                        if (result) {
+                                          status = "จ่ายแล้ว";
+                                        }
+                                        else {
+                                          status = "ยังไม่จ่าย";
+                                        }
+                                        console.log(status);
+                                        $("#status" + i).html(status);
+                                      }
+                                    })
+
+                                  }
+                                });
                               }
-                          document.write("</tbody></table>");
-                           
-                          </script>
-                      <button type="submit" class="btn btn-info pull-right" id="load" >ดูเพิ่ม</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                            });
 
-               
+                          }
+
+
+
+                        }
+                      })
+
+
+
+
+                    </script>
+                  </tbody>
+                </table>
+                <button type="submit" class="btn btn-info pull-right" id="load">ดูเพิ่ม</button>
               </div>
             </div>
-            <!--   Core JS Files   -->
-            <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
-            <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-            <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-            <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+          </div>
+        </div>
 
-            <!--  Notifications Plugin    -->
-            <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-            <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-            <script src="../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-            <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-            <script src="../assets/demo/demo.js"></script>
-            <script>
 
-                 $(document).on('click','#load',function(){
-                var more;
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-                for (var i=0; i < 10; i++) {
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/demo.js"></script>
 
-                         more += "<tr style='text-align: center'>"
-                          more += " <td> 1 </td> <td> Dakota Rice </td> <td> Niger </td> <td>16/12/22 15:21:21</td>"
-                          more += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                         more += "</tr> "
-                                }
+    <script>
 
-                $('#trafficList').append(more);
-              })
+      $(document).on('click', '#load', function () {
+        var more;
 
-              $(document).ready(function () {
-                // Javascript method's body can be found in assets/js/demos.js
-                md.initDashboardPageCharts();
+        for (var i = 0; i < 10; i++) {
+          key++;
+          more += "<tr style='text-align: center'>"
+          more += " <td> <label id='reportcase_trafficNo'>" + key + "</label> </td> <td>  <label id='convey_name'> </td> <td> <label id='status'> </label> </td> <td> Not Available </td>"
+          more += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+          more += "</tr> "
+        }
 
-              });
-            </script>
+        $('#trafficList').append(more);
+      });
+
+      $(document).ready(function () {
+        // Javascript method's body can be found in assets/js/demos.js
+        md.initDashboardPageCharts();
+
+      });
+    </script>
 </body>
 
 </html>

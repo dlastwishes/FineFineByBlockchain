@@ -44,6 +44,10 @@ contract trafficTicket {
     reporter private reportInfo;
     report_case private report;
     
+    mapping (uint => conveyanceOwner) mapConvey;
+    mapping (uint => reporter) mapReporter;
+    mapping (uint => report_case) mapReportCase;
+    
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
@@ -57,6 +61,16 @@ contract trafficTicket {
 
 	_;
 	}
+	
+	function getTotalTicket() public view returns (uint) {
+	    return (trafficTicketNo.length);
+	}
+	
+	function getTicket(string ticketNo) public view returns (string){
+	    
+	    return (trafficList[ticketNo].conveyList.conv_name);
+	}
+	
     
     function getConveyance(string id , string _personalid) public checkShowTicket(id , _personalid) constant returns (string , string , string , string , string)  {
         
@@ -84,34 +98,31 @@ contract trafficTicket {
     
     }
 
-    function searchTicket( string id , string name) {
-        
-    }
+  
     
-    function newTrafficTicket(string trafficID) public{
+    function newTrafficTicket( uint targetPoint ,string trafficID) public{
 	
 
-        
         report_case memory  reportSingletron;
          reporter memory reporterSingletron;
          conveyanceOwner memory conveySingletron;
          
-         reportSingletron._charge = report._charge;
-         reportSingletron._placeOfIncident = report._placeOfIncident;
-         reportSingletron._speedDetection = report._speedDetection;
-         reportSingletron._amountOfFine = report._amountOfFine;
+         reportSingletron._charge = mapReportCase[targetPoint]._charge;
+         reportSingletron._placeOfIncident = mapReportCase[targetPoint]._placeOfIncident;
+         reportSingletron._speedDetection = mapReportCase[targetPoint]._speedDetection;
+         reportSingletron._amountOfFine = mapReportCase[targetPoint]._amountOfFine;
          
-         reporterSingletron.rep_name = reportInfo.rep_name;
-         reporterSingletron.rep_unit = reportInfo.rep_unit;
-          reporterSingletron.rep_address = reportInfo.rep_address;
-           reporterSingletron.rep_tel = reportInfo.rep_tel;
-       reporterSingletron.rep_zipcode = reportInfo.rep_zipcode;
+         reporterSingletron.rep_name = mapReporter[targetPoint].rep_name;
+         reporterSingletron.rep_unit = mapReporter[targetPoint].rep_unit;
+          reporterSingletron.rep_address = mapReporter[targetPoint].rep_address;
+           reporterSingletron.rep_tel = mapReporter[targetPoint].rep_tel;
+       reporterSingletron.rep_zipcode = mapReporter[targetPoint].rep_zipcode;
        
-          conveySingletron.conv_personalNo = convey.conv_personalNo;
-          conveySingletron.conv_plateNo = convey.conv_plateNo;
-           conveySingletron.conv_name = convey.conv_name;
-            conveySingletron.conv_tele= convey.conv_tele;
-            conveySingletron.conv_address= convey.conv_address;
+          conveySingletron.conv_personalNo = mapConvey[targetPoint].conv_personalNo;
+          conveySingletron.conv_plateNo = mapConvey[targetPoint].conv_plateNo;
+           conveySingletron.conv_name = mapConvey[targetPoint].conv_name;
+            conveySingletron.conv_tele= mapConvey[targetPoint].conv_tele;
+            conveySingletron.conv_address= mapConvey[targetPoint].conv_address;
             
             
         TrafficTicket memory TrafficTicketIns;
@@ -125,7 +136,9 @@ contract trafficTicket {
         
     }
     
-       function setReport_case(string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public returns (bool) {
+       function setReport_case(string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public returns (uint) {
+		
+	   uint report_caseNo = trafficTicketNo.length;
 		
         report_case memory reportObject;
         reportObject._charge = charge;
@@ -133,14 +146,17 @@ contract trafficTicket {
         reportObject._speedDetection = speedDetection;
         reportObject._amountOfFine = amountOfFine;
         
-        report = reportObject;
+        mapReportCase[report_caseNo] = reportObject;
          
-         return true;
+         return (report_caseNo);
         
     }
    
     
-    function setReporter(string re_name, string re_unit,string re_addr,string re_tel,string re_zipcode) public returns (bool) {
+    function setReporter(string re_name, string re_unit,string re_addr,string re_tel,string re_zipcode) public returns (uint) {
+        
+        uint reporterNo = trafficTicketNo.length;
+        
         reporter memory reportObject;
         reportObject.rep_name = re_name;
         reportObject.rep_unit = re_unit;
@@ -148,14 +164,16 @@ contract trafficTicket {
         reportObject.rep_tel=re_tel;
         reportObject.rep_zipcode=re_zipcode;
         
-        reportInfo = reportObject;
+       mapReporter[reporterNo] = reportObject;
 		
-        return true;
+        return (reporterNo);
         
       
     }
  
-    function setConveyanceOwner(string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public returns (bool){
+    function setConveyanceOwner(string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public returns (uint){
+		
+		uint conveyNo = trafficTicketNo.length;
 		
         conveyanceOwner memory conveyIns;
          conveyIns.conv_personalNo = conv_persNo;
@@ -164,9 +182,9 @@ contract trafficTicket {
         conveyIns.conv_tele=conv_tel;
         conveyIns.conv_address=conv_addr;
         
-        convey = conveyIns;
+        mapConvey[conveyNo] = conveyIns;
 		
-        return true;
+        return (conveyNo);
    
     }
     
