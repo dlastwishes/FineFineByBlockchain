@@ -104,18 +104,27 @@
 <script>
 
     login = () => {
-
-        officer.login($("#username").val(), $("#password").val(), (error, result) => {
-            if (!error) {
-                if(result[0]){
-                    console.log("success " + result[1]);
-                    window.location.replace("Dashboard.html?"+$("#username").val());
-                }
-                else {
-                    console.log("fail login")
-                }                 
+        if ($("#username").val() === null) {
+            console.log("null username")
+            if ($("#password").val() === null) {
+                alert("null password");
             }
-        });
+           
+        }
+        else {
+            officer.login($("#username").val(), $("#password").val(), (error, result) => {
+                if (!error) {
+                    if (result[0]) {
+                        console.log("success " + result[1]);
+                        window.location.replace("Dashboard.html?username" + $("#username").val());
+                    }
+                    else {
+                        Alert("Login fail");
+                    }
+                }
+            });
+        }
+
 
     }
 
