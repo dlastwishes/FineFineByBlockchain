@@ -30,6 +30,7 @@
             web3 = new Web3(web3.currentProvider);
             console.log("existing web3: provider " + web3);
             web3.eth.defaultAccount = web3.eth.accounts[0];
+
         }
 
         else {
@@ -79,9 +80,9 @@
                                     <div class="form loginBox">
                                         <form method="post" action="/login" accept-charset="UTF-8">
                                             <input id="username" class="form-control" type="text" placeholder="ชื่อผู้ใช้"
-                                                name="username">
+                                                name="username" required>
                                             <input id="password" class="form-control" type="password" placeholder="รหัสผ่าน"
-                                                name="password">
+                                                name="password" required>
                                             <input class="btn btn-default btn-login" type="button" value="ลงชื่อเข้าใช้"
                                                 onclick="login()">
                                         </form>
@@ -109,11 +110,10 @@
 <script>
 
     login = () => {
-        if ($("#username").val() === null) {
-            console.log("null username")
-            if ($("#password").val() === null) {
-                alert("null password");
-            }
+
+        if ($("#username").val() == "" && $("#password").val() == "") {
+
+            alert("null username or password");
            
         }
         else {
@@ -121,10 +121,10 @@
                 if (!error) {
                     if (result[0]) {
                         console.log("success " + result[1]);
-                        window.location.replace("Dashboard.html?username" + $("#username").val());
+                        window.location.replace("Dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
                     }
                     else {
-                        Alert("Login fail");
+                        alert("Login fail");
                     }
                 }
             });
