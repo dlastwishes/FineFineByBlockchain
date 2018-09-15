@@ -181,12 +181,13 @@
                   </thead>
                   <tbody>
 
-                     <script>
+                    <script>
 
                       setData = (init) => {
 
                         traffic.getTotalTicket((error, result) => {
                           for (let i = init; i < result; i++) {
+                            console.log("test "+i);
                             let ticketNo, conveyName;
                             traffic.getTicketNo(i, (error, result) => {
                               if (!error) {
@@ -226,17 +227,19 @@
 
                       }
 
-                      traffic.getTotalTicket((error, result) => {
+                      traffic.getTotalTicket((error, result1) => {
                         let tableCode;
                         if (!error) {
-                          totalTicket = Object.keys(result)
-                          $("#totalTicket").html(totalTicket.length - 1);
+                          var totalTicket = Object(result1);
+                         console.log(totalTicket)
+                          $("#totalTicket").html(totalTicket[0]);
                           for (let i = 0; i < 10; i++) {
 
                             tableCode += "<tr style='text-align: center'>"
                             tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
                             tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
                             tableCode += "</tr>"
+                            console.log("key : "+key);
                             key++;
                           }
 
@@ -273,20 +276,22 @@
     <script>
 
       $(document).on('click', '#load', function () {
+      
         var more;
-          size = key+10;
-          for (var i = key; i < size; i++) {
-
-            more += "<tr style='text-align: center'>"
-            more += " <td> <label id='reportcase_trafficNo'>" + key + "</label> </td> <td>  <label id='convey_name'> </td> <td> <label id='status'> </label> </td> <td> Not Available </td>"
-            more += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-            more += "</tr> "
-            key++;
-          }
-
-          $('#trafficList').append(more);
+        size = key + 10;
+        init = key;
+        for (var i = key; i < size; i++) {
           
-        })
+          more += "<tr style='text-align: center'>"
+          more += " <td> <label id='reportcase_trafficNo"+key+"'></label> </td> <td>  <label id='convey_name"+key+"'> </td> <td> <label id='status"+key+"'> </label> </td> <td> Not Available </td>"
+          more += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+          more += "</tr> "
+          key++;
+        }
+
+        $('#trafficList').append(more);
+        setData(init);
+      })
 
       $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js
