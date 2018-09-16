@@ -112,15 +112,12 @@
     login = () => {
 
         if ($("#username").val() == "" && $("#password").val() == "") {
-
-            alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
-           
+            alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");  
         }
         else {
             officer.login($("#username").val(), $("#password").val(), (error, result) => {
                 if (!error) {
                     if (result[0]) {
-                        console.log("success " + result[1]);
                         window.location.replace("Dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
                     }
                     else {

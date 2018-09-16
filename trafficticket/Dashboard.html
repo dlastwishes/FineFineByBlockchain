@@ -24,11 +24,13 @@
     var urlParams = new URLSearchParams(window.location.search);
     var username = urlParams.get('username');
     var unitNo = urlParams.get('unitno');
-    if(username == null){
+    var tableCode = "";
+
+    if (username == null) {
       alert("Error");
       window.location.replace("index.html");
     }
-   console.log(username + " " + unitNo);
+    console.log(username + " " + unitNo);
 
     $(function () {
       $("#header").load("header.html");
@@ -60,8 +62,8 @@
 
     if (web3.isConnected()) {
 
-      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [], "name": "destroyTrafficTicket", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }, { "name": "new_re_addr", "type": "string" }, { "name": "new_re_tel", "type": "string" }, { "name": "new_re_zipcode", "type": "string" }], "name": "editReporter", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "targetPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }, { "name": "re_addr", "type": "string" }, { "name": "re_tel", "type": "string" }, { "name": "re_zipcode", "type": "string" }], "name": "setReporter", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var ticketAddr = "0x8c7bEa0d865CF7A89ea9aeCb0582CEf1567A59b4";
+      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }, { "name": "new_re_addr", "type": "string" }, { "name": "new_re_tel", "type": "string" }, { "name": "new_re_zipcode", "type": "string" }], "name": "editReporter", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "targetPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }, { "name": "re_addr", "type": "string" }, { "name": "re_tel", "type": "string" }, { "name": "re_zipcode", "type": "string" }], "name": "setReporter", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var ticketAddr = "0x15d232b3c134a12b3a6de8ab372d56c49adbf753";
       var traffic = TrafficConstract.at(ticketAddr);
 
       var payTrafficTicket = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
@@ -190,42 +192,50 @@
 
                     <script>
 
-                      setData = (init) => {
+                      setData = (init , desti) => {
 
-                        traffic.getTotalTicket((error, result) => {
-                          for (let i = init; i < result; i++) {
+                        traffic.getTotalTicketByUnit(unitNo, (error, result) => {
+
+                          for (let i = init; i <= desti; i++) {
+                            
                             console.log("test " + i);
-                            let ticketNo, conveyName;
-                            traffic.getTicketNo(i, (error, result) => {
+
+                            traffic.getTicketNo(unitNo, i, (error, result) => {
                               if (!error) {
-                                ticketNo = result;
-                                $("#reportcase_trafficNo" + i).html(ticketNo);
+                              
+                                  let ticketNo, conveyName;
+                                  ticketNo = result;
+                                  $("#reportcase_trafficNo" + i).html(ticketNo);
 
-                                traffic.getTicket(ticketNo, (error, res) => {
-                                  if (!error) {
-                                    console.log(res);
-                                    $("#convey_name" + i).html(res);
+                                  traffic.getTicket(unitNo, ticketNo, (error, res) => {
 
-                                    payTicket.isPay(ticketNo, (error, result) => {
-                                      if (!error) {
-                                        let status = "";
-                                        console.log(result);
-                                        if (result) {
-                                          status = "จ่ายแล้ว";
+                                    if (!error) {
+                                      console.log("conv "+i);
+                                      $("#convey_name" + i).html(res);
+
+                                      payTicket.isPay(ticketNo, (error, result) => {
+                                        if (!error) {
+                                          let status = "";
+                                          
+                                          if (result) {
+                                            status = "จ่ายแล้ว";
+                                          }
+                                          else {
+                                            status = "ยังไม่จ่าย";
+                                          }
+                                          console.log(status);
+                                          $("#status" + i).html(status);
                                         }
-                                        else {
-                                          status = "ยังไม่จ่าย";
-                                        }
-                                        console.log(status);
-                                        $("#status" + i).html(status);
-                                      }
-                                    })
+                                      })
 
-                                  }
-                                });
+
+                                    }
+                                  });
+                              
+
                               }
                             });
-
+                            
                           }
 
 
@@ -234,25 +244,45 @@
 
                       }
 
-                      traffic.getTotalTicket((error, result1) => {
-                        let tableCode;
+                      traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
+
                         if (!error) {
 
                           $("#totalTicket").html(result1.c[0]);
+
                           for (let i = 0; i < 10; i++) {
 
-                            tableCode += "<tr style='text-align: center'>"
-                            tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                            tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                            tableCode += "</tr>"
-                            console.log("key : " + key);
-                            key++;
+                            traffic.getTicketNo(unitNo, i, (error, res) => {
+                              
+                              if (!error) {
+
+                                console.log(i + " res " + res)
+                                if (res !== "") {
+
+                                  tableCode += "<tr style='text-align: center'>"
+                                  tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                  tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                                  tableCode += "</tr>"
+                                
+                                  console.log("key : " + key);
+                                  $('#trafficList').append(tableCode);
+                                  key++;
+                                }
+                                
+                               
+
+
+                              }
+
+
+                            });
+                            
                           }
+                          
+                          setData(0 , 10);
 
-                          $('#trafficList').append(tableCode);
-                          setData(0);
                         }
-
+                      
                       })
                     </script>
                   </tbody>
@@ -304,6 +334,7 @@
         md.initDashboardPageCharts();
 
       });
+
     </script>
 </body>
 
