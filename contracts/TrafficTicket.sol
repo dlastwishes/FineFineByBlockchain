@@ -40,7 +40,7 @@ contract trafficTicket {
      mapping (string => uint) totalTicketInUnit;
     
     mapping( string => mapping(string => TrafficTicket)) trafficList;
-    mapping(uint => string) mapTicket;
+    mapping ( string => mapping(uint => string)) mapTargetPointToTicket;
     
     conveyanceOwner private convey;
     reporter private reportInfo;
@@ -79,10 +79,9 @@ contract trafficTicket {
 	    return (trafficList[unitNo][ticketNo].conveyList.conv_name);
 	}
 	
-	function getTicketNo(uint num) public view returns (string) {
-	    return (mapTicket[num]);
+	function getTicketNo(string unitNo,uint num) public view returns (string) {
+	    return (mapTargetPointToTicket[unitNo][num]);
 	}
-	
     
     function getConveyance(string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns (string , string , string , string , string)  {
         
@@ -147,7 +146,7 @@ contract trafficTicket {
         }
         totalTicketInUnit[unitNo] = totalTicketUnitIns+1;
         trafficTicketNo.push(trafficID);
-        mapTicket[targetPoint] = trafficID;
+        mapTargetPointToTicket[unitNo][targetPoint] = trafficID;
         
     }
     
