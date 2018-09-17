@@ -9,12 +9,9 @@
       this.className += " active";
     });
   }
-  </script>
-
-<script> 
 
 function goToDashboard() {
-  window.location.replace("./dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
+  window.location.replace("./dashboard.html?username=" +username +"&unitno="+unitNo);
 }
 goToCreateTicket = () => {
   window.location.replace("./create-tf-office-info.html?username"+username+"&unitno="+unitNo);
