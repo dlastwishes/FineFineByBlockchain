@@ -17,15 +17,49 @@
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var username = urlParams.get('username');
+    var unitNo = urlParams.get('unitno');
+
+    if (typeof web3 !== 'undefined') {
+
+      web3 = new Web3(web3.currentProvider);
+      console.log("existing web3: provider " + web3);
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+    }
+
+    else {
+
+      web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
+      console.log("new provider " + typeof web3);
+
+    }
+
+    console.log(web3.isConnected());
+
+    if (web3.isConnected()) {
+
+      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }, { "name": "new_re_addr", "type": "string" }, { "name": "new_re_tel", "type": "string" }, { "name": "new_re_zipcode", "type": "string" }], "name": "editReporter", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "targetPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }, { "name": "re_addr", "type": "string" }, { "name": "re_tel", "type": "string" }, { "name": "re_zipcode", "type": "string" }], "name": "setReporter", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var ticketAddr = "0x15d232b3c134a12b3a6de8ab372d56c49adbf753";
+      var traffic = TrafficConstract.at(ticketAddr);
+
+      var officerContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "unitName", "type": "string" }, { "name": "unitAddr", "type": "string" }, { "name": "unitTel", "type": "string" }, { "name": "unitZipcode", "type": "string" }], "name": "addUnit", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "user", "type": "string" }], "name": "checkIn", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "editOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_officerCreateID", "type": "string" }, { "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "newOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }], "name": "newPermission", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_repass", "type": "string" }], "name": "recoverUsr", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "username", "type": "string" }], "name": "getOfficerInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getUnitInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_user", "type": "string" }, { "name": "_pass", "type": "string" }], "name": "login", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var officerAddr = "0x1f53a420d6A03Db199e6683c09DC6d5c46D5e68e";
+      var officer = officerContract.at(officerAddr);
+
+    } else {
+      console.log('not connect');
+    }
+
     $(function () {
       $("#header").load("header.html");
     });
-  </script>
-  <script>
+
     $(function () {
       $("#nev").load("nev.html");
     });
@@ -49,26 +83,26 @@
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">สร้างใบสั่ง</h4>
-                  <p class="card-category" style="color:white">ช้อมูลสถานีตำรวจ</p>
+                  <p class="card-category" style="color:white">ข้อมูลเจ้าหน้าที่ตำรวจ</p>
                 </div>
                 <div class="card-body">
                   <form>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">ชื่อผู้ออกใบสั่ง</label>
+                          <label class="bmd-label-floating" id="nameOfficer">ชื่อผู้ออกใบสั่ง</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">ชื่อสถานีตำรวจ</label>
+                          <label class="bmd-label-floating" id="nameUnit">ชื่อสถานีตำรวจ</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">ที่อยู่</label>
+                          <label class="bmd-label-floating" id="addrOfficer">ที่อยู่</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -76,13 +110,13 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">รหัสไปรษณีย์</label>
+                          <label class="bmd-label-floating" id="zipcodeOfficer">รหัสไปรษณีย์</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">เบอร์โทร</label>
+                          <label class="bmd-label-floating" id="telOfficer">เบอร์โทร</label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -115,6 +149,19 @@
         <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
+        <script>
+          officer.getOfficerInfo(unitNo, username, (error, res) => {
+            if (!error) {
+              $("#nameOfficer").html(res[0]);
+              officer.getUnitInfo(unitNo, (error, res) => {
+                $("#nameUnit").html(res[0]);
+              })
+              $("#addrOfficer").html(res[1]);
+              $("#telOfficer").html(res[2]);
+              $("#zipcodeOfficer").html(res[3]);
+            }
+          });
+        </script>
 </body>
 
 </html>
