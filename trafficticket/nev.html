@@ -1,3 +1,16 @@
+<script>
+  // Add active class to the current button (highlight it)
+  var header = document.getElementById("myDIV");
+  var btns = header.getElementsByClassName("nav-item");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+  </script>
+
 <script> 
 
 function goToDashboard() {
@@ -9,6 +22,8 @@ goToCreateTicket = () => {
 
 </script>
 <!-- Navbar for header  -->
+
+
 <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/" >
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -20,9 +35,10 @@ goToCreateTicket = () => {
         FineFine
       </a>
     </div>
+    <div id="myDIV">
     <div class="sidebar-wrapper">
       <ul class="nav ">
-        <li class="nav-item active ">
+        <li class="nav-item  active ">
           <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
             <i class="fa fa-clone"></i>
             <p>ใบสั่ง</p>
@@ -56,3 +72,5 @@ goToCreateTicket = () => {
       </ul>
     </div>
   </div>
+</div>
+
