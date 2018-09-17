@@ -25,7 +25,8 @@
     var username = urlParams.get('username');
     var unitNo = urlParams.get('unitno');
     var tableCode = "";
-    var rowData = [];
+    var index = 0;
+    var page = 30;
 
     if (username == null) {
       alert("Error");
@@ -78,7 +79,7 @@
   </script>
 </head>
 
-<body>
+<body onload="createDataTable(0,30)">
   <div class="wrapper card-header-info">
 
     <div id="nev"></div>
@@ -191,16 +192,13 @@
                   <tbody id='trafficList'>
 
                     <script>
-                      var index = 0;
-                      var page = 1;
 
-                      function setData(init,desti) {
+
+                      function setData(init, desti) {
 
                         traffic.getTotalTicketByUnit(unitNo, (error, result) => {
 
                           for (let i = init; i < desti; i++) {
-
-                            console.log("wow " + rowData[i]);
 
                             traffic.getTicketNo(unitNo, i, (error, result) => {
                               if (!error) {
@@ -208,7 +206,7 @@
                                 if (result !== "") {
                                   let ticketNo, conveyName;
                                   ticketNo = result;
-                                  console.log("add to trafficno " + i)
+                                  console.log("set trafficticket to td " + i)
                                   $("#reportcase_trafficNo" + i).html(ticketNo);
 
                                   traffic.getTicket(unitNo, ticketNo, (error, res) => {
@@ -246,51 +244,60 @@
                       }
 
 
+                      function createDataTable(init, desti) {
 
-                      traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
+                        traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
 
-                        if (!error) {
+                          if (!error) {
 
-                          $("#totalTicket").html(result1.c[0]);
+                            $("#totalTicket").html(result1.c[0]);
+                            page+=5;
+                            for (let i = init; i < desti; i++) {
 
-                          for (let i = 0; i < 10; i++) {
+                              traffic.getTicketNo(unitNo, i, (error, res) => {
 
-                            traffic.getTicketNo(unitNo, i, (error, res) => {
+                                if (!error) {
 
-                              if (!error) {
+                                  console.log(i + " res " + res)
 
-                                console.log(i + " res " + res)
+                                  if (res !== "") {
+                                    console.log("key is " + key)
 
-                                if (res !== "") {
-                                  console.log("key is " + key)
-
-                                  tableCode += "<tr style='text-align: center'>"
-                                  tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                  tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                                  tableCode += "</tr> "
-
-                                  $("#trafficList").html(tableCode);
-                                  console.log("index : "+index)
-                                  console.log("key : " + key);
-                                  key++;
+                                    tableCode += "<tr style='text-align: center'>"
+                                    tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                    tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                                    tableCode += "</tr> "
+                                    console.log(page);
+                                 
+                                      $("#trafficList").html(tableCode);
+                                    
+                                    console.log("index : " + index)
+                                    console.log("td for : " + i);
+                                    key++;
+                                  }
+                                  else {
+                                    console.log('not generate tr')
+                                  }
                                 }
-                                else {
-                                  console.log('not generate tr')
-                                }
-                              }
-                      
-                              index++;
-                            });
+                                
+                                index++;
+                                
+                                
+                              });
+                            }
+                           
+                            setData(init, desti);
                           }
-                          setData(0,10);
-                        }
-                      });
+                        });
+                      }
+
+
                     </script>
                   </tbody>
                 </table>
 
 
-                <button type="submit" class="btn btn-info pull-right" id="load">ดูเพิ่ม</button>
+                <button type="submit" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
               </div>
             </div>
           </div>
@@ -313,53 +320,7 @@
     <script src="assets/demo/demo.js"></script>
 
     <script>
-      $(document).on('click', '#load', function () {
-        
-        var more = "";
-        size = index +10;
 
-        traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
-
-          if (!error) {
-
-            for (let i = index; i < size; i++) {
-
-              traffic.getTicketNo(unitNo, i, (error, res) => {
-
-                if (!error) {
-
-                  console.log(i + " res " + res)
-
-                  if (res !== "") {
-
-                    console.log("key is " + key)
-
-                    more += "<tr style='text-align: center'>"
-                    more += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                    more += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                    more += "</tr>"
-
-                    $("#trafficList").append(more);
-                      console.log("index : "+index)
-                    console.log("key : " + key);
-                    key++;
-                  }
-                }
-               
-                page++;
-                index++;
-              });
-
-            }
-            
-            console.log("index in bottom "+index)
-            
-          }
-
-        });
-     
-        setData(index , size);
-      });
 
       $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js

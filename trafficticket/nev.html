@@ -1,8 +1,13 @@
+<script> 
 
+function goToDashboard() {
+  window.location.replace("./dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
+}
+goToCreateTicket = () => {
+  window.location.replace("./create-tf-office-info.html?username"+username+"&unitno="+unitNo);
+}
 
-
-
-
+</script>
 <!-- Navbar for header  -->
 <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/" >
     <!--
@@ -18,13 +23,13 @@
     <div class="sidebar-wrapper">
       <ul class="nav ">
         <li class="nav-item active ">
-          <a class="nav-link" href="./dashboard.html">
+          <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
             <i class="fa fa-clone"></i>
             <p>ใบสั่ง</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./create-tf-office-info.html">
+          <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
             <i class="fa fa-edit fa"></i>
             <p>สร้างใบสั่ง</p>
           </a>
