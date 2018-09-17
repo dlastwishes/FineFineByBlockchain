@@ -26,6 +26,14 @@
     var username = urlParams.get('username');
     var unitNo = urlParams.get('unitno');
 
+    $(function () {
+      $("#header").load("header.html");
+    });
+
+    $(function () {
+      $("#nev").load("nev.html");
+    });
+
     if (typeof web3 !== 'undefined') {
 
       web3 = new Web3(web3.currentProvider);
@@ -56,13 +64,7 @@
       console.log('not connect');
     }
 
-    $(function () {
-      $("#header").load("header.html");
-    });
-
-    $(function () {
-      $("#nev").load("nev.html");
-    });
+    
   </script>
 </head>
 
@@ -88,35 +90,68 @@
                 <div class="card-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="nameOfficer">ชื่อผู้ออกใบสั่ง</label>
+                          <label class="bmd-label-floating"><font size="4">ชื่อผู้ออกใบสั่ง: </font></label>
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="nameOfficer"></label>
+
+                          <input type="text" class="form-control" disabled>
+                        </div>
+
+                      </div>
+                      <div class="col-md-2">
+                          <div class="form-group">
+                            <label class="bmd-label-floating"><font size="4">ชื่อสถานีตำรวจ: </font> </label>
+                            
+                          </div>
+                        </div>
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="nameUnit"></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating" id="nameUnit">ชื่อสถานีตำรวจ</label>
-                          <input type="text" class="form-control" disabled>
+                      <div class="col-md-2">
+                          <div class="form-group">
+                            <label class="bmd-label-floating"><font size="4">ที่อยู่: </font> </label>
+                            
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-12">
+                      <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="addrOfficer">ที่อยู่</label>
+                          <label class="bmd-label-floating" id="addrOfficer"></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                    <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="zipcodeOfficer">รหัสไปรษณีย์</label>
+                          <label class="bmd-label-floating"><font size="4">รหัสไปรษณีย์: </font> </label>
+                          
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="zipcodeOfficer"></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-2">
+                          <div class="form-group">
+                            <label class="bmd-label-floating"><font size="4">เบอร์โทร: </font> </label>
+                            
+                          </div>
+                        </div>
+                      <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="telOfficer">เบอร์โทร</label>
+                          <label class="bmd-label-floating" id="telOfficer"></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
