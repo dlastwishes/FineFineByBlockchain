@@ -60,6 +60,23 @@
       } else {
         console.log('not connect');
       }
+      function checkID(id)
+			{
+			if(id.length != 13) return false;
+				for(i=0, sum=0; i < 12; i++)
+					sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12)))
+					
+			return false; return true;}
+
+			function checkForm()
+			{ 
+				if(!checkID(document.getdataform.pers_No.value)){
+						$("#error").html("รหัสบัตรประชาชนไม่ถูกต้อง");
+						return false;
+				}
+				else return true;
+					
+			}
     </script>
 </head>
 
@@ -82,7 +99,7 @@
                   <p class="card-category" style="color:white">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form onsubmit="return checkForm()">
                     <div class="row">
                       <div class="col-md-2.3">
                         <div class="form-group">
@@ -93,11 +110,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="text" class="form-control" required>
+                          <input type="number" class="form-control"  required>
                         </div>
                       </div>
-
-
                       <div class="col-md-1.8">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -123,7 +138,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="password" class="form-control" required>
+                          <input type="text" class="form-control" required>
                         </div>
                       </div>
 
@@ -134,9 +149,9 @@
                           </label>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6" >
                         <div class="form-group">
-                          <input type="text" class="form-control" required>
+                          <input type="tel" class="form-control" required>
                         </div>
                       </div>
                     </div>
@@ -156,7 +171,7 @@
                   </div>
                 </div>
 
-                <a href=""> <button type="submit" class="btn btn-info pull-right">สร้างใบสั่ง</button></a>
+                <a href=""> <input type="submit" class="btn btn-info pull-right" value="สร้างใบสั่ง" ></a>
                 <a href=""> <button type="submit" class="btn btn-info pull-right">ย้อนกลับ</button></a>
                 <div class="clearfix"></div>
                 </form>
