@@ -110,7 +110,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="number" class="form-control"  required>
+                          <input type="number" class="form-control" id="personalNo" name="pers_No"  required>
                         </div>
                       </div>
                       <div class="col-md-1.8">
@@ -123,8 +123,7 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="plateNo"  required>
                         </div>
                       </div>
                     </div>
@@ -138,7 +137,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="conv_name"  required>
                         </div>
                       </div>
 
@@ -151,7 +150,7 @@
                       </div>
                       <div class="col-md-6" >
                         <div class="form-group">
-                          <input type="tel" class="form-control" required>
+                          <input type="tel" class="form-control" id="conv_tel"  required>
                         </div>
                       </div>
                     </div>
@@ -166,13 +165,15 @@
                   </div>
                   <div class="col-md-11">
                     <div class="form-group">
-                      <input type="text" class="form-control" required>
+                      <input type="text" class="form-control" id="" required>
                     </div>
                   </div>
                 </div>
 
-                <a href=""> <input type="submit" class="btn btn-info pull-right" value="สร้างใบสั่ง" ></a>
-                <a href=""> <button type="submit" class="btn btn-info pull-right">ย้อนกลับ</button></a>
+                <a href=""> <input type="submit" onclick="submitConveyance()" class="btn btn-info pull-right" value="สร้างใบสั่ง" ></a>
+                
+                <a href=""> <input type="submit" class="btn btn-info pull-right" value="ย้อนกลับ"></a>
+                <a href=""> <input type="reset" class="btn btn-danger pull-right" value="ยกเลิก"></a>
                 <div class="clearfix"></div>
                 </form>
               </div>
@@ -197,7 +198,8 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
         <script> 
-         submitOffender = () => {
+
+         submitConveyance = () => {
             traffic.setConveyanceOwner.sendTransaction($("#personalNo").val(), $("#plateNo").val()
               , $("#conv_name").val(), $("#conv_tel").val() , $("conv_addr").val(), { from: web3.eth.accounts[0], gas: 3000000 }
               , function (error, result) {

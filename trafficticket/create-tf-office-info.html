@@ -189,6 +189,7 @@
               , $("#telOfficer").val(), $("#zipcodeOfficer").val(), { from: web3.eth.accounts[0], gas: 3000000 }
               , function (error, result) {
                 if (!error){
+                  
                   window.location.replace("./create-tf-offender-info.html?username=" +username +"&unitno="+unitNo+"&reporter="+result.c[0]);
                 }
                 else{
