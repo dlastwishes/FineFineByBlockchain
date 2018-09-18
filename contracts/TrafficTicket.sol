@@ -46,13 +46,13 @@ contract trafficTicket {
     reporter private reportInfo;
     report_case private report;
     
-    uint numConvey = 0;
-    uint numReportCase = 0;
-    uint numReporter = 0;
+    mapping(string => uint) numConvey;
+    mapping(string => uint) numReportCase;
+    mapping(string => uint) numReporter;
     
-    mapping (uint => conveyanceOwner) mapConvey;
-    mapping (uint => reporter) mapReporter;
-    mapping (uint => report_case) mapReportCase;
+    mapping( string => mapping (uint => conveyanceOwner)) mapConvey;
+   mapping( string =>  mapping (uint => reporter)) mapReporter;
+    mapping(string => mapping (uint => report_case)) mapReportCase;
     
     modifier onlyOwner() {
         require(msg.sender == owner);
@@ -108,28 +108,28 @@ contract trafficTicket {
     
     }
 
-    function newTrafficTicket( string unitNo ,uint targetPoint ,string trafficID) public{
+    function newTrafficTicket( string unitNo ,uint reporterPoint , uint reportcasePoint , uint conveyPoint ,string trafficID) public{
 	
         report_case memory  reportSingletron;
          reporter memory reporterSingletron;
          conveyanceOwner memory conveySingletron;
          
-         reportSingletron._charge = mapReportCase[targetPoint]._charge;
-         reportSingletron._placeOfIncident = mapReportCase[targetPoint]._placeOfIncident;
-         reportSingletron._speedDetection = mapReportCase[targetPoint]._speedDetection;
-         reportSingletron._amountOfFine = mapReportCase[targetPoint]._amountOfFine;
+         reportSingletron._charge = mapReportCase[unitNo][reportcasePoint]._charge;
+         reportSingletron._placeOfIncident = mapReportCase[unitNo][reportcasePoint]._placeOfIncident;
+         reportSingletron._speedDetection = mapReportCase[unitNo][reportcasePoint]._speedDetection;
+         reportSingletron._amountOfFine = mapReportCase[unitNo][reportcasePoint]._amountOfFine;
          
-         reporterSingletron.rep_name = mapReporter[targetPoint].rep_name;
-         reporterSingletron.rep_unit = mapReporter[targetPoint].rep_unit;
-          reporterSingletron.rep_address = mapReporter[targetPoint].rep_address;
-           reporterSingletron.rep_tel = mapReporter[targetPoint].rep_tel;
-       reporterSingletron.rep_zipcode = mapReporter[targetPoint].rep_zipcode;
+         reporterSingletron.rep_name = mapReporter[unitNo][reporterPoint].rep_name;
+         reporterSingletron.rep_unit = mapReporter[unitNo][reporterPoint].rep_unit;
+          reporterSingletron.rep_address = mapReporter[unitNo][reporterPoint].rep_address;
+           reporterSingletron.rep_tel = mapReporter[unitNo][reporterPoint].rep_tel;
+       reporterSingletron.rep_zipcode = mapReporter[unitNo][reporterPoint].rep_zipcode;
        
-          conveySingletron.conv_personalNo = mapConvey[targetPoint].conv_personalNo;
-          conveySingletron.conv_plateNo = mapConvey[targetPoint].conv_plateNo;
-           conveySingletron.conv_name = mapConvey[targetPoint].conv_name;
-            conveySingletron.conv_tele= mapConvey[targetPoint].conv_tele;
-            conveySingletron.conv_address= mapConvey[targetPoint].conv_address;
+          conveySingletron.conv_personalNo = mapConvey[unitNo][conveyPoint].conv_personalNo;
+          conveySingletron.conv_plateNo = mapConvey[unitNo][conveyPoint].conv_plateNo;
+           conveySingletron.conv_name = mapConvey[unitNo][conveyPoint].conv_name;
+            conveySingletron.conv_tele= mapConvey[unitNo][conveyPoint].conv_tele;
+            conveySingletron.conv_address= mapConvey[unitNo][conveyPoint].conv_address;
             
             
         TrafficTicket memory TrafficTicketIns;
@@ -146,11 +146,11 @@ contract trafficTicket {
         }
         totalTicketInUnit[unitNo] = totalTicketUnitIns+1;
         trafficTicketNo.push(trafficID);
-        mapTargetPointToTicket[unitNo][targetPoint] = trafficID;
+        mapTargetPointToTicket[unitNo][conveyPoint] = trafficID;
         
     }
     
-       function setReport_case(string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public returns (uint) {
+       function setReport_case(string unitNo ,string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public{
 		
         report_case memory reportObject;
         reportObject._charge = charge;
@@ -158,14 +158,15 @@ contract trafficTicket {
         reportObject._speedDetection = speedDetection;
         reportObject._amountOfFine = amountOfFine;
         
-        mapReportCase[numReportCase] = reportObject;
-         
-         return (numReportCase++);
+        uint reportcasePoint = numReportCase[unitNo]+1;
+        
+        
+        mapReportCase[unitNo][reportcasePoint] = reportObject;
         
     }
    
     
-    function setReporter(string re_name, string re_unit,string re_addr,string re_tel,string re_zipcode) public returns (uint) {
+    function setReporter(string unitNo , string re_name, string re_unit,string re_addr,string re_tel,string re_zipcode) public {
  
         reporter memory reportObject;
         
@@ -175,14 +176,13 @@ contract trafficTicket {
         reportObject.rep_tel=re_tel;
         reportObject.rep_zipcode=re_zipcode;
         
-       mapReporter[numReporter] = reportObject;
-       
-		
-        return (numReporter++);
+        uint reporterPoint = numReporter[unitNo]+1;
+        
+       mapReporter[unitNo][reporterPoint] = reportObject;
       
     }
  
-    function setConveyanceOwner(string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public returns (uint){
+    function setConveyanceOwner(string unitNo , string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public{
 		
         conveyanceOwner memory conveyIns;
          conveyIns.conv_personalNo = conv_persNo;
@@ -191,9 +191,9 @@ contract trafficTicket {
         conveyIns.conv_tele=conv_tel;
         conveyIns.conv_address=conv_addr;
         
-        mapConvey[numConvey] = conveyIns;
-		
-        return (numConvey++);
+        uint conveyPoint = numConvey[unitNo]+1;
+        
+        mapConvey[unitNo][conveyPoint] = conveyIns;
    
     }
     
