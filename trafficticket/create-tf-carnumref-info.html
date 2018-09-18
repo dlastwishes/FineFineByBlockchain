@@ -66,7 +66,7 @@
 <body class="">
   <div class="wrapper ">
 
-    <div id="nevC"></div>
+    <div id="nev"></div>
 
     <div class="main-panel">
       <!-- Navbar -->
@@ -84,51 +84,88 @@
                 <div class="card-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-2.3">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="personalNo">เลขที่บัตรประชาชน</label>
+                          <label class="bmd-label-floating">
+                            <font size="4">เลขที่บัตรประชาชน : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
                           <input type="text" class="form-control" required>
                         </div>
                       </div>
-                      <div class="col-md-12">
+
+
+                      <div class="col-md-1.8">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="plateNo">เลขทะเบียนรถ</label>
-                          <input type="text" class="form-control" required>
+                          <label class="bmd-label-floating">
+                            <font size="4">เลขทะเบียนรถ : </font>
+                          </label>
+
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conv_name">ชื่อ-นามสกุล</label>
-                          <input type="password" class="form-control" required>
+
+                          <input type="text" class="form-control" required>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-1.9">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conv_tel">เบอร์โทร</label>
-                          <input type="text" class="form-control" required>
+                          <label class="bmd-label-floating">
+                            <font size="4">ชื่อ-นามสกุล : </font>
+                          </label>
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conv_addr">ที่อยู่</label>
+                          <input type="password" class="form-control" required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-2.5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">เบอร์โทร : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
                           <input type="text" class="form-control" required>
                         </div>
                       </div>
                     </div>
-
-                    <a href=""> <button type="button" onclick="setConveyanceOwner()" class="btn btn-info pull-right">สร้างใบสั่ง</button></a>
-                    <a href=""> <button type="button" class="btn btn-info pull-right">ย้อนกลับ</button></a>
-                    <div class="clearfix"></div>
-                  </form>
+                
+                <div class="row">
+                  <div class="col-md-1.8">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">
+                        <font size="4">ที่อยู่ : </font>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-11">
+                    <div class="form-group">
+                      <input type="text" class="form-control" required>
+                    </div>
+                  </div>
                 </div>
+
+                <a href=""> <button type="submit" class="btn btn-info pull-right">สร้างใบสั่ง</button></a>
+                <a href=""> <button type="submit" class="btn btn-info pull-right">ย้อนกลับ</button></a>
+                <div class="clearfix"></div>
+                </form>
               </div>
             </div>
-
-
-
           </div>
+
+
+
         </div>
         <!--   Core JS Files   -->
         <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
