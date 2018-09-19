@@ -59,6 +59,7 @@
     } else {
       console.log('not connect');
     }
+
   </script>
 </head>
 
@@ -156,8 +157,8 @@
                       </div>
 
                     </div>
-                    <a href=""> <button onclick="submitOffender()" class="btn btn-info pull-right">ถัดไป</button></a>
-                    <a href=""> <button class="btn btn-info pull-right">ย้อนกลับ</button></a>
+                   <button type="button" onclick="submitOffender()" class="btn btn-info pull-right">ถัดไป</button>
+                    <button type="button" class="btn btn-info pull-right">ย้อนกลับ</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -190,7 +191,7 @@
               , document.getElementById("chargeInfo").textContent
               , document.getElementById("placeOfIncident").textContent
               , document.getElementById("speedDetection").textContent
-              , document.getElementById("fineTotal").textContent
+              , parseInt(document.getElementById("fineTotal").textContent)
               , function (error, result) {
                 if (!error) {
 

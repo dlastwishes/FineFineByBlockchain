@@ -156,8 +156,8 @@
                   </div>
                 </div>
 
-                <a href=""> <button type="button" onclick="submitConveyance()" class="btn btn-info pull-right">สร้างใบสั่ง</button></a>
-                <a href=""> <button type="submit" class="btn btn-info pull-right">ย้อนกลับ</button></a>
+                <button type="button" onclick="submitConveyance()" class="btn btn-info pull-right">สร้างใบสั่ง</button>
+                <button type="button" class="btn btn-info pull-right">ย้อนกลับ</button>
                 <div class="clearfix"></div>
                 </form>
               </div>
@@ -184,12 +184,27 @@
         <script> 
 
          submitConveyance = () => {
-            traffic.setConveyanceOwner.sendTransaction($("#personalNo").val(), $("#plateNo").val()
-              , $("#conv_name").val(), $("#conv_tel").val() , $("conv_addr").val(), { from: web3.eth.accounts[0], gas: 3000000 }
+            traffic.setConveyanceOwner.sendTransaction(
+              unitNo
+              , $("#personalNo").val()
+              , $("#plateNo").val()
+              , $("#conv_name").val()
+              , $("#conv_tel").val() 
+              , $("conv_addr").val()
               , function (error, result) {
                 if (!error) {
-                  window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter+"&offenderNo="+offenderNo+"&convNo="+result.c[0]);
-                }
+
+                       traffic.getConveyancePoint(unitNo, (error, res) => {
+                    if (!error) {
+                      let conveyNo = parseInt(res.c[0]) + 1;
+                      window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter+"&offenderNo="+offenderNo+"&convNo="+conveyNo);
+    
+           
+                    }
+                  })
+
+
+                    }
                 else {
                   alert("Insert data");
                 }
