@@ -17,7 +17,7 @@
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
-
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
     <script>
@@ -53,13 +53,35 @@
   
       if (web3.isConnected()) {
   
-        var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }, { "name": "new_re_addr", "type": "string" }, { "name": "new_re_tel", "type": "string" }, { "name": "new_re_zipcode", "type": "string" }], "name": "editReporter", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "targetPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }, { "name": "re_addr", "type": "string" }, { "name": "re_tel", "type": "string" }, { "name": "re_zipcode", "type": "string" }], "name": "setReporter", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-        var ticketAddr = "0x15d232b3c134a12b3a6de8ab372d56c49adbf753";
-        var traffic = TrafficConstract.at(ticketAddr);
-  
+        var TrafficConstract = web3.eth.contract([{"constant":false,"inputs":[{"name":"unitNo","type":"string"}],"name":"destroyTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_re_name","type":"string"},{"name":"new_re_unit","type":"string"}],"name":"editReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_conv_personNo","type":"string"},{"name":"new_conv_na","type":"string"},{"name":"new_conv_tel","type":"string"},{"name":"new_conv_addr","type":"string"}],"name":"editConvey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReportcasePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapConvey","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_charge","type":"string"},{"name":"new_placeOfIncident","type":"string"},{"name":"new_speedDetection","type":"string"},{"name":"new_amountOfFine","type":"uint256"}],"name":"editReportCase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReporterPoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"reporterPoint","type":"uint256"},{"name":"reportcasePoint","type":"uint256"},{"name":"conveyPoint","type":"uint256"},{"name":"trafficID","type":"string"}],"name":"newTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReportCase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalTicket","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"re_name","type":"string"},{"name":"re_unit","type":"string"}],"name":"setReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"ticketNo","type":"string"}],"name":"getTicket","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"charge","type":"string"},{"name":"placeOfIncident","type":"string"},{"name":"speedDetection","type":"string"},{"name":"amountOfFine","type":"uint256"}],"name":"setReport_case","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReportcase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"conv_persNo","type":"string"},{"name":"_plate","type":"string"},{"name":"conv_na","type":"string"},{"name":"conv_tel","type":"string"},{"name":"conv_addr","type":"string"}],"name":"setConveyanceOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"num","type":"uint256"}],"name":"getTicketNo","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"report_unit","type":"string"}],"name":"getTotalTicketByUnit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getConveyancePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getConveyance","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]);
+      var ticketAddr = "0x7e1D40c317828Df9E7A481AB1A5dE09678Ec6eba";
+      var traffic = TrafficConstract.at(ticketAddr);
       } else {
         console.log('not connect');
       }
+
+      function checkID(id)
+			{
+			if(id.length != 13) {
+        return false; 
+      }
+
+				for(i=0, sum=0; i < 12; i++)
+					sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12)))
+					
+			return false; return true;}
+
+			function checkForm()
+			{ 
+				if(!checkID(document.getdataform.pers_No.value)){
+						$("#error").html("รหัสบัตรประชาชนไม่ถูกต้อง");
+						return false;
+				}
+				else {
+          JSalert()
+        }
+					
+			}
     </script>
 </head>
 
@@ -93,11 +115,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="text" class="form-control" id="personalNo" required>
+                          <input type="number" class="form-control" id="personalNo" name="pers_No"  required>
                         </div>
                       </div>
-
-
                       <div class="col-md-1.8">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -108,8 +128,7 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-
-                          <input type="text" class="form-control" id="plateNo" required>
+                          <input type="text" class="form-control" id="plateNo"  required>
                         </div>
                       </div>
                     </div>
@@ -123,7 +142,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="password" class="form-control" id="conv_name" required>
+                          <input type="text" class="form-control" id="conv_name"  required>
                         </div>
                       </div>
 
@@ -134,9 +153,9 @@
                           </label>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6" >
                         <div class="form-group">
-                          <input type="text" class="form-control" id="conv_tel" required>
+                          <input type="tel" class="form-control" id="conv_tel"  required>
                         </div>
                       </div>
                     </div>
@@ -151,18 +170,27 @@
                   </div>
                   <div class="col-md-11">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="" required>
+                      <input type="text" class="form-control" id="conv_addr" required>
                     </div>
                   </div>
                 </div>
 
-                <button type="button" onclick="submitConveyance()" class="btn btn-info pull-right">สร้างใบสั่ง</button>
-                <button type="button" class="btn btn-info pull-right">ย้อนกลับ</button>
+                <button type="button" onclick="JSalert()" class="btn btn-info pull-right"> สร้างใบสั่ง </button>
+                
+                <input type="" class="btn btn-info pull-right" value="ย้อนกลับ">
+                <input type="reset" class="btn btn-danger pull-right" value="ยกเลิก">
                 <div class="clearfix"></div>
                 </form>
               </div>
             </div>
           </div>
+
+
+        <!-- script notification------------------------------------------------------------------------------------------ -->
+
+        <script src="j.js"></script>
+        <link rel="stylesheet" href="c.css">
+         <!-- script notification------------------------------------------------------------------------------------------ -->
 
 
 
@@ -183,33 +211,54 @@
         <script src="assets/demo/demo.js"></script>
         <script> 
 
+          function JSalert() {
+            swal({
+              title: "ยืนยันการเพิ่มข้อมูลหรือไม่",
+              text: "",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "ยืนยัน",
+              cancelButtonText: "ยกเลิก",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+              function (isConfirm) {
+                if (isConfirm) {
+                 console.log()
+                  submitConveyance();
+                }
+                else {
+                  swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
+                }
+              });
+          }
+
          submitConveyance = () => {
             traffic.setConveyanceOwner.sendTransaction(
               unitNo
               , $("#personalNo").val()
-              , $("#plateNo").val()
-              , $("#conv_name").val()
-              , $("#conv_tel").val() 
-              , $("conv_addr").val()
+              ,  $("#plateNo").val()
+              ,  $("#conv_name").val()
+              , $("#conv_tel").val()
+              , $("#conv_addr").val()
               , function (error, result) {
                 if (!error) {
 
-                       traffic.getConveyancePoint(unitNo, (error, res) => {
+                  traffic.getConveyancePoint(unitNo, (error, res) => {
                     if (!error) {
+
                       let conveyNo = parseInt(res.c[0]) + 1;
                       window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter+"&offenderNo="+offenderNo+"&convNo="+conveyNo);
-    
-           
                     }
                   })
-
-
                     }
                 else {
                   alert("Insert data");
                 }
               });
           }
+
         </script>
 </body>
 
