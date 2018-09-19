@@ -11,9 +11,6 @@ contract trafficTicket {
     struct reporter {
         string  rep_name;
         string rep_unit;
-        string rep_address;
-        string rep_tel;
-        string rep_zipcode;
     }
 	
     struct report_case {
@@ -82,6 +79,22 @@ contract trafficTicket {
 	function getTicketNo(string unitNo,uint num) public view returns (string) {
 	    return (mapTargetPointToTicket[unitNo][num]);
 	}
+	
+	//get point of data in map of ticket data
+	
+	function getReporterPoint(string unitNo) public view returns (uint) {
+
+	    return (numReporter[unitNo]);
+	}
+	 
+	function getReportcasePoint(string unitNo) public view returns (uint){
+	    
+	    return (numReportCase[unitNo]);
+	}
+	
+	function getConveyancePoint(string unitNo) public view returns (uint){
+	    return (numConvey[unitNo]);
+	}
     
     function getConveyance(string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns (string , string , string , string , string)  {
         
@@ -92,11 +105,9 @@ contract trafficTicket {
         , trafficList[unitNo][id].conveyList.conv_address);
     }
     
-    function getReporter(string unitNo , string id , string _personalid) public checkShowTicket(unitNo ,id , _personalid) constant returns (string , string , string , string , string){
+    function getReporter(string unitNo , string id , string _personalid) public checkShowTicket(unitNo ,id , _personalid) constant returns (string , string){
         return (trafficList[unitNo][id].reporterList.rep_name
-         , trafficList[unitNo][id].reporterList.rep_unit
-         , trafficList[unitNo][id].reporterList.rep_address , trafficList[unitNo][id].reporterList.rep_tel
-         , trafficList[unitNo][id].reporterList.rep_zipcode);
+         , trafficList[unitNo][id].reporterList.rep_unit);
     }
     
     function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns ( string ,string ,string , uint){
@@ -108,8 +119,15 @@ contract trafficTicket {
     
     }
 
-    function newTrafficTicket( string unitNo ,uint reporterPoint , uint reportcasePoint , uint conveyPoint ,string trafficID) public{
+    function newTrafficTicket( string unitNo , uint reporterPoint , uint reportcasePoint , uint conveyPoint ,string trafficID) public{
 	
+	    require(unitNo.toSlice().len() > 0);
+	    require(reporterPoint >= 0);
+	    require(reportcasePoint >= 0);
+	    require(conveyPoint >=0);
+	    require(trafficID.toSlice().len() > 0);
+	    
+	    
         report_case memory  reportSingletron;
          reporter memory reporterSingletron;
          conveyanceOwner memory conveySingletron;
@@ -121,16 +139,12 @@ contract trafficTicket {
          
          reporterSingletron.rep_name = mapReporter[unitNo][reporterPoint].rep_name;
          reporterSingletron.rep_unit = mapReporter[unitNo][reporterPoint].rep_unit;
-          reporterSingletron.rep_address = mapReporter[unitNo][reporterPoint].rep_address;
-           reporterSingletron.rep_tel = mapReporter[unitNo][reporterPoint].rep_tel;
-       reporterSingletron.rep_zipcode = mapReporter[unitNo][reporterPoint].rep_zipcode;
        
           conveySingletron.conv_personalNo = mapConvey[unitNo][conveyPoint].conv_personalNo;
           conveySingletron.conv_plateNo = mapConvey[unitNo][conveyPoint].conv_plateNo;
            conveySingletron.conv_name = mapConvey[unitNo][conveyPoint].conv_name;
             conveySingletron.conv_tele= mapConvey[unitNo][conveyPoint].conv_tele;
             conveySingletron.conv_address= mapConvey[unitNo][conveyPoint].conv_address;
-            
             
         TrafficTicket memory TrafficTicketIns;
         TrafficTicketIns.conveyList = conveySingletron;
@@ -144,13 +158,26 @@ contract trafficTicket {
         if( totalTicketUnitIns == None ) {
             totalTicketUnitIns = 0;
         }
+        
         totalTicketInUnit[unitNo] = totalTicketUnitIns+1;
+        
         trafficTicketNo.push(trafficID);
         mapTargetPointToTicket[unitNo][conveyPoint] = trafficID;
         
     }
     
-       function setReport_case(string unitNo ,string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public{
+       function setReport_case(string unitNo , string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public{
+	    
+	    require(unitNo.toSlice().len() > 0);
+	    require(amountOfFine > 0);
+	    
+	    uint None = uint(0); 
+	    
+	    if( numReportCase[unitNo] == None ) {
+              uint init = 0;	
+	    	numReportCase[unitNo] = init;
+        }
+        uint reportcasePoint = numReportCase[unitNo];
 		
         report_case memory reportObject;
         reportObject._charge = charge;
@@ -158,31 +185,57 @@ contract trafficTicket {
         reportObject._speedDetection = speedDetection;
         reportObject._amountOfFine = amountOfFine;
         
-        uint reportcasePoint = numReportCase[unitNo]+1;
-        
-        
-        mapReportCase[unitNo][reportcasePoint] = reportObject;
+        uint lastPoint = reportcasePoint+1;
+        numReportCase[unitNo] = lastPoint;
+
+        mapReportCase[unitNo][lastPoint] = reportObject;
         
     }
    
     
-    function setReporter(string unitNo , string re_name, string re_unit,string re_addr,string re_tel,string re_zipcode) public {
- 
+    function setReporter(string re_name , string re_unit) public {
+      
+        require(re_unit.toSlice().len() > 0);
+        require(re_name.toSlice().len() > 0);
+
+        uint None = uint(0); 
+	    
+	    if( numReporter[re_unit] == None ) {
+              uint init = 0;	
+	         numReporter[re_unit] = init;
+        }
+        
+        uint reporterPoint = numReporter[re_unit];
+        
         reporter memory reportObject;
         
         reportObject.rep_name = re_name;
         reportObject.rep_unit = re_unit;
-        reportObject.rep_address=re_addr;
-        reportObject.rep_tel=re_tel;
-        reportObject.rep_zipcode=re_zipcode;
         
-        uint reporterPoint = numReporter[unitNo]+1;
+        uint lastPoint =reporterPoint +1;
+        numReporter[re_unit] = lastPoint;
         
-       mapReporter[unitNo][reporterPoint] = reportObject;
+       mapReporter[re_unit][lastPoint] = reportObject;
       
     }
  
     function setConveyanceOwner(string unitNo , string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public{
+		
+		require(unitNo.toSlice().len() > 0);
+		require(conv_persNo.toSlice().len() > 0);
+	
+		require(conv_na.toSlice().len() > 0);
+		require(conv_tel.toSlice().len() > 0);
+		require(conv_addr.toSlice().len() > 0);
+		
+		 uint None = uint(0); 
+	    
+	    if( numConvey[unitNo] == None ) {
+              uint init = 0;	
+	         numConvey[unitNo] = init;
+        }
+        
+         uint conveyPoint = numConvey[unitNo];
 		
         conveyanceOwner memory conveyIns;
          conveyIns.conv_personalNo = conv_persNo;
@@ -191,9 +244,10 @@ contract trafficTicket {
         conveyIns.conv_tele=conv_tel;
         conveyIns.conv_address=conv_addr;
         
-        uint conveyPoint = numConvey[unitNo]+1;
+       uint lastPoint = conveyPoint+1;
+        numConvey[unitNo] = lastPoint;
         
-        mapConvey[unitNo][conveyPoint] = conveyIns;
+        mapConvey[unitNo][lastPoint] = conveyIns;
    
     }
     
@@ -207,12 +261,9 @@ contract trafficTicket {
         
     }
     
-          function editReporter( string unitNo , string id , string new_re_name, string new_re_unit,string new_re_addr, string new_re_tel, string new_re_zipcode) public returns (bool){
+          function editReporter( string unitNo , string id , string new_re_name, string new_re_unit) public returns (bool){
         trafficList[unitNo][id].reporterList.rep_name = new_re_name;
         trafficList[unitNo][id].reporterList.rep_unit = new_re_unit;
-        trafficList[unitNo][id].reporterList.rep_address = new_re_addr;
-        trafficList[unitNo][id].reporterList.rep_tel = new_re_tel;
-         trafficList[unitNo][id].reporterList.rep_zipcode = new_re_zipcode;
          
          return true;
         

@@ -170,7 +170,7 @@
                   </div>
                 </div>
 
-                <a href=""> <input type="submit" onclick="submitConveyance()" class="btn btn-info pull-right" value="สร้างใบสั่ง" ></a>
+                <a href=""> <input type="submit" onclick="JSalert()" class="btn btn-info pull-right" value="สร้างใบสั่ง" ></a>
                 
                 <a href=""> <input type="submit" class="btn btn-info pull-right" value="ย้อนกลับ"></a>
                 <a href=""> <input type="reset" class="btn btn-danger pull-right" value="ยกเลิก"></a>
@@ -179,6 +179,37 @@
               </div>
             </div>
           </div>
+
+
+        <!-- script notification------------------------------------------------------------------------------------------ -->
+
+        <script src="j.js"></script>
+        <link rel="stylesheet" href="c.css">
+
+        <script type="text/javascript">
+          function JSalert() {
+            swal({
+              title: "ยืนยันการเพิ่มข้อมูลหรือไม่",
+              text: "",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "ยืนยัน",
+              cancelButtonText: "ยกเลิก",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+              function (isConfirm) {
+                if (isConfirm) {
+                  swal("เพิ่มข้อมูลสำเร็จ", "", "success");
+                }
+                else {
+                  swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
+                }
+              });
+          }
+        </script>
+         <!-- script notification------------------------------------------------------------------------------------------ -->
 
 
 
