@@ -328,7 +328,7 @@
                                           tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
 
                                           if (!result) {
-                                            tableCode += "<button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                                            tableCode += "<button type='button' onclick='JSalert()' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
                                           }
 
                                           tableCode += "</tr> "
@@ -373,6 +373,34 @@
 
       </div>
     </div>
+
+    <script src="j.js"></script>
+          <link rel="stylesheet" href="c.css">
+
+          <script>
+            function JSalert() {
+              swal({
+                title: "ยืนยันการลบ",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "ยืนยัน",
+                cancelButtonText: "ยกเลิก",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              },
+                function (isConfirm) {
+                  if (isConfirm) {
+
+                  }
+                  else {
+                    swal("ยกเลิกการลบ", "", "error");
+                  }
+                });
+            }
+            </script>
+
     <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
