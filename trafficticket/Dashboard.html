@@ -81,11 +81,15 @@
   <div class="wrapper card-header-info">
 
     <script>
-      function goToDashboard() {
+      goToDashboard = () => {
         window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
       }
       goToCreateTicket = () => {
         window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
+      }
+      
+      goToUserProfile = () => {
+        window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);
       }
 
     </script>
@@ -125,7 +129,7 @@
               </a>
             </li> -->
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="#" onclick="goToUserProfile()">
               <i class="material-icons">person</i>
               <p>ข้อมูลผู้ใช้</p>
             </a>
@@ -319,27 +323,18 @@
                                   if (res !== "") {
                                     traffic.getMapConvey(unitNo, i, (error, result) => {
                                       persno = result[0];
-
-
-                                      payTicket.isPay(res, (error, result) => {
-                                        if (!error) {
-                                          tableCode += "<tr style='text-align: center'>"
+                                      if(!error){
+                                        tableCode += "<tr style='text-align: center'>"
                                           tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                          tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
-
-                                          if (!result) {
-                                            tableCode += "<button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                                          }
-
+                                          tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"   
                                           tableCode += "</tr> "
 
                                           $("#trafficList").html(tableCode);
                                           key++;
-                                        }
+                                        
+                                      }
+                                        
                                       });
-
-
-                                    });
 
                                   }
                                   else {
