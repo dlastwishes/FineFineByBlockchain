@@ -27,52 +27,53 @@
     var tableCode = "";
     var index = 0;
     var page = 30;
+    var key = 0;
+    var totalTicket = 0;
+    var persno = "";
 
     if (username == null) {
       alert("Error");
       window.location.replace("index.html");
     }
-  
-$(function () {
-  $("#header").load("./header.html");
-});
 
-$(function () {
-  $("#nev").load("./nev.html");
-});
+    $(function () {
+      $("#header").load("./header.html");
+    });
 
-if (typeof web3 !== 'undefined') {
+    $(function () {
+      $("#nev").load("./nev.html");
+    });
 
-  web3 = new Web3(web3.currentProvider);
-  console.log("existing web3: provider " + web3);
-  web3.eth.defaultAccount = web3.eth.accounts[0];
-}
+    if (typeof web3 !== 'undefined') {
 
-else {
+      web3 = new Web3(web3.currentProvider);
+      console.log("existing web3: provider " + web3);
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+    }
 
-  web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-  console.log("new provider " + typeof web3);
+    else {
 
-}
+      web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
+      console.log("new provider " + typeof web3);
 
-console.log(web3.isConnected());
+    }
 
-if (web3.isConnected()) {
+    console.log(web3.isConnected());
 
-   var TrafficConstract = web3.eth.contract([{"constant":false,"inputs":[{"name":"unitNo","type":"string"}],"name":"destroyTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_re_name","type":"string"},{"name":"new_re_unit","type":"string"}],"name":"editReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_conv_personNo","type":"string"},{"name":"new_conv_na","type":"string"},{"name":"new_conv_tel","type":"string"},{"name":"new_conv_addr","type":"string"}],"name":"editConvey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReportcasePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapConvey","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_charge","type":"string"},{"name":"new_placeOfIncident","type":"string"},{"name":"new_speedDetection","type":"string"},{"name":"new_amountOfFine","type":"uint256"}],"name":"editReportCase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReporterPoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"reporterPoint","type":"uint256"},{"name":"reportcasePoint","type":"uint256"},{"name":"conveyPoint","type":"uint256"},{"name":"trafficID","type":"string"}],"name":"newTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReportCase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalTicket","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"re_name","type":"string"},{"name":"re_unit","type":"string"}],"name":"setReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"ticketNo","type":"string"}],"name":"getTicket","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"charge","type":"string"},{"name":"placeOfIncident","type":"string"},{"name":"speedDetection","type":"string"},{"name":"amountOfFine","type":"uint256"}],"name":"setReport_case","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReportcase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"conv_persNo","type":"string"},{"name":"_plate","type":"string"},{"name":"conv_na","type":"string"},{"name":"conv_tel","type":"string"},{"name":"conv_addr","type":"string"}],"name":"setConveyanceOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"num","type":"uint256"}],"name":"getTicketNo","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"report_unit","type":"string"}],"name":"getTotalTicketByUnit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getConveyancePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getConveyance","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]);
+    if (web3.isConnected()) {
+
+      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }], "name": "editReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReportcasePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapConvey", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReporterPoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "reporterPoint", "type": "uint256" }, { "name": "reportcasePoint", "type": "uint256" }, { "name": "conveyPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }], "name": "setReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReportcase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getConveyancePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
       var ticketAddr = "0x7e1D40c317828Df9E7A481AB1A5dE09678Ec6eba";
       var traffic = TrafficConstract.at(ticketAddr);
-      
-  var officerContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "unitName", "type": "string" }, { "name": "unitAddr", "type": "string" }, { "name": "unitTel", "type": "string" }, { "name": "unitZipcode", "type": "string" }], "name": "addUnit", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "user", "type": "string" }], "name": "checkIn", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "editOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_officerCreateID", "type": "string" }, { "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "newOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }], "name": "newPermission", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_repass", "type": "string" }], "name": "recoverUsr", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "username", "type": "string" }], "name": "getOfficerInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getUnitInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_user", "type": "string" }, { "name": "_pass", "type": "string" }], "name": "login", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-  var officerAddr = "0x1f53a420d6A03Db199e6683c09DC6d5c46D5e68e";
-  var officer = officerContract.at(officerAddr);
 
-} else {
-  console.log('not connect');
-}
+      var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var payTicketAddr = "0xD5A93501482B8819Af4757BE61b6976ce1248590";
+      var payTicket = payTrafficTicket.at(payTicketAddr);
 
-  
-  
+    } else {
+      console.log('not connect');
+    }
+
   </script>
 </head>
 
@@ -86,11 +87,11 @@ if (web3.isConnected()) {
       goToCreateTicket = () => {
         window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
       }
-    
+
     </script>
     <!-- Navbar for header  -->
-    
-    
+
+
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/">
       <!--
             Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -102,43 +103,43 @@ if (web3.isConnected()) {
           FineFine
         </a>
       </div>
-     
-        <div class="sidebar-wrapper">
-          <ul class="nav ">
-            <li class="nav-item  active ">
-              <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
-                <i class="fa fa-clone"></i>
-                <p>ใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
-                <i class="fa fa-edit fa"></i>
-                <p>สร้างใบสั่ง</p>
-              </a>
-            </li>
-            <!-- <li class="nav-item ">
+
+      <div class="sidebar-wrapper">
+        <ul class="nav ">
+          <li class="nav-item  active ">
+            <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
+              <i class="fa fa-clone"></i>
+              <p>ใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
+              <i class="fa fa-edit fa"></i>
+              <p>สร้างใบสั่ง</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item ">
               <a class="nav-link" href="./ADMINmanage.html">
                 <i class="fa fa-user-plus"></i>
                 <p>จัดการเจ้าหน้าที่</p>
               </a>
             </li> -->
-            <li class="nav-item ">
-              <a class="nav-link" href="./user.html">
-                <i class="material-icons">person</i>
-                <p>ข้อมูลผู้ใช้</p>
-              </a>
-            </li>
-    
-            <li class="nav-item active-pro ">
-              <a class="nav-link" href="">
-                <i class="fa fa-sign-out"></i>
-                <p>ออกจากระบบ</p>
-              </a>
-            </li>
-          </ul>
-        </div>
-      
+          <li class="nav-item ">
+            <a class="nav-link" href="./user.html">
+              <i class="material-icons">person</i>
+              <p>ข้อมูลผู้ใช้</p>
+            </a>
+          </li>
+
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="">
+              <i class="fa fa-sign-out"></i>
+              <p>ออกจากระบบ</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <div class="main-panel">
@@ -178,7 +179,7 @@ if (web3.isConnected()) {
                   <i class="fa fa-edit fa fa-check-square-o"></i>
                 </div>
                 <p class="card-category">ใบสั่งที่จ่ายแล้ว</p>
-                <h3 class="card-title">30</h3>
+                <h3 class="card-title" id="totalPay"></h3>
               </div>
               <div class="card-footer">
 
@@ -196,7 +197,7 @@ if (web3.isConnected()) {
               <i class="fa fa-exclamation"></i>
             </div>
             <p class="card-category">ใบสั่งที่ยังไม่จ่าย</p>
-            <h3 class="card-title">20</h3>
+            <h3 class="card-title" id="totalNotPay"></h3>
           </div>
           <div class="card-footer">
             <!-- <div class="stats">
@@ -264,13 +265,13 @@ if (web3.isConnected()) {
                                   let ticketNo, conveyName;
                                   ticketNo = result;
 
-                                  console.log("set trafficticket to td " + i)
+
                                   $("#reportcase_trafficNo" + i).html(ticketNo);
 
                                   traffic.getTicket(unitNo, ticketNo, (error, res) => {
 
                                     if (!error) {
-                                      console.log("conv " + i);
+
                                       $("#convey_name" + i).html(res);
 
                                       payTicket.isPay(ticketNo, (error, result) => {
@@ -307,43 +308,40 @@ if (web3.isConnected()) {
                         traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
 
                           if (!error) {
-
-                            $("#totalTicket").html(result1.c[0]);
-                            page+=5;
+                            totalTicket = result1.c[0];
+                            $("#totalTicket").html(totalTicket);
+                            page += 5;
                             for (let i = init; i < desti; i++) {
 
                               traffic.getTicketNo(unitNo, i, (error, res) => {
 
                                 if (!error) {
-
-                                  console.log(i + " res " + res)
-
                                   if (res !== "") {
-                                    console.log("key is " + key)
+                                    traffic.getMapConvey(unitNo, i, (error, result) => {
+                                      persno = result[0];
 
-                                    tableCode += "<tr style='text-align: center'>"
-                                    tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                    tableCode += "<td> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> <button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                                    tableCode += "</tr> "
-                                    console.log(page);
-                                 
+                                      tableCode += "<tr style='text-align: center'>"
+                                      tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                      tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
+                                      tableCode += "<button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                                      tableCode += "</tr> "
+
                                       $("#trafficList").html(tableCode);
-                                    
-                                    console.log("index : " + index)
-                                    console.log("td for : " + i);
-                                    key++;
+                                      key++;
+                                    });
+
                                   }
                                   else {
                                     console.log('not generate tr')
                                   }
                                 }
-                                
+
                                 index++;
-                                
-                                
+
+
                               });
                             }
-                           
+
                             setData(init, desti);
                           }
                         });
@@ -355,7 +353,7 @@ if (web3.isConnected()) {
                 </table>
 
 
-                <button type="submit" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
+                <button type="button" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
               </div>
             </div>
           </div>
@@ -378,7 +376,12 @@ if (web3.isConnected()) {
     <script src="assets/demo/demo.js"></script>
 
     <script>
-
+      payTicket.getTotalPayedTicketByUnit(unitNo, (error, result) => {
+        let pay = result.c[0];
+        $("#totalPay").html(pay);
+        let notpay = totalTicket - pay
+        $("#totalNotPay").html(pay);
+      });
 
       $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js

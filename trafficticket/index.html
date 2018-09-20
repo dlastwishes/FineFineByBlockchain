@@ -118,7 +118,7 @@
             officer.login($("#username").val(), $("#password").val(), (error, result) => {
                 if (!error) {
                     if (result[0]) {
-                        window.location.replace("Dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
+                        window.location.replace("dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
                     }
                     else {
                         alert("เข้าสู่ระบบผิดพลาด");
