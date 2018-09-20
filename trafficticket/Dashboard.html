@@ -216,7 +216,7 @@
 
           </div>
           <p class="card-category">ใบสั่งที่ถูกรายงาน</p>
-          <h3 class="card-title">4</h3>
+          <h3 class="card-title" id="totalReport"></h3>
         </div>
         <div class="card-footer">
           <!-- <div class="stats">
@@ -320,14 +320,25 @@
                                     traffic.getMapConvey(unitNo, i, (error, result) => {
                                       persno = result[0];
 
-                                      tableCode += "<tr style='text-align: center'>"
-                                      tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                      tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
-                                      tableCode += "<button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
-                                      tableCode += "</tr> "
 
-                                      $("#trafficList").html(tableCode);
-                                      key++;
+                                      payTicket.isPay(res, (error, result) => {
+                                        if (!error) {
+                                          tableCode += "<tr style='text-align: center'>"
+                                          tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                          tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
+
+                                          if (!result) {
+                                            tableCode += "<button type='button' rel='tooltip' title='ลบ' class='btn btn-danger btn-link btn-sm'>  <i class='material-icons'>close</i>  </button></td>"
+                                          }
+
+                                          tableCode += "</tr> "
+
+                                          $("#trafficList").html(tableCode);
+                                          key++;
+                                        }
+                                      });
+
+
                                     });
 
                                   }
