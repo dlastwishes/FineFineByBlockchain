@@ -355,7 +355,7 @@
                       </div>
                     </div>
 
-                   <button type="button" onclick="JSalert()" class="btn btn-info pull-right">แก้ไข</button>
+                    <button type="button" onclick="JSalert()" class="btn btn-info pull-right">แก้ไข</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -445,7 +445,7 @@
                         </div>
                       </div>
                     </div>
-                   <button type="button" onclick="JSalert()" class="btn btn-info pull-right">แก้ไข</button>
+                    <button type="button" onclick="JSalert()" class="btn btn-info pull-right">แก้ไข</button>
 
                     <div class="clearfix"></div>
                   </form>
@@ -476,7 +476,7 @@
               },
                 function (isConfirm) {
                   if (isConfirm) {
-                   
+
                   }
                   else {
                     swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
@@ -507,7 +507,7 @@
                   $("#conveyaddr").html(result[4]);
                 });
 
-                 traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
+                traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
                   if (!error) {
                     $("#charge").html(res[0]);
                     $("#place").html(res[1]);
