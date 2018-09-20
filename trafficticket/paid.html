@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    ยืนยันการสร้างใบสั่ง
+    รายละเอียดใบสั่ง
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -21,15 +21,11 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script>
-
     var urlParams = new URLSearchParams(window.location.search);
     var username = urlParams.get('username');
     var unitNo = urlParams.get('unitno');
-    var reporter = urlParams.get('reporter');
-    var offender = urlParams.get('offenderNo');
-    var convey = urlParams.get('convNo');
-
-    var ticketNo = "";
+    var ticketno = urlParams.get('ticketno');
+    var persno = urlParams.get('persno');
 
     $(function () {
       $("#header").load("header.html");
@@ -61,6 +57,10 @@
       var ticketAddr = "0x7e1d40c317828df9e7a481ab1a5de09678ec6eba";
       var traffic = TrafficConstract.at(ticketAddr);
 
+      var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+      var payTicketAddr = "0xD5A93501482B8819Af4757BE61b6976ce1248590";
+      var payTicket = payTrafficTicket.at(payTicketAddr);
+
       var officerContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "unitName", "type": "string" }, { "name": "unitAddr", "type": "string" }, { "name": "unitTel", "type": "string" }, { "name": "unitZipcode", "type": "string" }], "name": "addUnit", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "user", "type": "string" }], "name": "checkIn", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "editOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_officerCreateID", "type": "string" }, { "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "newOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }], "name": "newPermission", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_repass", "type": "string" }], "name": "recoverUsr", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "username", "type": "string" }], "name": "getOfficerInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getUnitInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_user", "type": "string" }, { "name": "_pass", "type": "string" }], "name": "login", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
       var officerAddr = "0x1f53a420d6A03Db199e6683c09DC6d5c46D5e68e";
       var officer = officerContract.at(officerAddr);
@@ -72,7 +72,7 @@
 </head>
 
 <body class="">
-  <div class="wrapper ">
+  <div class="wrapper">
 
     <script>
       function goToDashboard() {
@@ -100,13 +100,13 @@
 
       <div class="sidebar-wrapper">
         <ul class="nav ">
-          <li class="nav-item   ">
+          <li class="nav-item  active ">
             <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
               <i class="fa fa-clone"></i>
               <p>ใบสั่ง</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
               <i class="fa fa-edit fa"></i>
               <p>สร้างใบสั่ง</p>
@@ -133,21 +133,55 @@
           </li>
         </ul>
       </div>
-
     </div>
-
     <div class="main-panel">
       <!-- Navbar -->
       <div id='header'></div>
       <!-- End Navbar -->
+
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-info">
-                  <h4 class="card-title">ยืนยันการสร้างใบสั่ง</h4>
-                  <p class="card-category" style="color:white">ช้อมูลสถานีตำรวจ</p>
+                <div class="card-header card-header-success">
+                  <h4 class="card-title">แก้ไขใบสั่ง</h4>
+                  <p class="card-category" style="color:white">เลขที่ใบสั่ง</p>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+
+
+
+                      <div class="col-md-1.8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">เลขที่ใบสั่ง : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="ticketno"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-success">
+                  <h4 class="card-title">ช้อมูลสถานีตำรวจ</h4>
+                  <!-- <p class="card-category" style="color:white"></p> -->
                 </div>
                 <div class="card-body">
                   <form>
@@ -163,7 +197,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officename"></label>
-                          <input type="text" class="form-control" disabled>
+                          <input type="text" class="form-control" id="nameOfficer" disabled>
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -177,7 +211,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="unitname"></label>
-                          <input type="text" class="form-control" disabled>
+                          <input type="text" class="form-control" id="nameUnit" disabled>
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -191,7 +225,7 @@
                       <div class="col-md-11">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officeaddr"></label>
-                          <input type="password" class="form-control" disabled>
+                          <input type="password" class="form-control" id="addrOfficer" disabled>
                         </div>
                       </div>
                     </div>
@@ -207,7 +241,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="zipcode"></label>
-                          <input type="text" class="form-control" disabled>
+                          <input type="text" class="form-control" id="zipcodeOfficer" disabled>
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -221,20 +255,21 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officetel"></label>
-                          <input type="text" class="form-control" disabled>
+                          <input type="text" class="form-control" id="telOfficer" disabled>
                         </div>
                       </div>
                     </div>
-                </div>
 
-                <!-- <a href="create-tf-offender-info.html"> <button type="submit" class="btn btn-primary pull-right" >ถัดไป</button></a> -->
-                <div class="clearfix"></div>
-                </form>
+
+                   
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-info">
+                <div class="card-header card-header-success">
                   <h4 class="card-title">ข้อมูลความผิด</h4>
                   <!-- <p class="card-category"></p> -->
                 </div>
@@ -251,7 +286,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="charge"></label>
+                          <label class="bmd-label-floating" id="charge" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -265,7 +300,7 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="place"></label>
+                          <label class="bmd-label-floating" id="place" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -282,7 +317,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="speed"></label>
+                          <label class="bmd-label-floating" id="speed" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -301,11 +336,12 @@
                           <label class="bmd-label-floating">
                             <font size="4">จำนวนค่าปรับ : </font>
                           </label>
+
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="fine"></label>
+                          <label class="bmd-label-floating" id="fine" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -318,12 +354,16 @@
                         </div>
                       </div>
                     </div>
+
+                    
+                    <div class="clearfix"></div>
+                  </form>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-info">
+                <div class="card-header card-header-success">
                   <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
                   <!-- <p class="card-category"></p> -->
                 </div>
@@ -339,7 +379,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="persno"></label>
+                          <label class="bmd-label-floating" id="persno" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -355,7 +395,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="plate"></label>
+                          <label class="bmd-label-floating" id="plate" ></label>
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
@@ -370,7 +410,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyname"></label>
+                          <label class="bmd-label-floating" id="conveyname" ></label>
                           <input type="password" class="form-control" disabled>
                         </div>
                       </div>
@@ -405,9 +445,8 @@
                         </div>
                       </div>
                     </div>
-
-                    <button type="button" onclick="JSalert()" class="btn btn-info pull-right">ยืนยันสร้างใบสั่ง</button>
                     
+
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -415,15 +454,17 @@
             </div>
           </div>
 
+
+
           <!-- script notification------------------------------------------------------------------------------------------ -->
 
           <script src="j.js"></script>
           <link rel="stylesheet" href="c.css">
 
-          <script type="text/javascript">
+          <script>
             function JSalert() {
               swal({
-                title: "ยืนยันการสร้างใบสั่ง",
+                title: "ยืนยันการแก้",
                 text: "",
                 type: "warning",
                 showCancelButton: true,
@@ -435,15 +476,53 @@
               },
                 function (isConfirm) {
                   if (isConfirm) {
-                    newTicket();
+
                   }
                   else {
-                    swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
+                    swal("ยกเลิกการแก้ไข", "", "error");
                   }
                 });
             }
+
+            traffic.getReporter(unitNo, ticketno, persno, (error, result) => {
+
+              if (!error) {
+                $("#ticketno").html(ticketno);
+
+                $("#officename").html(result[0] + "");
+                firstParam = result[1].substring(0, 2);
+
+                officer.getUnitInfo(result[1], (error, res) => {
+                  $("#unitname").html(res[0]);
+                  $("#officeaddr").html(res[1] + "");
+                  $("#officetel").html(res[2] + "");
+                  $("#zipcode").html(res[3] + "");
+                });
+
+                traffic.getConveyance(unitNo, ticketno, persno, (error, result) => {
+                  $("#persno").html(result[0]);
+                  $("#plate").html(result[1]);
+                  $("#conveyname").html(result[2]);
+                  $("#conveytel").html(result[3]);
+                  $("#conveyaddr").html(result[4]);
+                });
+
+                traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
+                  if (!error) {
+                    $("#charge").html(res[0]);
+                    $("#place").html(res[1]);
+                    $("#speed").html(res[2]);
+                    $("#fine").html(res[3] + "");
+                  }
+                });
+              }
+            });
+
+
           </script>
           <!-- script notification------------------------------------------------------------------------------------------ -->
+
+
           <!--   Core JS Files   -->
           <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
           <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -458,74 +537,6 @@
           <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
           <!-- Material Dashboard DEMO methods, don't include it in your project! -->
           <script src="assets/demo/demo.js"></script>
-          <script>
-            var firstParam = "";
-            var secondParam = "";
-
-            traffic.getMapReportcase(unitNo, offender, (error, res) => {
-              if (!error) {
-                $("#charge").html(res[0]);
-                $("#place").html(res[1]);
-                $("#speed").html(res[2]);
-                $("#fine").html(res[3] + "");
-              }
-            });
-
-            traffic.getMapReporter(unitNo, reporter, (error, result) => {
-              if (!error) {
-
-                $("#officename").html(result[0] + "");
-                firstParam = result[1].substring(0, 2);
-
-                officer.getUnitInfo(result[1], (error, res) => {
-                  $("#unitname").html(res[0]);
-                  $("#officeaddr").html(res[1] + "");
-                  $("#officetel").html(res[2] + "");
-                  $("#zipcode").html(res[3] + "");
-                })
-              }
-            });
-
-            traffic.getMapConvey(unitNo, convey, (error, res) => {
-              if (!error) {
-
-                $("#persno").html(res[0]);
-                $("#plate").html(res[1]);
-                $("#conveyname").html(res[2]);
-                $("#conveytel").html(res[3]);
-                $("#conveyaddr").html(res[4]);
-              }
-            });
-
-            newTicket = () => {
-
-              traffic.getTotalTicketByUnit(unitNo, (error, res) => {
-                if (!error) {
-                  secondParam = res.c[0] + 1;
-
-                  ticketNo = firstParam + secondParam;
-
-                  traffic.newTrafficTicket.sendTransaction(
-                    unitNo
-                    , parseInt(reporter)
-                    , parseInt(offender)
-                    , parseInt(convey)
-                    , ticketNo
-                    , function (error, result) {
-                      if (!error) {
-                        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-                      }
-                      else {
-                        alert("Insert error");
-                      }
-                    });
-
-                }
-              });
-
-            }
-
-          </script>
 </body>
 
 </html>

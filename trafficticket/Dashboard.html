@@ -368,6 +368,34 @@
 
       </div>
     </div>
+
+    <script src="j.js"></script>
+          <link rel="stylesheet" href="c.css">
+
+          <script>
+            function JSalert() {
+              swal({
+                title: "ยืนยันการลบ",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "ยืนยัน",
+                cancelButtonText: "ยกเลิก",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              },
+                function (isConfirm) {
+                  if (isConfirm) {
+
+                  }
+                  else {
+                    swal("ยกเลิกการลบ", "", "error");
+                  }
+                });
+            }
+            </script>
+
     <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
