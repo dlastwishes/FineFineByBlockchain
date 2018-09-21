@@ -20,6 +20,7 @@
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
+    <script src="connect.js"></script>
     <script>
       var urlParams = new URLSearchParams(window.location.search);
       var username = urlParams.get('username');
@@ -34,69 +35,14 @@
       $(function () {
         $("#nev").load("nev.html");
       });
-  
-      if (typeof web3 !== 'undefined') {
-  
-        web3 = new Web3(web3.currentProvider);
-        console.log("existing web3: provider " + web3);
-        web3.eth.defaultAccount = web3.eth.accounts[0];
-      }
-  
-      else {
-  
-        web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-        console.log("new provider " + typeof web3);
-  
-      }
-  
-      console.log(web3.isConnected());
-  
-      if (web3.isConnected()) {
-  
-        var TrafficConstract = web3.eth.contract([{"constant":false,"inputs":[{"name":"unitNo","type":"string"}],"name":"destroyTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_re_name","type":"string"},{"name":"new_re_unit","type":"string"}],"name":"editReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_conv_personNo","type":"string"},{"name":"new_conv_na","type":"string"},{"name":"new_conv_tel","type":"string"},{"name":"new_conv_addr","type":"string"}],"name":"editConvey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReportcasePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapConvey","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"new_charge","type":"string"},{"name":"new_placeOfIncident","type":"string"},{"name":"new_speedDetection","type":"string"},{"name":"new_amountOfFine","type":"uint256"}],"name":"editReportCase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getReporterPoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"reporterPoint","type":"uint256"},{"name":"reportcasePoint","type":"uint256"},{"name":"conveyPoint","type":"uint256"},{"name":"trafficID","type":"string"}],"name":"newTrafficTicket","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReportCase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalTicket","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"re_name","type":"string"},{"name":"re_unit","type":"string"}],"name":"setReporter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"ticketNo","type":"string"}],"name":"getTicket","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"charge","type":"string"},{"name":"placeOfIncident","type":"string"},{"name":"speedDetection","type":"string"},{"name":"amountOfFine","type":"uint256"}],"name":"setReport_case","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getReporter","outputs":[{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"pointer","type":"uint256"}],"name":"getMapReportcase","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"conv_persNo","type":"string"},{"name":"_plate","type":"string"},{"name":"conv_na","type":"string"},{"name":"conv_tel","type":"string"},{"name":"conv_addr","type":"string"}],"name":"setConveyanceOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"num","type":"uint256"}],"name":"getTicketNo","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"report_unit","type":"string"}],"name":"getTotalTicketByUnit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getConveyancePoint","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"},{"name":"id","type":"string"},{"name":"_personalid","type":"string"}],"name":"getConveyance","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]);
-      var ticketAddr = "0x7e1D40c317828Df9E7A481AB1A5dE09678Ec6eba";
-      var traffic = TrafficConstract.at(ticketAddr);
-      } else {
-        console.log('not connect');
-      }
 
-      function checkID(id)
-			{
-			if(id.length != 13) {
-        return false; 
-      }
-
-				for(i=0, sum=0; i < 12; i++)
-					sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12)))
-					
-			return false; return true;}
-
-			function checkForm()
-			{ 
-				if(!checkID(document.getdataform.pers_No.value)){
-						$("#error").html("รหัสบัตรประชาชนไม่ถูกต้อง");
-						return false;
-				}
-				else {
-          JSalert()
-        }
-					
-			}
     </script>
 </head>
 
 <body class="">
   <div class="wrapper ">
 
-    <script>
-      function goToDashboard() {
-        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-      }
-      goToCreateTicket = () => {
-        window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
-      }
-    
-    </script>
+      <script src="main.js"></script>
     <!-- Navbar for header  -->
     
     
@@ -111,36 +57,29 @@
           FineFine
         </a>
       </div>
-     
-        <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper">
           <ul class="nav ">
-            <li class="nav-item   ">
+            <li class="nav-item ">
               <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
                 <i class="fa fa-clone"></i>
                 <p>ใบสั่ง</p>
               </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item  active">
               <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
                 <i class="fa fa-edit fa"></i>
                 <p>สร้างใบสั่ง</p>
               </a>
             </li>
-            <!-- <li class="nav-item ">
-              <a class="nav-link" href="./ADMINmanage.html">
-                <i class="fa fa-user-plus"></i>
-                <p>จัดการเจ้าหน้าที่</p>
-              </a>
-            </li> -->
             <li class="nav-item ">
-              <a class="nav-link" href="./user.html">
+              <a class="nav-link" href="#" onclick="goToUserProfile()">
                 <i class="material-icons">person</i>
                 <p>ข้อมูลผู้ใช้</p>
               </a>
             </li>
-    
+  
             <li class="nav-item active-pro ">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="#" onclick="logout()">
                 <i class="fa fa-sign-out"></i>
                 <p>ออกจากระบบ</p>
               </a>
@@ -235,7 +174,7 @@
                   </div>
                 </div>
 
-                <button type="button" onclick="JSalert()" class="btn btn-info pull-right"> สร้างใบสั่ง </button>
+                <button type="button" onclick="JSalert('ยืนยันการเพิ่มข้อมูลผู้กระทำความผิด' , 3)" class="btn btn-info pull-right"> สร้างใบสั่ง </button>
                 <input type="reset" class="btn btn-danger pull-right" value="ยกเลิก">
                 <div class="clearfix"></div>
                 </form>
@@ -267,57 +206,7 @@
         <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
-        <script> 
-
-          function JSalert() {
-            swal({
-              title: "ยืนยันการเพิ่มข้อมูลผู้กระทำความผิด",
-              text: "",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "ยืนยัน",
-              cancelButtonText: "ยกเลิก",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-              function (isConfirm) {
-                if (isConfirm) {
-                 console.log()
-                  submitConveyance();
-                }
-                else {
-                  swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
-                }
-              });
-          }
-
-         submitConveyance = () => {
-            traffic.setConveyanceOwner.sendTransaction(
-              unitNo
-              , $("#personalNo").val()
-              ,  $("#plateNo").val()
-              ,  $("#conv_name").val()
-              , $("#conv_tel").val()
-              , $("#conv_addr").val()
-              , function (error, result) {
-                if (!error) {
-
-                  traffic.getConveyancePoint(unitNo, (error, res) => {
-                    if (!error) {
-
-                      let conveyNo = parseInt(res.c[0]) + 1;
-                      window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter+"&offenderNo="+offenderNo+"&convNo="+conveyNo);
-                    }
-                  })
-                    }
-                else {
-                  alert("Insert data");
-                }
-              });
-          }
-
-        </script>
+     
 </body>
 
 </html>

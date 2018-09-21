@@ -1,203 +1,106 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-  
-  </script>
-  <style type="text/css">
-  .navbar{
-    background-image: linear-gradient(to bottom right, #0080ff, aliceblue);
-  }
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-.grid-item {
-  padding: 5px;
-  font-size: 20px;
-  text-align: center;
-}
-.grid-itemleft {
-  padding: 5px;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.grid-itemleft:hover {
-    padding-right: 25px;
-    background-color:  #ccd9ff;
-  }
-  .grid-itemleft:active {
-    padding-left: 25px;
-    background-color:  #ccd9ff;
-  }
-  .grid-itemright {
-  padding: 5px;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.grid-itemright:hover {
-    padding-left: 25px;
-    background-color:  #ccd9ff;
-  }
-.grid-itemright:active {
-    padding-right: 25px;
-    background-color:  #ccd9ff;
-  }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var urlParams = new URLSearchParams(window.location.search);
+        var trafficno = urlParams.get('id');
+        var fine = urlParams.get('fine');
+        var personno = urlParams.get('personalno');
+        var input = urlParams.get('inputtext');
+        var unitno = urlParams.get('unitno');
 
-
-  .footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-image: linear-gradient(to bottom right, #0080ff, #cce0ff);
-   color: white;
-   text-align: center;
-   font-size: 23px;
-}
-  .header {
-   position: fixed;
-   left: 0;
-   top: 0;
-   width: 100%;
-   background-image: linear-gradient(to bottom right, #0080ff, aliceblue);
-   color: white;
-   text-align: center;
-   font-size: 20px;
-}
-.stepwizard-step p {
-    margin-top: 1px;    
-}
-
-.stepwizard-row {
-    display: table-row;
-}
-
-.stepwizard {
-    display: table;     
-    width: 100%;
-    position: relative;
-    font-size: 13px;
-}
-
-.stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
-}
-
-.stepwizard-row:before {
-    top: 24px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
-    
-}
-
-.stepwizard-step {    
-    display: table-cell;
-    text-align: center;
-    position: relative;
-}
-
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
-  </style>
-  <title>login</title>
+    </script>
+     <link rel="stylesheet" href="style.css">
+    <title>รายการค่าปรับ</title>
 </head>
-<body>
- <div class="card text-center" style="padding-top: 95px;">
-<div class="container">
 
-                          <!--Table-->
-                            <table class="table table-bordered">
+<body onload="compare()">
+    <div class="card text-center" style="padding-top: 95px;">
+        <div class="container">
 
-                                    <!--Table head-->
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2"><h4>รายการชำระค่าปรับ</h4></th>
-                                        </tr>
-                                    </thead>
-                                    <!--Table head-->
-                                
-                                    <!--Table body-->
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">เลขที่ใบสั่ง</th>
-                                            <td>260038616899</td>
-                                        </tr>
-                                        <tr>
-                                                <th scope="row">จำนวนค่าปรับ(บาท)</th>
-                                                <td>500.00 บาท</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">จำนวนค่าปรับ(ETH)</th>
-                                                <td>0.1 ETH</td>
-                                            </tr>
-                                                              
-                                            </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-  </div>
-  <div class="header">
+            <!--Table-->
+            <table class="table table-bordered">
 
-  <div class="stepwizard" style="background-color: white; color: black; padding-top: 10px;">
-    <div class="stepwizard-row">
-        <div class="stepwizard-step">
-            <a href="index.html"><button type="button" class="btn btn-success btn-circle">1</button></a>
-            <p>Search</p>
+                <!--Table head-->
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <h4>รายการชำระค่าปรับ</h4>
+                        </th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+
+                <!--Table body-->
+                <tbody>
+                    <tr>
+                        <th scope="row">เลขที่ใบสั่ง</th>
+                        <td><label id="trafficno"></label> </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">จำนวนค่าปรับ(บาท)</th>
+                        <td><label id="fineTHB"></label> </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">จำนวนค่าปรับ(ETH)</th>
+                        <td><label id="fineETH"> </label></td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
-        <div class="stepwizard-step">
-            <a href="info.html"><button type="button" class="btn btn-success btn-circle">2</button></a>
-            <p>Information</p>
+    </div>
+    </div>
+    <div class="header">
+        <div class="stepwizard" style="background-color: white; color: black; padding-top: 10px;">
+            <div class="stepwizard-row">
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-success btn-circle" disabled="disabled">1</button>
+                    <p>ระบุใบสั่ง</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-success btn-circle" disabled="disabled">2</button>
+                    <p>ตรวจดูใบสั่ง</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-primary btn-circle" disabled="disabled">3</button>
+                    <p>ยืนยัน<br>จำนวนค่าปรับ</p>
+
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
+                    <p>เลือก<br>วิธีการจ่าย</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
+                    <p>เสร็จสิ้น</p>
+                </div>
+
+            </div>
         </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-primary btn-circle">3</button>
-            <p>Confirm<br>Payment</p>
-            
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
-            <p>Payment<br>Method</p>
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
-            <p>Success</p>
-        </div> 
 
     </div>
-</div>
-
-</div>
-<div class="footer">
-<div class="grid-container">
-  <div class="grid-itemleft" style="border-right: 2px solid black;"><a href="info.html" style="text-decoration: none; color: black; font-size: 20px;"><image src="left-arrow.png">Back</a></div>
-  <div class="grid-itemright""><a href="payment.html" style="text-decoration: none; color: black;">Next<image src="right-arrow.png" style="align-items: center;"></a></div>
-</div>
-</div>
+    <div class="footer">
+        <div class="grid-container">
+            <div class="grid-itemleft" style="border-right: 2px solid black;">
+                <a href="#" onclick="goBackFromConfirm()" style="text-decoration: none; color: black; font-size: 20px;">
+                    <image src="left-arrow.png">ย้อนกลับ
+                </a>
+            </div>
+            <div class="grid-itemright">
+                <a href="#" onclick="goNextFromConfim()" style="text-decoration: none; color: black;">ถัดไป<image src="right-arrow.png"
+                        style="align-items: center;"></a>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script src="mainscript.js"> </script>
+
 </html>

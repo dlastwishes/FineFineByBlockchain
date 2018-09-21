@@ -1,202 +1,302 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script src="connect.js"> </script>
 
-  </script>
-  <style type="text/css">
-	.navbar{
-		background-image: linear-gradient(to bottom right, #0080ff, aliceblue);
-	}
-.grid-container {
-  display: grid;
-  grid-template-columns: auto;
-}
-.grid-item {
-  padding: 5px;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.grid-item a{
-    text-decoration: none;
-    color: black;
-  }
-.grid-item:hover {
-    padding-left:25px;
-    background-color: #ccd9ff;
-  }
-.grid-item:active{
-    padding-right: 25px;
-    background-color: #002080;
-  }
-	.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-image: linear-gradient(to top, #0080ff, #80bfff);
-   color: black;
-   text-align: center;
-   font-size: 20px;
-}
-	.header {
-   position: fixed;
-   left: 0;
-   top: 0;
-   width: 100%;
-   background-image: linear-gradient(to bottom, #0080ff, #80bfff);
-   color: white;
-   text-align: center;
-   font-size: 20px;
-}
-.stepwizard-step p {
-    margin-top: 1px;    
-}
+    <script type="text/javascript">
 
-.stepwizard-row {
-    display: table-row;
-}
+        var urlParams = new URLSearchParams(window.location.search);
+        var trafficno = urlParams.get('id');
+        var personno = urlParams.get('personalno');
+        var unitno = urlParams.get('unitno');
 
-.stepwizard {
-    display: table;     
-    width: 100%;
-    position: relative;
-    font-size: 13px;
-}
+    </script>
+    <style type="text/css">
+     
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto;
+        }
 
-.stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
-}
+        .grid-item {
+            padding: 5px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
 
-.stepwizard-row:before {
-    top: 24px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
-    
-}
+        .grid-item a {
+            text-decoration: none;
+            color: black;
+        }
 
-.stepwizard-step {    
-    display: table-cell;
-    text-align: center;
-    position: relative;
-}
+        .grid-item:hover {
+            padding-left: 25px;
+            background-color: #ccd9ff;
+        }
 
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
-  </style>
-  <title>login</title>
+        .grid-item:active {
+            padding-right: 25px;
+            background-color: #002080;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-image: linear-gradient(to top, #0080ff, #80bfff);
+            color: black;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .header {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-image: linear-gradient(to bottom, #0080ff, #80bfff);
+            color: white;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .stepwizard-step p {
+            margin-top: 1px;
+        }
+
+        .stepwizard-row {
+            display: table-row;
+        }
+
+        .stepwizard {
+            display: table;
+            width: 100%;
+            position: relative;
+            font-size: 13px;
+        }
+
+        .stepwizard-step button[disabled] {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+
+        .stepwizard-row:before {
+            top: 24px;
+            bottom: 0;
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            z-order: 0;
+
+        }
+
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+    </style>
+    <title>รายละเอียดใบสั่ง</title>
 </head>
+
 <body>
- <div class="card text-center" style="padding-top: 80px;">
-                    <div class="card-body">
-                        <!--Table-->
-                            <table class="table table-bordered">
+    <div class="card text-center" style="padding-top: 80px;">
+        <div class="card-body">
+            <!--Table-->
+            <table class="table table-bordered">
 
-                                    <!--Table head-->
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2"><h4>ข้อมูลใบสั่ง</h4></th>
-                                        </tr>
-                                    </thead>
-                                    <!--Table head-->
-                                
-                                    <!--Table body-->
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">เลขที่ใบสั่ง</th>
-                                            <td>260038616899</td>
-                                        </tr>
-                                        <tr>
-                                                <th scope="row">วัน-เวลา</th>
-                                                <td>13 กุมภาพันธ์ 2561 23:02 น.</td>
-                                            </tr>
-                                            <tr>
-                                                    <th scope="row">ชื่อ-นามสกุล</th>
-                                                    <td>จิรายุ จันทร์ดี</td>
-                                                </tr>
-                                                <tr>
-                                                        <th scope="row">ที่อยู่</th>
-                                                        <td>16/1 หมู่4 ต.คอกกระบือ<br>อ.เมือง จ.สมุทรสาคร 74000</td>
-                                                    </tr>
-                                                    <tr>
-                                                            <th scope="row">เลขทะเบียน</th>
-                                                            <td>4 กษ 908</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <th scope="row">ข้อหา</th>
-                                                                <td>ขับรถใช้ความเร็วเกินที่กำหนด</td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <th scope="row">จำนวนค่าปรับ</th>
-                                                                    <td>500.00 บาท</td>
-                                                                </tr>
-                                                                <tr>
+                <!--Table head-->
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <h4>ข้อมูลใบสั่ง</h4>
+                        </th>
+                    </tr>
+                </thead>
+                <!--Table head-->
 
-                                                                        <th scope="row" colspan="2"><a href="report.html" class="btn btn-danger">แจ้งข้อมูลผิด</a></th>
-                                                                    </tr>
-                                            </tbody>
-                                                </div>
-                                            </div>
-                                        </table>
-                                    </div>
-                                </div>
-  <div class="header">
-  <div class="stepwizard" style="background-color: white; color: black; padding-top: 10px;">
-    <div class="stepwizard-row">
-        <div class="stepwizard-step">
-            <a href="index.html"><button type="button" class="btn btn-success btn-circle">1</button></a>
-            <p>Search</p>
+                <!--Table body-->
+                <tbody>
+                    <tr>
+                        <th scope="row">เลขที่ใบสั่ง</th>
+                        <td><label id="reportcase_trafficNo"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">สถานะใบสั่ง</th>
+                        <td><label id="ticket_status"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"> รหัสประจำตัวประชาชน </th>
+                        <td> <label id="convey_personid"></label> </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ชื่อ-นามสกุล</th>
+                        <td><label id="convey_name"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">เบอรืโทรศัพท์ </th>
+                        <td> <label id="convey_tel"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ที่อยู่</th>
+                        <td><label id="convey_addr"> </label>
+                    <tr>
+                        <th scope="row">เลขทะเบียน</th>
+                        <td><label id="convey_plate"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ข้อหา</th>
+                        <td><label id="reportcase_charge"></label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">สถานที่เกิดเหตุ</th>
+                        <td><label id="reportcase_place"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">จำนวนค่าปรับ</th>
+                        <td><label id="reportcase_fine"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ชื่อเจ้าหน้าที่</th>
+                        <td><label id="reporter_name"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">สถานีตำรวจ</th>
+                        <td><label id="reporter_office"> </label></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">เบอร์ติดต่อเจ้าหน้าที่</th>
+                        <td><label id="reporter_tel"> </label></td>
+                    </tr>
+
+
+
+                    <tr>
+                            <th scope="row" colspan="2"><h5>โปรดตรวจสอบข้อมูลให้ถูกต้อง </h5></th>
+                        <!-- <th scope="row" colspan="2"><a href="report.html" class="btn btn-danger">แจ้งข้อมูลผิด</a></th> -->
+                    </tr>
+                </tbody>
         </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-primary btn-circle">2</button>
-            <p>Information</p>
+    </div>
+    </table>
+    </div>
+    </div>
+    <div class="header">
+        <div class="stepwizard" style="background-color: white; color: black; padding-top: 10px;">
+            <div class="stepwizard-row">
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-success btn-circle" disabled="disabled">1</button>
+                    <p>ระบุใบสั่ง</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-primary btn-circle" disabled="disabled">2</button>
+                    <p>ตรวจดูใบสั่ง</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
+                    <p>ยืนยัน<br>จำนวนค่าปรับ</p>
+
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
+                    <p>เลือก<br>วิธีการจ่าย</p>
+                </div>
+                <div class="stepwizard-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
+                    <p>เสร็จสิ้น</p>
+                </div>
+
+            </div>
         </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
-            <p>Confirm<br>Payment</p>
-            
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
-            <p>Payment<br>Method</p>
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
-            <p>Success</p>
-        </div> 
 
     </div>
-</div>
-
-</div>
-<div class="footer">
-  <div class="grid-container">
-  <div class="grid-item">
-  	<a href="ConfirmPayment.html" style="text-decoration: none;"> <image src="icon.png" style="padding-bottom: 2px;"> จ่ายค่าปรับ </a>
-  </div>
-</div>
-</div>
+    <div class="footer">
+        <div class="grid-container">
+            <div class="grid-item">
+                <a href="#" onclick="gotoConfirm()" style="text-decoration: none;">
+                    <image src="icon.png" style="padding-bottom: 2px;"> จ่ายค่าปรับ
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="mainscript.js"> </script>
+<script>
+    traffic.getConveyance(unitno, trafficno, personno, (error, result) => {
+        if (!error) {
+
+            $("#reportcase_trafficNo").html(trafficno);
+            $("#convey_personid").html(personno);
+            $("#convey_personid").html(result[0]);
+            $("#convey_plate").html(result[1]);
+            $("#convey_name").html(result[2]);
+            $("#convey_tel").html(result[3])
+            $("#convey_addr").html(result[4])
+
+            payTicket.isPay(trafficno, (error, result) => {
+                if (!error) {
+                    let status = "";
+
+                    if (result) {
+                        $("#ticket_status").html("จ่ายแล้ว")
+                    }
+                    else {
+                        $("#ticket_status").html("ยังไม่จ่าย")
+                    }
+                }
+            })
+
+            traffic.getReportCase(unitno, trafficno, personno, (error, result) => {
+                if (!error) {
+                    let charge = "";
+                    if (!(result[2] == null)) {
+                        charge = result[1] + " ความเร็วที่ตรวจวัด " + result[2];
+                    }
+                    else charge = result[1];
+                    console.log(result)
+                    $("#reportcase_charge").html(charge)
+                    $("#reportcase_place").html(result[1])
+                    $("#reportcase_fine").html(result[3] + "")
+
+                    traffic.getReporter(unitno, trafficno, personno, (error, result) => {
+                        $("#reporter_name").html(result[0]);
+                        officer.getUnitInfo(result[1], (error, res) => {
+                            $("#reporter_office").html(res[0])
+                            $("#reporter_tel").html(res[2])
+                        })
+                    });
+
+                }
+            });
+
+        }
+
+    });
+
+</script>
+
 </html>

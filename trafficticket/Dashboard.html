@@ -10,31 +10,19 @@
     ใบสั่งทั้งหมด
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
+
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- CSS Files -->
+
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
+
   <link href="assets/demo/demo.css" rel="stylesheet" />
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script src="connect.js"> </script>
+  <script src="main.js"> </script>
   <script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var username = urlParams.get('username');
-    var unitNo = urlParams.get('unitno');
-    var tableCode = "";
-    var index = 0;
-    var page = 30;
-    var key = 0;
-    var totalTicket = 0;
-    var persno = "";
-
-    if (username == null) {
-      alert("Error");
-      window.location.replace("index.html");
-    }
 
     $(function () {
       $("#header").load("./header.html");
@@ -44,35 +32,10 @@
       $("#nev").load("./nev.html");
     });
 
-    if (typeof web3 !== 'undefined') {
-
-      web3 = new Web3(web3.currentProvider);
-      console.log("existing web3: provider " + web3);
-      web3.eth.defaultAccount = web3.eth.accounts[0];
-    }
-
-    else {
-
-      web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-      console.log("new provider " + typeof web3);
-
-    }
-
-    console.log(web3.isConnected());
-
-    if (web3.isConnected()) {
-
-      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }], "name": "editReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReportcasePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapConvey", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReporterPoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "reporterPoint", "type": "uint256" }, { "name": "reportcasePoint", "type": "uint256" }, { "name": "conveyPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }], "name": "setReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReportcase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getConveyancePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var ticketAddr = "0x7e1D40c317828Df9E7A481AB1A5dE09678Ec6eba";
-      var traffic = TrafficConstract.at(ticketAddr);
-
-      var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var payTicketAddr = "0xD5A93501482B8819Af4757BE61b6976ce1248590";
-      var payTicket = payTrafficTicket.at(payTicketAddr);
-
-    } else {
-      console.log('not connect');
-    }
+    if (username == null) {
+    alert("Error");
+    window.location.replace("index.html");
+}
 
   </script>
 </head>
@@ -80,28 +43,9 @@
 <body onload="createDataTable(0,30)">
   <div class="wrapper card-header-info">
 
-    <script>
-      goToDashboard = () => {
-        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-      }
-      goToCreateTicket = () => {
-        window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
-      }
-      
-      goToUserProfile = () => {
-        window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);
-      }
-
-    </script>
-    <!-- Navbar for header  -->
-
 
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/">
-      <!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-    
-            Tip 2: you can also add an image using data-image tag
-        -->
+
       <div class="logo">
         <a href="" class="simple-text logo-normal">
           FineFine
@@ -122,12 +66,6 @@
               <p>สร้างใบสั่ง</p>
             </a>
           </li>
-          <!-- <li class="nav-item ">
-              <a class="nav-link" href="./ADMINmanage.html">
-                <i class="fa fa-user-plus"></i>
-                <p>จัดการเจ้าหน้าที่</p>
-              </a>
-            </li> -->
           <li class="nav-item ">
             <a class="nav-link" href="#" onclick="goToUserProfile()">
               <i class="material-icons">person</i>
@@ -136,7 +74,7 @@
           </li>
 
           <li class="nav-item active-pro ">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="#" onclick="logout()">
               <i class="fa fa-sign-out"></i>
               <p>ออกจากระบบ</p>
             </a>
@@ -147,9 +85,9 @@
     </div>
 
     <div class="main-panel">
-      <!-- Init Navbar -->
+
       <div id='header'></div>
-      <!-- End Navbar -->
+   
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -167,8 +105,7 @@
                   </div>
                   <div class="card-footer">
                     <div class="stats">
-                      <!-- <i class="material-icons text-danger">warning</i>
-                    <a href="#pablo">Get More Space...</a> -->
+                
                     </div>
 
                   </div>
@@ -204,9 +141,7 @@
             <h3 class="card-title" id="totalNotPay"></h3>
           </div>
           <div class="card-footer">
-            <!-- <div class="stats">
-                    <i class="material-icons">local_offer</i> Tracked from Github
-                  </div> -->
+
           </div>
     </a>
   </div>
@@ -223,9 +158,7 @@
           <h3 class="card-title" id="totalReport"></h3>
         </div>
         <div class="card-footer">
-          <!-- <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
-                  </div> -->
+       
         </div>
   </a>
   </div>
@@ -239,7 +172,7 @@
           <div class="card">
             <div class="card-header card-header-info">
               <h4 class="card-title ">ใบสั่งทั้งหมด</h4>
-              <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+            
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -252,113 +185,8 @@
                     <th style='text-align: center'> ตัวเลือก</th>
                   </thead>
                   <tbody id='trafficList'>
-
-                    <script>
-
-
-                      function setData(init, desti) {
-
-                        traffic.getTotalTicketByUnit(unitNo, (error, result) => {
-
-                          for (let i = init; i < desti; i++) {
-
-                            traffic.getTicketNo(unitNo, i, (error, result) => {
-                              if (!error) {
-
-                                if (result !== "") {
-                                  let ticketNo, conveyName;
-                                  ticketNo = result;
-
-
-                                  $("#reportcase_trafficNo" + i).html(ticketNo);
-
-                                  traffic.getTicket(unitNo, ticketNo, (error, res) => {
-
-                                    if (!error) {
-
-                                      $("#convey_name" + i).html(res);
-
-                                      payTicket.isPay(ticketNo, (error, result) => {
-                                        if (!error) {
-                                          let status = "";
-
-                                          if (result) {
-                                            status = "จ่ายแล้ว";
-                                          }
-                                          else {
-                                            status = "ยังไม่จ่าย";
-                                          }
-                                          console.log(status);
-                                          $("#status" + i).html(status);
-                                        }
-                                      })
-
-                                    }
-                                  });
-                                }
-                              }
-
-                            });
-
-                          }
-
-
-                        })
-                      }
-
-
-                      function createDataTable(init, desti) {
-
-                        traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
-
-                          if (!error) {
-                            totalTicket = result1.c[0];
-                            $("#totalTicket").html(totalTicket);
-                            page += 5;
-                            for (let i = init; i < desti; i++) {
-
-                              traffic.getTicketNo(unitNo, i, (error, res) => {
-
-                                if (!error) {
-                                  if (res !== "") {
-                                    traffic.getMapConvey(unitNo, i, (error, result) => {
-                                      persno = result[0];
-                                      if(!error){
-                                        tableCode += "<tr style='text-align: center'>"
-                                          tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                          tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"   
-                                          tableCode += "</tr> "
-                                          
-                                          $("#trafficList").html(tableCode);
-                                          key++;
-                                        
-                                      }
-                                        
-                                      });
-
-                                  }
-                                  else {
-                                    console.log('not generate tr')
-                                  }
-                                }
-
-                                index++;
-
-
-                              });
-                            }
-
-                            setData(init, desti);
-                          }
-                        });
-                      }
-
-
-                    </script>
                   </tbody>
                 </table>
-
-
                 <button type="button" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
               </div>
             </div>
@@ -372,44 +200,19 @@
     <script src="j.js"></script>
           <link rel="stylesheet" href="c.css">
 
-          <script>
-            function JSalert() {
-              swal({
-                title: "ยืนยันการลบ",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: "ยกเลิก",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              },
-                function (isConfirm) {
-                  if (isConfirm) {
-
-                  }
-                  else {
-                    swal("ยกเลิกการลบ", "", "error");
-                  }
-                });
-            }
-            </script>
-
-    <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
     <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-    <!--  Notifications Plugin    -->
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+
     <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+
     <script src="assets/demo/demo.js"></script>
 
     <script>
+
       payTicket.getTotalPayedTicketByUnit(unitNo, (error, result) => {
         let pay = result.c[0];
         $("#totalPay").html(pay);
@@ -418,9 +221,7 @@
       });
 
       $(document).ready(function () {
-        // Javascript method's body can be found in assets/js/demos.js
         md.initDashboardPageCharts();
-
       });
 
     </script>

@@ -6,52 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <title>
-        เข้าสู่ระบบ
-      </title>
-
-    <style>body{padding-top: 60px;}</style>
-
+    <title>เข้าสู่ระบบ</title>
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
-
     <link href="login-register.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
     <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-
-    <script>
-
-        var Web3 = require('web3');
-
-        if (typeof web3 !== 'undefined') {
-
-            web3 = new Web3(web3.currentProvider);
-            console.log("existing web3: provider " + web3);
-            web3.eth.defaultAccount = web3.eth.accounts[0];
-
-        }
-
-        else {
-
-            web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-            console.log("new provider " + typeof web3);
-
-        }
-
-        console.log(web3.isConnected());
-
-        if (web3.isConnected()) {
-
-            var officerContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "unitName", "type": "string" }, { "name": "unitAddr", "type": "string" }, { "name": "unitTel", "type": "string" }, { "name": "unitZipcode", "type": "string" }], "name": "addUnit", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "user", "type": "string" }], "name": "checkIn", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "editOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_officerCreateID", "type": "string" }, { "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "newOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }], "name": "newPermission", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_repass", "type": "string" }], "name": "recoverUsr", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "username", "type": "string" }], "name": "getOfficerInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getUnitInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_user", "type": "string" }, { "name": "_pass", "type": "string" }], "name": "login", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-            var officerAddr = "0x1f53a420d6A03Db199e6683c09DC6d5c46D5e68e";
-            var officer = officerContract.at(officerAddr);
-
-        } else {
-            console.log('not connect');
-        }
-    </script>
+    <script src="connect.js"></script>
+    <style>body{padding-top: 60px;}</style>
 </head>
 
 <body>
@@ -62,7 +25,6 @@
                 <div class="modal-dialog login animated">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
 
                         </div>
                         <div class="modal-body">
@@ -107,29 +69,6 @@
             </div>
         </div>
 </body>
-<script>
-
-    login = () => {
-
-        if ($("#username").val() == "" && $("#password").val() == "") {
-            alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");  
-        }
-        else {
-            officer.login($("#username").val(), $("#password").val(), (error, result) => {
-                if (!error) {
-                    if (result[0]) {
-                        window.location.replace("dashboard.html?username=" + $("#username").val()+"&unitno="+result[1]);
-                    }
-                    else {
-                        alert("เข้าสู่ระบบผิดพลาด");
-                    }
-                }
-            });
-        }
-
-
-    }
-
-</script>
+<script src="main.js"></script>
 
 </html>
