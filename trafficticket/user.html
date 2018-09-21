@@ -71,7 +71,17 @@
     } else {
       console.log('not connect');
     }
-
+    
+    goToDashboard = () => {
+        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
+      }
+      goToCreateTicket = () => {
+        window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
+      }
+      
+      goToUserProfile = () => {
+        window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);
+      }
   </script>
 </head>
 
