@@ -22,7 +22,7 @@ logout = () => {
     window.location.replace("./index.html");
 }
 
-JSalert = (textshow , choice) => {
+JSalert = (textshow, choice) => {
     swal({
         title: textshow,
         text: "",
@@ -36,26 +36,29 @@ JSalert = (textshow , choice) => {
     },
         function (isConfirm) {
             if (isConfirm) {
-                if(choice == 1){
+                if (choice == 1) {
                     submitReporter();
                 }
-                else if (choice == 2){
+                else if (choice == 2) {
                     submitOffender();
                 }
-                else if( choice == 3){
+                else if (choice == 3) {
                     submitConveyance();
                 }
-                else if (choice == 4){
+                else if (choice == 4) {
                     newTicket();
                 }
-                else if( choice == 5){
+                else if (choice == 5) {
                     editReportcase()
                 }
-                else if(choice == 6){
+                else if (choice == 6) {
                     editConvey()
                 }
-                else if(choice == 7){
+                else if (choice == 7) {
                     deleteTicket();
+                }
+                else if (choice == 8) {
+                    editUser();
                 }
             }
             else {
@@ -64,18 +67,22 @@ JSalert = (textshow , choice) => {
         });
 }
 
+editUser = () => {
+
+}
+
 editReportcase = () => {
     traffic.editReportCase.sendTransaction(
         unitNo
         , ticketno
-        , $("#edit_charge").val()
-        , $("#edit_place").val()
-        , $("#edit_speed").val()
-        , $("#edit_fine").val()
-        , $("#edit_description").val()
+        , $("#charge").val()
+        , $("#place").val()
+        , $("#speed").val()
+        , $("#fine").val()
+        , $("#description").val()
         , function (error, result) {
             if (!error) {
-                location.reload(); 
+                location.reload();
             }
             else {
                 alert("การแก้ไขผิดพลาด");
@@ -87,11 +94,11 @@ editConvey = () => {
     traffic.editConvey.sendTransaction(
         unitNo
         , ticketno
-        , $("#edit_persno").val()
-        , $("#edit_plate").val()
-        , $("#edit_conveyname").val()
-        , $("#edit_conveytel").val()
-        , $("#edit_conveyaddr").val()
+        , $("#persno").val()
+        , $("#plate").val()
+        , $("#conveyname").val()
+        , $("#conveytel").val()
+        , $("#conveyaddr").val()
         , function (error, result) {
             if (!error) {
                 location.reload();
@@ -126,28 +133,28 @@ submitReporter = () => {
 
 submitConveyance = () => {
     traffic.setConveyanceOwner.sendTransaction(
-      unitNo
-      , $("#personalNo").val()
-      ,  $("#plateNo").val()
-      ,  $("#conv_name").val()
-      , $("#conv_tel").val()
-      , $("#conv_addr").val()
-      , function (error, result) {
-        if (!error) {
-
-          traffic.getConveyancePoint(unitNo, (error, res) => {
+        unitNo
+        , $("#personalNo").val()
+        , $("#plateNo").val()
+        , $("#conv_name").val()
+        , $("#conv_tel").val()
+        , $("#conv_addr").val()
+        , function (error, result) {
             if (!error) {
 
-              let conveyNo = parseInt(res.c[0]) + 1;
-              window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter+"&offenderNo="+offenderNo+"&convNo="+conveyNo);
+                traffic.getConveyancePoint(unitNo, (error, res) => {
+                    if (!error) {
+
+                        let conveyNo = parseInt(res.c[0]) + 1;
+                        window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter + "&offenderNo=" + offenderNo + "&convNo=" + conveyNo);
+                    }
+                })
             }
-          })
+            else {
+                alert("เพิ่มข้อมูลผิดพลาด");
             }
-        else {
-            alert("เพิ่มข้อมูลผิดพลาด");
-        }
-      });
-  }
+        });
+}
 
 setData = (init, desti) => {
 
@@ -189,7 +196,7 @@ setData = (init, desti) => {
 }
 
 
- createDataTable = (init, desti) => {
+createDataTable = (init, desti) => {
 
     traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
 
@@ -203,14 +210,14 @@ setData = (init, desti) => {
 
                     if (!error) {
                         if (res !== "") {
-                          
+
                             traffic.getTicket(unitNo, res, (error, result) => {
                                 console.log(result);
                                 persno = result[1];
                                 if (!error) {
                                     tableCode += "<tr style='text-align: center'>"
                                     tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                    tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"
+                                    tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"
                                     tableCode += "</tr> "
                                     $("#trafficList").html(tableCode);
                                     key++;
@@ -270,7 +277,7 @@ submitOffender = () => {
         });
 }
 
- checkID = (id) => {
+checkID = (id) => {
     if (id.length != 13) {
         return false;
     }
@@ -292,27 +299,27 @@ checkForm = () => {
 newTicket = () => {
 
     traffic.getTotalTicketByUnit(unitNo, (error, res) => {
-      if (!error) {
-        secondParam = res.c[0] + 1;
+        if (!error) {
+            secondParam = res.c[0] + 1;
 
-        ticketNo = firstParam + secondParam;
+            ticketNo = firstParam + secondParam;
 
-        traffic.newTrafficTicket.sendTransaction(
-            unitNo
-          , parseInt(reporter)
-          , parseInt(offender)
-          , parseInt(convey)
-          , ticketNo
-          , function (error, result) {
-            if (!error) {
-              window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-            }
-            else {
-                alert("การสร้างใบสั่งผิดพลาด");
-            }
-          });
+            traffic.newTrafficTicket.sendTransaction(
+                unitNo
+                , parseInt(reporter)
+                , parseInt(offender)
+                , parseInt(convey)
+                , ticketNo
+                , function (error, result) {
+                    if (!error) {
+                        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
+                    }
+                    else {
+                        alert("การสร้างใบสั่งผิดพลาด");
+                    }
+                });
 
-      }
+        }
     });
 
-  }
+}

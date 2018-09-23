@@ -99,7 +99,6 @@
                       <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating" >ชื่อผู้ใช้ : </label>
-                          
                         </div>
                       </div>
                       <div class="col-md-10">
@@ -162,7 +161,7 @@
 
                     </div>
 
-                    <button type="submit" class="btn btn-info pull-right">แก้ไขข้อมูลส่วนตัว</button>
+                    <button type="button" onclick="JSalert('ยืนยันการแก้ไขข้อมูล' , 8)" class="btn btn-info pull-right">แก้ไขข้อมูลส่วนตัว</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -220,12 +219,14 @@
         }
       });
       document.getElementById("username").placeholder = username;
-        $("#usernameofficerDesc").html(username);
+      
        document.getElementById("office").placeholder = result[0];
-        $("#officeDesc").html(result[0]);
+       
         document.getElementById("address").placeholder =result[1];
         document.getElementById("tel").placeholder =result[2];
         document.getElementById("zipcode").placeholder =result[3];
+        $("#usernameofficerDesc").html(username);
+        $("#officeDesc").html(result[0]);
 
         $("#description").html(result[1] + " " + result[3] + " <br/>" + result[2]);
       

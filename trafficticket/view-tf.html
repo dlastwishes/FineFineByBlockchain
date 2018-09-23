@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    รายละเอียดใบสั่ง
+    แก้ไขใบสั่ง
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -20,6 +20,8 @@
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
+  <script src="connect.js"></script>
+  <script src='main.js'></script>
   <script>
     var urlParams = new URLSearchParams(window.location.search);
     var username = urlParams.get('username');
@@ -31,67 +33,15 @@
       $("#header").load("header.html");
     });
 
-    $(function () {
-      $("#nev").load("nev.html");
-    });
-
-    if (typeof web3 !== 'undefined') {
-
-      web3 = new Web3(web3.currentProvider);
-      console.log("existing web3: provider " + web3);
-      web3.eth.defaultAccount = web3.eth.accounts[0];
-    }
-
-    else {
-
-      web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-      console.log("new provider " + typeof web3);
-
-    }
-
-    console.log(web3.isConnected());
-
-    if (web3.isConnected()) {
-
-      var TrafficConstract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_re_name", "type": "string" }, { "name": "new_re_unit", "type": "string" }], "name": "editReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_conv_personNo", "type": "string" }, { "name": "new_conv_na", "type": "string" }, { "name": "new_conv_tel", "type": "string" }, { "name": "new_conv_addr", "type": "string" }], "name": "editConvey", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReportcasePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapConvey", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "new_charge", "type": "string" }, { "name": "new_placeOfIncident", "type": "string" }, { "name": "new_speedDetection", "type": "string" }, { "name": "new_amountOfFine", "type": "uint256" }], "name": "editReportCase", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getReporterPoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "reporterPoint", "type": "uint256" }, { "name": "reportcasePoint", "type": "uint256" }, { "name": "conveyPoint", "type": "uint256" }, { "name": "trafficID", "type": "string" }], "name": "newTrafficTicket", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReportCase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "re_name", "type": "string" }, { "name": "re_unit", "type": "string" }], "name": "setReporter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "ticketNo", "type": "string" }], "name": "getTicket", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "charge", "type": "string" }, { "name": "placeOfIncident", "type": "string" }, { "name": "speedDetection", "type": "string" }, { "name": "amountOfFine", "type": "uint256" }], "name": "setReport_case", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getReporter", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "pointer", "type": "uint256" }], "name": "getMapReportcase", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "conv_persNo", "type": "string" }, { "name": "_plate", "type": "string" }, { "name": "conv_na", "type": "string" }, { "name": "conv_tel", "type": "string" }, { "name": "conv_addr", "type": "string" }], "name": "setConveyanceOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "num", "type": "uint256" }], "name": "getTicketNo", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "report_unit", "type": "string" }], "name": "getTotalTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getConveyancePoint", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "id", "type": "string" }, { "name": "_personalid", "type": "string" }], "name": "getConveyance", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var ticketAddr = "0x7e1d40c317828df9e7a481ab1a5de09678ec6eba";
-      var traffic = TrafficConstract.at(ticketAddr);
-
-      var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var payTicketAddr = "0xD5A93501482B8819Af4757BE61b6976ce1248590";
-      var payTicket = payTrafficTicket.at(payTicketAddr);
-
-      var officerContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "unitName", "type": "string" }, { "name": "unitAddr", "type": "string" }, { "name": "unitTel", "type": "string" }, { "name": "unitZipcode", "type": "string" }], "name": "addUnit", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "user", "type": "string" }], "name": "checkIn", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "destroyOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "editOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_officerCreateID", "type": "string" }, { "name": "unitNo", "type": "string" }, { "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_name", "type": "string" }, { "name": "_office_address", "type": "string" }, { "name": "_tel", "type": "string" }, { "name": "_zipcode", "type": "string" }], "name": "newOfficer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }], "name": "newPermission", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_usr", "type": "string" }, { "name": "_pass", "type": "string" }, { "name": "_repass", "type": "string" }], "name": "recoverUsr", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "username", "type": "string" }], "name": "getOfficerInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getUnitInfo", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_user", "type": "string" }, { "name": "_pass", "type": "string" }], "name": "login", "outputs": [{ "name": "", "type": "bool" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-      var officerAddr = "0x1f53a420d6A03Db199e6683c09DC6d5c46D5e68e";
-      var officer = officerContract.at(officerAddr);
-
-    } else {
-      console.log('not connect');
-    }
   </script>
 </head>
 
-<body class="">
+<body>
   <div class="wrapper">
-
-    <script>
-      function goToDashboard() {
-        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-      }
-      goToCreateTicket = () => {
-        window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
-      }
-
-    </script>
-    <!-- Navbar for header  -->
 
 
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/">
-      <!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-    
-            Tip 2: you can also add an image using data-image tag
-        -->
+
       <div class="logo">
         <a href="" class="simple-text logo-normal">
           FineFine
@@ -112,14 +62,9 @@
               <p>สร้างใบสั่ง</p>
             </a>
           </li>
-          <!-- <li class="nav-item ">
-              <a class="nav-link" href="./ADMINmanage.html">
-                <i class="fa fa-user-plus"></i>
-                <p>จัดการเจ้าหน้าที่</p>
-              </a>
-            </li> -->
+
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="#" onclick="goToUserProfile()">
               <i class="material-icons">person</i>
               <p>ข้อมูลผู้ใช้</p>
             </a>
@@ -135,18 +80,16 @@
       </div>
     </div>
     <div class="main-panel">
-      <!-- Navbar -->
-      <div id='header'></div>
-      <!-- End Navbar -->
 
+      <div id='header'></div>
 
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-success">
-                  <h4 class="card-title">แก้ไขใบสั่ง</h4>
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">ดูใบสั่ง </h4>
                   <p class="card-category" style="color:white">เลขที่ใบสั่ง</p>
                 </div>
                 <div class="card-body">
@@ -165,7 +108,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="ticketno"></label>
-                          <input type="text" class="form-control" disabled>
+                       
                         </div>
                       </div>
 
@@ -179,9 +122,9 @@
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-success">
+                <div class="card-header card-header-warning">
                   <h4 class="card-title">ช้อมูลสถานีตำรวจ</h4>
-                  <!-- <p class="card-category" style="color:white"></p> -->
+
                 </div>
                 <div class="card-body">
                   <form>
@@ -197,7 +140,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officename"></label>
-                          <input type="text" class="form-control" id="nameOfficer" disabled>
+                        
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -211,21 +154,22 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="unitname"></label>
-                          <input type="text" class="form-control" id="nameUnit" disabled>
+                       
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-1.2">
                         <div class="form-group">
                           <label class="bmd-label-floating">
                             <font size="4">ที่อยู่ : </font>
                           </label>
-
                         </div>
                       </div>
                       <div class="col-md-11">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officeaddr"></label>
-                          <input type="password" class="form-control" id="addrOfficer" disabled>
+                     
                         </div>
                       </div>
                     </div>
@@ -241,7 +185,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="zipcode"></label>
-                          <input type="text" class="form-control" id="zipcodeOfficer" disabled>
+                   
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -255,21 +199,16 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="officetel"></label>
-                          <input type="text" class="form-control" id="telOfficer" disabled>
                         </div>
                       </div>
                     </div>
-
-
-                   
-                    <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-success">
+                <div class="card-header card-header-warning">
                   <h4 class="card-title">ข้อมูลความผิด</h4>
                   <!-- <p class="card-category"></p> -->
                 </div>
@@ -286,8 +225,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="charge" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="charge"></label>
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -300,8 +238,24 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="place" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="place"></label>
+                      
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-1.2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">รายละเอียดเพิ่มเติม : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="description"></label>
+                       
                         </div>
                       </div>
                     </div>
@@ -317,8 +271,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="speed" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="speed"></label>
+                       
                         </div>
                       </div>
                       <div class="col-md-2.1">
@@ -341,8 +295,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="fine" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="fine"></label>
+                         
                         </div>
                       </div>
                       <div class="col-md-2.1">
@@ -355,15 +309,14 @@
                       </div>
                     </div>
 
-                    
-                    <div class="clearfix"></div>
+                <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-success">
+                <div class="card-header card-header-warning">
                   <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
                   <!-- <p class="card-category"></p> -->
                 </div>
@@ -379,8 +332,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="persno" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="persno"></label>
+                    
                         </div>
                       </div>
 
@@ -395,8 +348,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="plate" ></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="plate"></label>
+                      
                         </div>
                       </div>
                     </div>
@@ -410,8 +363,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyname" ></label>
-                          <input type="password" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="conveyname"></label>
+                      
                         </div>
                       </div>
 
@@ -425,7 +378,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="conveytel"></label>
-                          <input type="text" class="form-control" disabled>
+                       
                         </div>
                       </div>
                     </div>
@@ -441,17 +394,19 @@
                       <div class="col-md-11">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="conveyaddr"></label>
-                          <input type="text" class="form-control" disabled>
+                         
                         </div>
                       </div>
                     </div>
-                    
-
                     <div class="clearfix"></div>
+
                   </form>
+
                 </div>
               </div>
+
             </div>
+
           </div>
 
 
@@ -462,35 +417,14 @@
           <link rel="stylesheet" href="c.css">
 
           <script>
-            function JSalert() {
-              swal({
-                title: "ยืนยันการแก้",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: "ยกเลิก",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              },
-                function (isConfirm) {
-                  if (isConfirm) {
-
-                  }
-                  else {
-                    swal("ยกเลิกการแก้ไข", "", "error");
-                  }
-                });
-            }
 
             traffic.getReporter(unitNo, ticketno, persno, (error, result) => {
 
               if (!error) {
+
                 $("#ticketno").html(ticketno);
 
                 $("#officename").html(result[0] + "");
-                firstParam = result[1].substring(0, 2);
 
                 officer.getUnitInfo(result[1], (error, res) => {
                   $("#unitname").html(res[0]);
@@ -513,8 +447,12 @@
                     $("#place").html(res[1]);
                     $("#speed").html(res[2]);
                     $("#fine").html(res[3] + "");
+                    $("#description").html(res[4]);
                   }
                 });
+              }
+              else {
+                window.location.replace("dashboard.html?username=" + $("#username").val() + "&unitno=" + result[1]);
               }
             });
 
