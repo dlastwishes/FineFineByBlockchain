@@ -217,7 +217,8 @@ createDataTable = (init, desti) => {
                                 if (!error) {
                                     tableCode += "<tr style='text-align: center'>"
                                     tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                    tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"
+                                    tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
+                                    tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
                                     tableCode += "</tr> "
                                     $("#trafficList").html(tableCode);
                                     key++;
