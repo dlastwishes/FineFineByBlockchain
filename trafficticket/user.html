@@ -80,15 +80,21 @@
                 </div>
                 <div class="card-body">
                   <form>
+                 
                     <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating" id="office"></label>
-                          <input type="text" class="form-control" disabled>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" >ชื่อสถานี : </label>
+                      
+                          </div>
                         </div>
+                        <div class="col-md-10">
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="office" disabled>
+                          </div>
+                        </div>
+                        
                       </div>
-
-                    </div>
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
@@ -98,8 +104,7 @@
                       </div>
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id='username'></label>
-                          <input type="text" class="form-control" disabled>
+                          <input type="text" class="form-control" id='username' disabled>
                         </div>
                       </div>
                       
@@ -113,8 +118,7 @@
                       </div>
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="officername"></label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="officername">
                         </div>
                       </div>
 
@@ -128,8 +132,7 @@
                       </div>
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="address"></label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="address">
                         </div>
                       </div>
                     </div>
@@ -142,8 +145,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="tel"></label>
-                          <input type="tel" class="form-control">
+                          <input type="tel" class="form-control" id="tel">
                         </div>
                       </div>
                       <div class="col-md-2">
@@ -154,8 +156,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="zipcode"></label>
-                          <input type="number" class="form-control" min="1">
+                          <input type="number" class="form-control" id="zipcode" min="1">
                         </div>
                       </div>
 
@@ -182,12 +183,7 @@
                   <h3 class="card-category" id="officeDesc"></h3>
                   <h4 class="card-title" id="usernameofficerDesc"></h4>
                   <h4 class="card-title" id="officeDesc"></h4>
-
-
-                  <p class="card-description" id="description">
-
-                  </p>
-                  <!-- <a href="#pablo" class="btn btn-primary btn-round">Follow</a> -->
+                  <p class="card-description" id="description"></p>
                 </div>
               </div>
             </div>
@@ -215,26 +211,24 @@
   <script>
 
     officer.getUnitInfo(unitNo, (error, result) => {
-
+    if(!error){
+     
+    }
       officer.getOfficerInfo(unitNo, username, (err, result) => {
         if (!error) {
-          $("#officername").html(result);
+          document.getElementById("officername").placeholder = result;
         }
       });
-
-      if (!error) {
-        $("#username").html(username);
+      document.getElementById("username").placeholder = username;
         $("#usernameofficerDesc").html(username);
-
-        $("#office").html(result[0]);
+       document.getElementById("office").placeholder = result[0];
         $("#officeDesc").html(result[0]);
-
-        $("#address").html(result[1] + "");
-        $("#tel").html(result[2] + "");
-        $("#zipcode").html(result[3] + "");
+        document.getElementById("address").placeholder =result[1];
+        document.getElementById("tel").placeholder =result[2];
+        document.getElementById("zipcode").placeholder =result[3];
 
         $("#description").html(result[1] + " " + result[3] + " <br/>" + result[2]);
-      }
+      
     });
   </script>
 </body>
