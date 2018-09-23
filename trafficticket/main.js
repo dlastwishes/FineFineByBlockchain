@@ -7,6 +7,7 @@ var page = 30;
 var key = 0;
 var totalTicket = 0;
 var persno = "";
+var point = urlParams.get('point');
 
 goToDashboard = () => {
     window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
@@ -14,12 +15,14 @@ goToDashboard = () => {
 goToCreateTicket = () => {
     window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
 }
-
 goToUserProfile = () => {
     window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);
 }
+logout = () => {
+    window.location.replace("./index.html");
+}
 
-function JSalert(textshow , choice) {
+JSalert = (textshow , choice) => {
     swal({
         title: textshow,
         text: "",
@@ -45,9 +48,56 @@ function JSalert(textshow , choice) {
                 else if (choice == 4){
                     newTicket();
                 }
+                else if( choice == 5){
+                    editReportcase()
+                }
+                else if(choice == 6){
+                    editConvey()
+                }
+                else if(choice == 7){
+                    deleteTicket();
+                }
             }
             else {
-                swal("ยกเลิกการเพิ่มข้อมูล", "", "error");
+                swal("ยกเลิกเรียบร้อย", "", "error");
+            }
+        });
+}
+
+editReportcase = () => {
+    traffic.editReportCase.sendTransaction(
+        unitNo
+        , ticketno
+        , $("#edit_charge").val()
+        , $("#edit_place").val()
+        , $("#edit_speed").val()
+        , $("#edit_fine").val()
+        , $("#edit_description").val()
+        , function (error, result) {
+            if (!error) {
+                location.reload(); 
+            }
+            else {
+                alert("การแก้ไขผิดพลาด");
+            }
+        });
+}
+
+editConvey = () => {
+    traffic.editConvey.sendTransaction(
+        unitNo
+        , ticketno
+        , $("#edit_persno").val()
+        , $("#edit_plate").val()
+        , $("#edit_conveyname").val()
+        , $("#edit_conveytel").val()
+        , $("#edit_conveyaddr").val()
+        , function (error, result) {
+            if (!error) {
+                location.reload();
+            }
+            else {
+                alert("การแก้ไขผิดพลาด");
             }
         });
 }
@@ -69,7 +119,7 @@ submitReporter = () => {
 
             }
             else {
-                alert("Insert data");
+                alert("เพิ่มข้อมูลผิดพลาด");
             }
         });
 }
@@ -94,12 +144,12 @@ submitConveyance = () => {
           })
             }
         else {
-          alert("Insert data");
+            alert("เพิ่มข้อมูลผิดพลาด");
         }
       });
   }
 
-function setData(init, desti) {
+setData = (init, desti) => {
 
     traffic.getTotalTicketByUnit(unitNo, (error, result) => {
 
@@ -111,16 +161,10 @@ function setData(init, desti) {
                     if (result !== "") {
                         let ticketNo, conveyName;
                         ticketNo = result;
-
-
                         $("#reportcase_trafficNo" + i).html(ticketNo);
-
                         traffic.getTicket(unitNo, ticketNo, (error, res) => {
-
                             if (!error) {
-
-                                $("#convey_name" + i).html(res);
-
+                                $("#convey_name" + i).html(res[0]);
                                 payTicket.isPay(ticketNo, (error, result) => {
                                     if (!error) {
                                         let status = "";
@@ -135,22 +179,17 @@ function setData(init, desti) {
                                         $("#status" + i).html(status);
                                     }
                                 })
-
                             }
                         });
                     }
                 }
-
             });
-
         }
-
-
     })
 }
 
 
-function createDataTable(init, desti) {
+ createDataTable = (init, desti) => {
 
     traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
 
@@ -164,33 +203,24 @@ function createDataTable(init, desti) {
 
                     if (!error) {
                         if (res !== "") {
-                            traffic.getMapConvey(unitNo, i, (error, result) => {
-                                persno = result[0];
+                          
+                            traffic.getTicket(unitNo, res, (error, result) => {
+                                console.log(result);
+                                persno = result[1];
                                 if (!error) {
                                     tableCode += "<tr style='text-align: center'>"
                                     tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
                                     tableCode += "<td><a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a></td>"
                                     tableCode += "</tr> "
-
                                     $("#trafficList").html(tableCode);
                                     key++;
-
                                 }
-
                             });
-
-                        }
-                        else {
-                            console.log('not generate tr')
                         }
                     }
-
                     index++;
-
-
                 });
             }
-
             setData(init, desti);
         }
     });
@@ -198,7 +228,6 @@ function createDataTable(init, desti) {
 
 
 login = () => {
-
     if ($("#username").val() == "" && $("#password").val() == "") {
         alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
     }
@@ -214,19 +243,17 @@ login = () => {
             }
         });
     }
-
-
 }
 
 submitOffender = () => {
     let fine = parseInt($("#fineTotal").val());
-
     traffic.setReport_case.sendTransaction(
         unitNo
         , $("#chargeInfo").val()
         , $("#placeOfIncident").val()
         , $("#speedDetection").val()
         , fine
+        , $("#description").val()
         , function (error, result) {
             if (!error) {
 
@@ -234,29 +261,25 @@ submitOffender = () => {
                     if (!error) {
                         let offenderNo = parseInt(res.c[0]) + 1;
                         window.location.replace("./create-tf-carnumref-info.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter + "&offenderNo=" + offenderNo);
-
                     }
                 })
-
             }
             else {
-                alert("Insert data");
+                alert("เพิ่มข้อมูลผิดพลาด");
             }
         });
 }
 
-function checkID(id) {
+ checkID = (id) => {
     if (id.length != 13) {
         return false;
     }
-
     for (i = 0, sum = 0; i < 12; i++)
         sum += parseFloat(id.charAt(i)) * (13 - i); if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12)))
-
         return false; return true;
 }
 
-function checkForm() {
+checkForm = () => {
     if (!checkID(document.getdataform.pers_No.value)) {
         $("#error").html("รหัสบัตรประชาชนไม่ถูกต้อง");
         return false;
@@ -264,7 +287,6 @@ function checkForm() {
     else {
         JSalert()
     }
-
 }
 
 newTicket = () => {
@@ -276,7 +298,7 @@ newTicket = () => {
         ticketNo = firstParam + secondParam;
 
         traffic.newTrafficTicket.sendTransaction(
-          unitNo
+            unitNo
           , parseInt(reporter)
           , parseInt(offender)
           , parseInt(convey)
@@ -286,7 +308,7 @@ newTicket = () => {
               window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
             }
             else {
-              alert("Insert error");
+                alert("การสร้างใบสั่งผิดพลาด");
             }
           });
 

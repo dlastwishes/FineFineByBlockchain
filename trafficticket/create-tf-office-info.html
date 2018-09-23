@@ -30,13 +30,10 @@
       $("#header").load("./header.html");
     });
 
-    $(function () {
-      $("#nev").load("./nev.html");
-    });
   </script>
 </head>
 
-<body class="">
+<body>
   <div class="wrapper ">
 
     <script src="main.js"></script>
@@ -213,13 +210,14 @@
 
           officer.getOfficerInfo(unitNo, username, (error, res) => {
             if (!error) {
-              $("#nameOfficer").html(res[0]);
+              $("#nameOfficer").html(res);
               officer.getUnitInfo(unitNo, (error, res) => {
                 $("#nameUnit").html(res[0]);
-              })
-              $("#addrOfficer").html(res[1]);
-              $("#telOfficer").html(res[2]);
+                $("#addrOfficer").html(res[1]);
+                $("#telOfficer").html(res[2]);
               $("#zipcodeOfficer").html(res[3]);
+              });
+            
             }
           });
 

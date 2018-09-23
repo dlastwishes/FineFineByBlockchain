@@ -18,6 +18,7 @@ contract trafficTicket {
         string  _placeOfIncident;
         string _speedDetection;
         uint  _amountOfFine;
+        string _description;
     }
     
 	   struct conveyanceOwner{
@@ -64,7 +65,6 @@ contract trafficTicket {
 	_;
 	}
 	
-	
 	function getTotalTicketByUnit(string report_unit) public view returns (uint) {
 	    return (totalTicketInUnit[report_unit]);
 	}
@@ -73,8 +73,8 @@ contract trafficTicket {
 	    return (trafficTicketNo.length);
 	}
 	
-	function getTicket(string unitNo , string ticketNo) public view returns (string){
-	    return (trafficList[unitNo][ticketNo].conveyList.conv_name);
+	function getTicket(string unitNo , string ticketNo) public view returns (string ,string){
+	    return (trafficList[unitNo][ticketNo].conveyList.conv_name , trafficList[unitNo][ticketNo].conveyList.conv_personalNo);
 	}
 	
 	function getTicketNo(string unitNo,uint num) public view returns (string) {
@@ -95,12 +95,13 @@ contract trafficTicket {
 	    return (numReportCase[unitNo]);
 	}
 	
-	function getMapReportcase(string unitNo , uint pointer) public view returns (string , string , string ,uint) {
+	function getMapReportcase(string unitNo , uint pointer) public view returns (string , string , string ,uint,string) {
 	    return
 	       (mapReportCase[unitNo][pointer]._charge 
 	    , mapReportCase[unitNo][pointer]._placeOfIncident
         , mapReportCase[unitNo][pointer]._speedDetection 
-        , mapReportCase[unitNo][pointer]._amountOfFine);
+        , mapReportCase[unitNo][pointer]._amountOfFine
+        , mapReportCase[unitNo][pointer]._description);
 	}
 	
 	function getConveyancePoint(string unitNo) public view returns (uint){
@@ -116,7 +117,6 @@ contract trafficTicket {
 	}
     
     function getConveyance(string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns (string , string , string , string , string)  {
-        
         return (trafficList[unitNo][id].conveyList.conv_personalNo
         , trafficList[unitNo][id].conveyList.conv_plateNo
         , trafficList[unitNo][id].conveyList.conv_name
@@ -129,39 +129,23 @@ contract trafficTicket {
          , trafficList[unitNo][id].reporterList.rep_unit);
     }
     
-    function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns ( string ,string ,string , uint){
+    function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns ( string ,string ,string , uint ,string){
         
         return (trafficList[unitNo][id].reportList._charge , 
         trafficList[unitNo][id].reportList._placeOfIncident
         , trafficList[unitNo][id].reportList._speedDetection
-        , trafficList[unitNo][id].reportList._amountOfFine);
-    
+        , trafficList[unitNo][id].reportList._amountOfFine
+        , trafficList[unitNo][id].reportList._description);
     }
 
     function newTrafficTicket( string unitNo , uint reporterPoint , uint reportcasePoint , uint conveyPoint ,string trafficID) public{
 	
 	    require(unitNo.toSlice().len() > 0);
 
-        report_case memory  reportSingletron;
-         reporter memory reporterSingletron;
-         conveyanceOwner memory conveySingletron;
-         reportSingletron._charge = mapReportCase[unitNo][reportcasePoint]._charge;
-         reportSingletron._placeOfIncident = mapReportCase[unitNo][reportcasePoint]._placeOfIncident;
-         reportSingletron._speedDetection = mapReportCase[unitNo][reportcasePoint]._speedDetection;
-         reportSingletron._amountOfFine = mapReportCase[unitNo][reportcasePoint]._amountOfFine;
-         reporterSingletron.rep_name = mapReporter[unitNo][reporterPoint].rep_name;
-         reporterSingletron.rep_unit = mapReporter[unitNo][reporterPoint].rep_unit;
-          conveySingletron.conv_personalNo = mapConvey[unitNo][conveyPoint].conv_personalNo;
-          conveySingletron.conv_plateNo = mapConvey[unitNo][conveyPoint].conv_plateNo;
-           conveySingletron.conv_name = mapConvey[unitNo][conveyPoint].conv_name;
-            conveySingletron.conv_tele= mapConvey[unitNo][conveyPoint].conv_tele;
-            conveySingletron.conv_address= mapConvey[unitNo][conveyPoint].conv_address;
-        TrafficTicket memory TrafficTicketIns;
-        TrafficTicketIns.conveyList = conveySingletron;
-        TrafficTicketIns.reporterList = reporterSingletron;
-        TrafficTicketIns.reportList = reportSingletron;
-        trafficList[unitNo][trafficID] = TrafficTicketIns;
-        
+         trafficList[unitNo][trafficID].conveyList =  mapConvey[unitNo][conveyPoint];
+         trafficList[unitNo][trafficID].reporterList = mapReporter[unitNo][reporterPoint];
+        trafficList[unitNo][trafficID].reportList = mapReportCase[unitNo][reportcasePoint];
+       
         uint totalTicketUnitIns = totalTicketInUnit[unitNo];
         uint None = uint(0); 
         if( totalTicketUnitIns == None ) {
@@ -172,7 +156,7 @@ contract trafficTicket {
         mapTargetPointToTicket[unitNo][conveyPoint] = trafficID;
     }
     
-       function setReport_case(string unitNo , string charge , string placeOfIncident , string speedDetection , uint amountOfFine) public {
+       function setReport_case(string unitNo , string charge , string placeOfIncident , string speedDetection , uint amountOfFine , string description) public {
 	    require(unitNo.toSlice().len() > 0);
 	    require(amountOfFine > 0);
 	    uint None = uint(0); 
@@ -186,6 +170,7 @@ contract trafficTicket {
         reportObject._placeOfIncident = placeOfIncident;
         reportObject._speedDetection = speedDetection;
         reportObject._amountOfFine = amountOfFine;
+        reportObject._description = description;
         uint lastPoint = reportcasePoint+1;
         numReportCase[unitNo] = lastPoint;
         mapReportCase[unitNo][lastPoint] = reportObject;
@@ -231,12 +216,12 @@ contract trafficTicket {
    
     }
     
-      function editReportCase(string unitNo , string id , string new_charge , string new_placeOfIncident , string new_speedDetection , uint new_amountOfFine) public{
+      function editReportCase( string unitNo , string id , string new_charge , string new_placeOfIncident , string new_speedDetection , uint new_amountOfFine , string new_description) public{
         trafficList[unitNo][id].reportList._charge = new_charge;
         trafficList[unitNo][id].reportList._placeOfIncident = new_placeOfIncident;
         trafficList[unitNo][id].reportList._speedDetection = new_speedDetection;
         trafficList[unitNo][id].reportList._amountOfFine = new_amountOfFine;
-        
+        trafficList[unitNo][id].reportList._description = new_description;
     }
     
           function editReporter( string unitNo , string id , string new_re_name, string new_re_unit) public{
@@ -244,8 +229,9 @@ contract trafficTicket {
         trafficList[unitNo][id].reporterList.rep_unit = new_re_unit;
     }
     
-    function editConvey(string unitNo , string id ,string new_conv_personNo , string new_conv_na,string new_conv_tel,string new_conv_addr) public {
+    function editConvey(string unitNo , string id ,string new_conv_personNo , string new_plate, string new_conv_na,string new_conv_tel,string new_conv_addr) public {
 	trafficList[unitNo][id].conveyList.conv_personalNo = new_conv_personNo;
+	trafficList[unitNo][id].conveyList.conv_plateNo = new_plate;
          trafficList[unitNo][id].conveyList.conv_name = new_conv_na;
         trafficList[unitNo][id].conveyList.conv_tele = new_conv_tel;
         trafficList[unitNo][id].conveyList.conv_address = new_conv_addr;

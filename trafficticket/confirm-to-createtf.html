@@ -36,14 +36,10 @@
       $("#header").load("header.html");
     });
 
-    $(function () {
-      $("#nev").load("nev.html");
-    });
-
   </script>
 </head>
 
-<body class="">
+<body>
   <div class="wrapper">
 
       <script src="main.js"></script>
@@ -228,6 +224,22 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row"> 
+                      <div class="col-md-1.2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">รายละเอียดเพิ่มเติม : </font>
+                          </label>
+
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="description"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
                     <div class="row">
 
                       <div class="col-md-1.2">
@@ -401,6 +413,7 @@
                 $("#place").html(res[1]);
                 $("#speed").html(res[2]);
                 $("#fine").html(res[3] + "");
+                $('#description').html(res[4]);
               }
             });
 

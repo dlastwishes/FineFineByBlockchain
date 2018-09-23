@@ -142,61 +142,21 @@
                 <!--Table body-->
                 <tbody>
                     <tr>
-                        <th scope="row">ใบสั่งเลขที่</th>
-                        <td><label id="reportcase_trafficNo"> </label></td>
+                        <th scope="row">บัญชีปลายทาง</th>
+                        <td><label id="destiAcc"> </label></td>
                     </tr>
                     <tr>
-                        <th scope="row">สถานะใบสั่ง</th>
-                        <td><label id="ticket_status"> </label></td>
+                        <th scope="row">จำนวนค่าปรับที่ต้องโอน</th>
+                        <td><label id="fineTotal"> </label></td>
                     </tr>
                     <tr>
                         <th scope="row"> รหัสประจำตัวประชาชน </th>
                         <td> <label id="convey_personid"></label> </td>
                     </tr>
                     <tr>
-                        <th scope="row">ชื่อ-นามสกุล</th>
+                        <th scope="row">รายละเอียด</th>
                         <td><label id="convey_name"> </label></td>
                     </tr>
-                    <tr>
-                        <th scope="row">เบอรืโทรศัพท์ </th>
-                        <td> <label id="convey_tel"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">ที่อยู่</th>
-                        <td><label id="convey_addr"> </label>
-                    <tr>
-                        <th scope="row">เลขทะเบียน</th>
-                        <td><label id="convey_plate"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">ข้อหา</th>
-                        <td><label id="reportcase_charge"></label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">รายละเอียดเพิ่มเติม</th>
-                        <td><label id="reportcase_description"></label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">สถานที่เกิดเหตุ</th>
-                        <td><label id="reportcase_place"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">จำนวนค่าปรับ</th>
-                        <td><label id="reportcase_fine"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">ผู้ออกใบสั่ง</th>
-                        <td><label id="reporter_name"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">สถานีตำรวจ</th>
-                        <td><label id="reporter_office"> </label></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">เบอร์ติดต่อเจ้าหน้าที่</th>
-                        <td><label id="reporter_tel"> </label></td>
-                    </tr>
-
 
 
                     <tr>
@@ -249,59 +209,5 @@
     </div>
 </body>
 <script src="mainscript.js"> </script>
-<script>
-    traffic.getConveyance(unitno, trafficno, personno, (error, result) => {
-        if (!error) {
-
-            $("#reportcase_trafficNo").html(trafficno);
-            $("#convey_personid").html(personno);
-            $("#convey_personid").html(result[0]);
-            $("#convey_plate").html(result[1]);
-            $("#convey_name").html(result[2]);
-            $("#convey_tel").html(result[3])
-            $("#convey_addr").html(result[4])
-
-            payTicket.isPay(trafficno, (error, result) => {
-                if (!error) {
-                    let status = "";
-
-                    if (result) {
-                        $("#ticket_status").html("จ่ายแล้ว")
-                    }
-                    else {
-                        $("#ticket_status").html("ยังไม่จ่าย")
-                    }
-                }
-            })
-
-            traffic.getReportCase(unitno, trafficno, personno, (error, result) => {
-                if (!error) {
-                    let charge = "";
-                    if (!(result[2] == "")) {
-                        charge = result[0] + " ความเร็วที่ตรวจวัด " + result[2];
-                    }
-                    else charge = result[0];
-                    console.log(result)
-                    $("#reportcase_charge").html(charge)
-                    $("#reportcase_place").html(result[1])
-                    $("#reportcase_fine").html(result[3] + "")
-                    $("#reportcase_description").html(result[4] + "")
-
-                    traffic.getReporter(unitno, trafficno, personno, (error, result) => {
-                        $("#reporter_name").html(result[0]);
-                        officer.getUnitInfo(unitno , (error, res) => {
-                            $("#reporter_office").html(res[0])
-                            $("#reporter_tel").html(res[2])
-                        })
-                    });
-
-                }
-            });
-
-        }
-
-    });
-
-</script>
 
 </html>

@@ -1,3 +1,11 @@
+const destiAcc = "";
+
+var urlParams = new URLSearchParams(window.location.search);
+var trafficno = urlParams.get('id');
+var fine = urlParams.get('fine');
+var personno = urlParams.get('personalno');
+var unitno = urlParams.get('unitno');
+
 function checkID(id) {
     if (id.length != 13) return false;
 
@@ -6,7 +14,6 @@ function checkID(id) {
 
       return false; return true;
   }
-
   checkForm = () => {
     if (!checkID(document.getdataform.personalno.value)) {
       alert("ป้อนข้อมูลไม่ครบ หรือ รหัสบัตรประชาชนไม่ถูกต้อง");
@@ -16,7 +23,7 @@ function checkID(id) {
       let inputtext = document.getdataform.inputtext.value;
       let personalno = document.getdataform.personalno.value;
       let ticketno = document.getdataform.id.value;
-      var unitno = (document.getdataform.id.value).substring(0, 5);
+      var unitno = (document.getdataform.id.value).substring(0, 4);
      console.log(unitno);
      $("#unit").html(unitno);
      window.location.replace("./info.html?id="+ticketno + "&personalno=" +personalno+"&unitno="+ unitno);
@@ -52,7 +59,6 @@ setPayData = (fineETH) => {
     $("#trafficno").html(trafficno);
     $("#fineTHB").html(fine);
     $("#fineETH").html(fineETH);
-    
 }
 
 metamask = () => {
@@ -62,9 +68,13 @@ metamask = () => {
         , { from: web3.eth.accounts[0], value: web3.toWei(fine, "ether") }
         , function (error, result) {
             if (!error)
-                console.log(result)
+            window.location.replace("./success.html");
             else
                 console.error(error);
         });
+
+}
+
+myether = () => {
 
 }

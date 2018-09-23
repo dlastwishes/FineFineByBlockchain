@@ -11,7 +11,7 @@ contract payTrafficTicket{
     mapping ( string => string) ticketPayedToUnit;
     
     // this is sample eoa account police holding money for testing 
-    address addressToPolice = 0x11bE780D609D375eD5E094d73090380B3325efD8;
+    address addressToPolice = 0x81cC78719f42b0239Bc9D8067a19b1Bc56c19ddD;
     mapping(string => address) ownerPayTraffic;
     uint private maxHolding = 50 ether;
     
@@ -20,11 +20,15 @@ contract payTrafficTicket{
         _;
     }
     
-    function getPayerTraffic(string _trafficNo) public constant returns (address){
-        return ownerPayTraffic[_trafficNo];
+    modifier checkDuplicateTransaction(string trafficno) {
+        require(ownerPayTraffic[trafficno] == address(0));
+        _;
     }
     
-    function isPay(string _trafficNo) public constant returns (bool){
+    function getPayerTraffic(string _trafficNo) public view returns (address){
+        return ownerPayTraffic[_trafficNo];
+    }
+    function isPay(string _trafficNo) public view returns (bool){
         require(_trafficNo.toSlice().len() >= 0);
         
         for (uint i = 0; i <= allTrafficListPay.length ; i++){
@@ -35,10 +39,10 @@ contract payTrafficTicket{
             else {
                 return false;
             }
-                }
         }
+    }
     
-    function checkBalance() public onlyOwner constant returns (uint){
+    function checkBalance() public onlyOwner view returns (uint){
         return this.balance;
     }
     
@@ -51,7 +55,6 @@ contract payTrafficTicket{
         addressToPolice.transfer(this.balance);
         
         return true;
-        
     }
     
     function getTotalPayedTicketByUnit(string unitNo) public view returns (uint){
@@ -59,24 +62,26 @@ contract payTrafficTicket{
         return (totalTicketByUnit[unitNo]);
     }
     
-    function payFine(string unitNo , string _trafficNo) public payable returns (bool) {
-        require( msg.value > 0 );
+    function payFine(string unitNo , string _trafficNo) public payable checkDuplicateTransaction(_trafficNo) returns (bool) {
         require(unitNo.toSlice().len() > 0);
         
         ticketPayedToUnit[_trafficNo] = unitNo;
         
-        uint None = uint(0);
-        
-        if(totalTicketByUnit[unitNo] == None){
+        if(totalTicketByUnit[unitNo] == uint(0)){
             uint init = 0;
             totalTicketByUnit[unitNo] = init;
         }
         
         uint numTicketInUnit = totalTicketByUnit[unitNo];
-        totalTicketByUnit[unitNo] = numTicketInUnit+1;
+    
+         if(ownerPayTraffic[_trafficNo] == address(0)){
+             allTrafficListPay.push(_trafficNo);
+             totalTicketByUnit[unitNo] = numTicketInUnit+1;
+             ownerPayTraffic[_trafficNo] = msg.sender;
+         }
         
-        ownerPayTraffic[_trafficNo] = msg.sender;
-        allTrafficListPay.push(_trafficNo);
+        
+       
         }
     
 }

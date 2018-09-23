@@ -21,6 +21,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
     <script src="connect.js"></script>
+    <script src="main.js"></script>
   <script>
     var urlParams = new URLSearchParams(window.location.search);
     var username = urlParams.get('username');
@@ -31,24 +32,12 @@
       $("#header").load("header.html");
     });
 
-    $(function () {
-      $("#nev").load("nev.html");
-    });
-
   </script>
 </head>
 
-<body class="">
-  <div class="wrapper ">
-    <script>
-      function goToDashboard() {
-        window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-      }
-      goToCreateTicket = () => {
-        window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
-      }
-    
-    </script>
+<body>
+  <div class="wrapper">
+ 
     <!-- Navbar for header  -->
     
     
@@ -138,6 +127,19 @@
                           <input type="text" class="form-control" id="placeOfIncident" required>
                         </div>
                       </div>
+                      <div class="col-md-1.4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">รายละเอียดเพิ่มเติม : </font>
+                          </label>
+
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="description" required>
+                        </div>
+                      </div>
                       <div class="col-md-2.1">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -218,7 +220,7 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
 
-        <script src="main.js"></script>
+       
 </body>
 
 </html>

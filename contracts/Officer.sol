@@ -8,19 +8,28 @@ contract officer{
     mapping (string => string ) private userandpass;
     mapping ( address  => string)  prevLogin;
     mapping (string => bool) permissionUser;
+    
     struct officerInfo {
         string username;
         string name;
-        string unit;
-        string office_address;
-        string tel;
-        string zipcode;
     }
+    
+    mapping (string => string ) mapOfficerToUnit;
+    
+    struct unitInfo {
+        string unitName;
+        string unitAddr;
+        string unitTel; 
+        string unitZipcode;
+    }
+    
+    string[] unitList;
+    mapping (string => unitInfo) unitNoToInfo;
     
     string[] private officerUsernameList;
     
     officerInfo private officerList;
-    mapping(string => officerInfo) officerUser;
+    mapping(string => mapping(string => officerInfo)) officerUser;
     
     
         modifier onlyOwner(){
@@ -28,43 +37,67 @@ contract officer{
         _;
     }
     
-    modifier checkOffice(string _usr) {
-        string memory pass = userandpass[_usr];
-        require(pass.toSlice().len() > 0);
-        _;
+    function addUnit(string unitNo , string unitName , string unitAddr , string unitTel , string unitZipcode) public onlyOwner returns (bool) {
+        unitList.push(unitNo);
+        unitNoToInfo[unitNo].unitName = unitName;
+        unitNoToInfo[unitNo].unitAddr = unitAddr;
+        unitNoToInfo[unitNo].unitTel = unitTel;
+        unitNoToInfo[unitNo].unitZipcode = unitZipcode;
+        
+        return (true);
     }
     
-    function officer() public {
-        addrSAdmin = msg.sender;
-    }
-    
-    function login(string _user , string _pass) public returns (bool){
-        string memory pass = userandpass[_user];
-        if(pass.toSlice().equals(_pass.toSlice())){
-            prevLogin[msg.sender] = _user;
-            return true;
+       modifier checkPermission(string _usr){
+        if(!(msg.sender == addrSAdmin)) {
+               require(permissionUser[_usr]);
         }
-        else {
-            return false;
-        }
-    }
-    
-    modifier checkPermission(string _usr){
-        require(permissionUser[_usr]);
         _;
     } 
     
-    function editOfficer (string _usr 
-    , string _name 
-    , string _unit 
-    , string _office_address 
-    , string _tel
-    , string _zipcode) public onlyOwner checkOffice(_usr) returns (bool) {
-        officerUser[_usr].name = _name;
-        officerUser[_usr].unit = _unit;
-        officerUser[_usr].office_address = _office_address;
-        officerUser[_usr].tel = _tel;
-        officerUser[_usr].zipcode = _zipcode;
+    modifier checkOffice(string _usr) {
+        if(msg.sender == addrSAdmin){
+            
+        }else {
+        string memory pass = userandpass[_usr];
+        require(pass.toSlice().len() > 0);
+        }
+        _;
+    }
+    
+    function setSuperAdmin() public {
+        addrSAdmin = msg.sender;
+    }
+    
+    function loginToAddAdmin(string username , string password) public view returns (bool){
+        string memory pass = userandpass[username];
+        if(pass.toSlice().equals(password.toSlice())){
+            if(permissionUser[username]){
+                return (true);
+            }
+        }
+        else {
+            return (false ) ;
+        }
+    }
+    
+    function login(string _user , string _pass) public view returns (bool , string){
+        string memory pass = userandpass[_user];
+        if(pass.toSlice().equals(_pass.toSlice())){
+            return (true , mapOfficerToUnit[_user] );
+        }
+        else {
+            return (false , "Not found" ) ;
+        }
+    }
+    
+      function checkIn(string user) public checkPermission(user) returns (bool){
+          require(user.toSlice().len() >0 );
+            prevLogin[msg.sender] = user;
+    }
+    
+    function editOfficer (string unitNo , string _usr 
+    , string _name) public checkPermission(_usr) checkOffice(_usr) returns (bool) {
+        officerUser[unitNo][_usr].name = _name;
         return true;
     }
         
@@ -76,46 +109,42 @@ contract officer{
         return (true , _pass);
     }
     
-    function newPermission(string _usr) public onlyOwner returns (bool){
+    function newPermission(string _usr) public checkPermission(_usr) returns (bool){
         permissionUser[_usr] = true;
     }
     
     function newOfficer
     (string _officerCreateID
+    , string unitNo
     , string _usr 
     ,string _pass
-    , string _name 
-    , string _unit 
-    , string _office_address 
-    , string _tel
-    , string _zipcode) public checkPermission(_officerCreateID) checkOffice(_officerCreateID) returns (bool) {
+    , string _name) public checkPermission(_officerCreateID) checkOffice(_officerCreateID) returns (bool) {
         userandpass[_usr] = _pass;
-        officerUser[_usr].username = _usr;
-        officerUser[_usr].name = _name;
-        officerUser[_usr].unit = _unit;
-        officerUser[_usr].office_address = _office_address;
-        officerUser[_usr].tel = _tel;
-        officerUser[_usr].zipcode = _zipcode;
+        officerUser[unitNo][_usr].username = _usr;
+        officerUser[unitNo][_usr].name = _name;
         permissionUser[_usr] = false;
         officerUsernameList.push(_usr);
+        mapOfficerToUnit[_usr] = unitNo;
         return true;
-        
     }
     
-        function getOfficerInfo(string username) public constant returns (string , string , string , string , string){
+        function getOfficerInfo(string unitNo , string username) public view returns (string){
         return 
-        (officerUser[username].name
-         , officerUser[username].unit
-         , officerUser[username].office_address 
-         , officerUser[username].tel
-         , officerUser[username].zipcode);
+        (officerUser[unitNo][username].name);
     }
     
-    function destroyOfficer() public onlyOwner returns (bool) {
+    function getUnitInfo (string unitNo) public view returns (string , string ,string ,string ){
+     return (unitNoToInfo[unitNo].unitName
+         ,unitNoToInfo[unitNo].unitAddr
+         ,unitNoToInfo[unitNo].unitTel
+         ,unitNoToInfo[unitNo].unitZipcode); 
+    }
+    
+    function destroyOfficer(string unitNo) public onlyOwner returns (bool) {
                 uint i = 0;
         officerInfo memory officerNull;
         for (i ; i<officerUsernameList.length;i++){
-            officerUser[officerUsernameList[i]] = officerNull;
+            officerUser[unitNo][officerUsernameList[i]] = officerNull;
         }
     }
 }
