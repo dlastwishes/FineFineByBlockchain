@@ -18,9 +18,9 @@
     crossorigin="anonymous"></script>
   <script src="connect.js"></script>
   <script src="main.js"></script>
-  <script> 
-  
-  $(function () {
+  <script>
+
+    $(function () {
       $("#header").load("./header.html");
     });
   </script>
@@ -36,34 +36,34 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-          <ul class="nav ">
-            <li class="nav-item  ">
-              <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
-                <i class="fa fa-clone"></i>
-                <p>ใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
-                <i class="fa fa-edit fa"></i>
-                <p>สร้างใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#" onclick="goToUserProfile()">
-                <i class="material-icons">person</i>
-                <p>ข้อมูลผู้ใช้</p>
-              </a>
-            </li>
-  
-            <li class="nav-item active-pro ">
-              <a class="nav-link" href="#" onclick="logout()">
-                <i class="fa fa-sign-out"></i>
-                <p>ออกจากระบบ</p>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class="nav ">
+          <li class="nav-item  ">
+            <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
+              <i class="fa fa-clone"></i>
+              <p>ใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
+              <i class="fa fa-edit fa"></i>
+              <p>สร้างใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#" onclick="goToUserProfile()">
+              <i class="material-icons">person</i>
+              <p>ข้อมูลผู้ใช้</p>
+            </a>
+          </li>
+
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="#" onclick="logout()">
+              <i class="fa fa-sign-out"></i>
+              <p>ออกจากระบบ</p>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
@@ -80,21 +80,21 @@
                 </div>
                 <div class="card-body">
                   <form>
-                 
+
                     <div class="row">
-                        <div class="col-md-2">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" >ชื่อสถานี : </label>
-                      
-                          </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">ชื่อสถานี : </label>
+
                         </div>
-                        <div class="col-md-10">
-                          <div class="form-group">
-                            <input type="text" class="form-control" id="office" disabled>
-                          </div>
-                        </div>
-                        
                       </div>
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="office" disabled>
+                        </div>
+                      </div>
+
+                    </div>
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
@@ -106,13 +106,13 @@
                           <input type="text" class="form-control" id='username' disabled>
                         </div>
                       </div>
-                      
+
                     </div>
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" >ชื่อ-นามสกุล : </label>
-                          
+                          <label class="bmd-label-floating">ชื่อ-นามสกุล : </label>
+
                         </div>
                       </div>
                       <div class="col-md-10">
@@ -125,37 +125,37 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" >ที่อยู่ สน. : </label>
-                          
+                          <label class="bmd-label-floating">ที่อยู่ สน. : </label>
+
                         </div>
                       </div>
                       <div class="col-md-10">
                         <div class="form-group">
-                          <input type="text" class="form-control" id="address">
+                          <input type="text" class="form-control" id="address" disabled>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" >เบอร์โทร : </label>
-                         
+                          <label class="bmd-label-floating">เบอร์โทร : </label>
+
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="tel" class="form-control" id="tel">
+                          <input type="tel" class="form-control" id="tel" disabled>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" >รหัสไปรษณีย์ : </label>
-                          
+                          <label class="bmd-label-floating">รหัสไปรษณีย์ : </label>
+
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="number" class="form-control" id="zipcode" min="1">
+                          <input type="number" class="form-control" id="zipcode" min="1" disabled>
                         </div>
                       </div>
 
@@ -192,27 +192,22 @@
 
     </div>
   </div>
-  <!--   Core JS Files   -->
+  
   <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
   <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-  <!-- Chartist JS -->
   <script src="assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
 
   <script>
 
     officer.getUnitInfo(unitNo, (error, result) => {
-    if(!error){
-     
-    }
+      if (!error) {
+
+      }
       officer.getOfficerInfo(unitNo, username, (err, result) => {
         if (!error) {
           document.getElementById("officername").placeholder = result;

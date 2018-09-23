@@ -254,7 +254,7 @@
                           </label>
                         </div>
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-md-9">
                         <div class="form-group">
                           <label class="bmd-label-floating" id="description"></label>
                           <input type="text" class="form-control" id="edit_description">
@@ -296,7 +296,7 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" contenteditable="true">
                           <label class="bmd-label-floating" id="fine"></label>
                           <input type="text" class="form-control" id="edit_fine">
                         </div>
@@ -335,8 +335,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="persno"></label>
-                          <input type="text" class="form-control" id="edit_persno">
+                          
+                          <input type="text" class="form-control" id="persno">
                         </div>
                       </div>
 
@@ -351,8 +351,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="plate"></label>
-                          <input type="text" class="form-control" id="edit_plate">
+                          
+                          <input type="text" class="form-control" id="plate">
                         </div>
                       </div>
                     </div>
@@ -366,8 +366,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyname"></label>
-                          <input type="text" class="form-control" id="edit_conveyname">
+                          
+                          <input type="text" class="form-control" id="conveyname">
                         </div>
                       </div>
 
@@ -380,8 +380,8 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conveytel"></label>
-                          <input type="text" class="form-control" id="edit_conveytel">
+                          
+                          <input type="text" class="form-control" id="conveytel">
                         </div>
                       </div>
                     </div>
@@ -396,8 +396,8 @@
                       </div>
                       <div class="col-md-11">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyaddr"></label>
-                          <input type="text" class="form-control" id="edit_conveyaddr">
+                          
+                          <input type="text" class="form-control" id="conveyaddr">
                         </div>
                       </div>
                     </div>
@@ -427,6 +427,7 @@
 
               if (!error) {
 
+                
                 $("#ticketno").html(ticketno);
 
                 $("#officename").html(result[0] + "");
@@ -439,20 +440,22 @@
                 });
 
                 traffic.getConveyance(unitNo, ticketno, persno, (error, result) => {
-                  $("#persno").html(result[0]);
-                  $("#plate").html(result[1]);
-                  $("#conveyname").html(result[2]);
-                  $("#conveytel").html(result[3]);
-                  $("#conveyaddr").html(result[4]);
+                  document.getElementById("persno").placeholder = result[0];
+                  document.getElementById("plate").placeholder = result[1];
+                  document.getElementById("conveyname").placeholder = result[2];
+                  document.getElementById("conveytel").placeholder = result[3];
+                  document.getElementById("conveyaddr").placeholder = result[4];
+                  
                 });
 
                 traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
                   if (!error) {
-                    $("#charge").html(res[0]);
-                    $("#place").html(res[1]);
-                    $("#speed").html(res[2]);
-                    $("#fine").html(res[3] + "");
-                    $("#description").html(res[4]);
+                    document.getElementById("charge").placeholder = result[0];
+                    document.getElementById("place").placeholder = result[1];
+                    document.getElementById("speed").placeholder = result[2];
+                    document.getElementById("fine").placeholder = result[3];
+                    document.getElementById("description").placeholder = result[4];
+                    
                   }
                 });
               }
@@ -466,19 +469,14 @@
           <!-- script notification------------------------------------------------------------------------------------------ -->
 
 
-          <!--   Core JS Files   -->
+          
           <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
           <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
           <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-          <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-          <!-- Chartist JS -->
+          <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>          
           <script src="assets/js/plugins/chartist.min.js"></script>
-          <!--  Notifications Plugin    -->
           <script src="assets/js/plugins/bootstrap-notify.js"></script>
-          <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-          <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-          <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+          <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>    
           <script src="assets/demo/demo.js"></script>
 </body>
 
