@@ -28,6 +28,10 @@ if (web3.isConnected()) {
     var officerAddr = "0x6e54ab9c3816a07345f78857ab7e9014b293c69a";
     var officer = officerContract.at(officerAddr);
     
+    var functionTicketContract = web3.eth.contract();
+    var functionTicketAddr = "";
+    var functionTicket =  functionTicketContract.at(functionTicketAddr);
+
 } else {
     console.log('not connect');
 }

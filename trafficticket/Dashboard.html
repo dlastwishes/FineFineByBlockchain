@@ -209,11 +209,11 @@
 
     <script>
 
-      payTicket.getTotalPayedTicketByUnit(unitNo, (error, result) => {
+      payTicket.getTotalPayedTicketByUnit(uno, (error, result) => {
         let pay = result.c[0];
         $("#totalPay").html(pay);
-        let notpay = totalTicket - pay
-        $("#totalNotPay").html(pay);
+        let notpay = totalTicket - pay;
+        $("#totalNotPay").html(notpay);
       });
 
       $(document).ready(function () {

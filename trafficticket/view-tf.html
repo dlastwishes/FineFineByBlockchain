@@ -23,11 +23,6 @@
   <script src="connect.js"></script>
   <script src='main.js'></script>
   <script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var username = urlParams.get('username');
-    var unitNo = urlParams.get('unitno');
-    var ticketno = urlParams.get('ticketno');
-    var persno = urlParams.get('persno');
 
     $(function () {
       $("#header").load("header.html");
@@ -418,7 +413,7 @@
 
           <script>
 
-            traffic.getReporter(unitNo, ticketno, persno, (error, result) => {
+            traffic.getReporter(uno, ticketno, persno, (error, result) => {
 
               if (!error) {
 
@@ -433,7 +428,7 @@
                   $("#zipcode").html(res[3] + "");
                 });
 
-                traffic.getConveyance(unitNo, ticketno, persno, (error, result) => {
+                traffic.getConveyance(uno, ticketno, persno, (error, result) => {
                   $("#persno").html(result[0]);
                   $("#plate").html(result[1]);
                   $("#conveyname").html(result[2]);
@@ -441,7 +436,7 @@
                   $("#conveyaddr").html(result[4]);
                 });
 
-                traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
+                traffic.getReportCase(uno, ticketno, persno, (error, res) => {
                   if (!error) {
                     $("#charge").html(res[0]);
                     $("#place").html(res[1]);

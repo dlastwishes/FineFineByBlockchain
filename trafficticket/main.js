@@ -344,3 +344,8 @@ newTicket = () => {
     });
 
 }
+
+searchPersonByTicket = () => {
+    
+    $("#search_ticketinput").val()
+}
