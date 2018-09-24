@@ -145,6 +145,10 @@
                         <th scope="row">ใบสั่งเลขที่</th>
                         <td><label id="reportcase_trafficNo"> </label></td>
                     </tr>
+                        <tr>
+                            <th scope="row">ชำระค่าปรับก่อนวันที่</th>
+                            <td><label id="expired_date"> </label></td>
+                        </tr>
                     <tr>
                         <th scope="row">สถานะใบสั่ง</th>
                         <td><label id="ticket_status"> </label></td>
@@ -196,6 +200,9 @@
                         <th scope="row">เบอร์ติดต่อเจ้าหน้าที่</th>
                         <td><label id="reporter_tel"> </label></td>
                     </tr>
+                    <tr>
+                            <th scope="row">คำชี้แจงเพิ่มเติม</th>
+                        </tr>
 
 
 
@@ -289,6 +296,7 @@
 
                     traffic.getReporter(unitno, trafficno, personno, (error, result) => {
                         $("#reporter_name").html(result[0]);
+                        $("#expired_date").html(result[2]);
                         officer.getUnitInfo(unitno , (error, res) => {
                             $("#reporter_office").html(res[0])
                             $("#reporter_tel").html(res[2])

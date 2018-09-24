@@ -1,13 +1,15 @@
 var urlParams = new URLSearchParams(window.location.search);
-var username = urlParams.get('username');
+var username =  urlParams.get('username');
+var user = web3.toUtf8(username);
 var unitNo = urlParams.get('unitno');
+var uno = web3.toUtf8(unitNo);
 var tableCode = "";
 var index = 0;
 var page = 30;
 var key = 0;
 var totalTicket = 0;
-var persno = "";
-var point = urlParams.get('point');
+var persno = urlParams.get('persno');
+var ticketno =  urlParams.get('ticketno');
 
 goToDashboard = () => {
     window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
@@ -73,7 +75,7 @@ editUser = () => {
 
 editReportcase = () => {
     traffic.editReportCase.sendTransaction(
-        unitNo
+        uno
         , ticketno
         , $("#charge").val()
         , $("#place").val()
@@ -92,7 +94,7 @@ editReportcase = () => {
 
 editConvey = () => {
     traffic.editConvey.sendTransaction(
-        unitNo
+        uno
         , ticketno
         , $("#persno").val()
         , $("#plate").val()
@@ -113,7 +115,7 @@ editConvey = () => {
 submitReporter = () => {
     traffic.setReporter.sendTransaction(
         document.getElementById("nameOfficer").textContent
-        , unitNo
+        , uno
         , function (error, result) {
             if (!error) {
 
@@ -133,7 +135,7 @@ submitReporter = () => {
 
 submitConveyance = () => {
     traffic.setConveyanceOwner.sendTransaction(
-        unitNo
+        uno
         , $("#personalNo").val()
         , $("#plateNo").val()
         , $("#conv_name").val()
@@ -142,7 +144,7 @@ submitConveyance = () => {
         , function (error, result) {
             if (!error) {
 
-                traffic.getConveyancePoint(unitNo, (error, res) => {
+                traffic.getConveyancePoint(uno, (error, res) => {
                     if (!error) {
 
                         let conveyNo = parseInt(res.c[0]) + 1;
@@ -156,20 +158,50 @@ submitConveyance = () => {
         });
 }
 
+getRightnowDate = () => {
+   return (getDateData(0));
+}
+
+getDateData = (delayTimeMonth) => {
+    var date = new Date();
+    var month = new Array(12);
+    month[0] = "มกราคม";
+    month[1] = "กุมภาพันธ์";
+    month[2] = "มีนาคม";
+    month[3] = "เมษายน";
+    month[4] = "พฤษภาคม";
+    month[5] = "มิถุนายน";
+    month[6] = "กรกฎาคม";
+    month[7] = "สิงหาคม";
+    month[8] = "กันยายน";
+    month[9] = "ตุลาคม";
+    month[10] = "พฤศจิกายน";
+    month[11] = "ธันวาคม";
+
+    var day = date.getDate();
+    var year = date.getFullYear() + 543;
+    return (day+" "+month[date.getMonth()+delayTimeMonth]+" "+year);
+}
+
+getExpired = () => {
+    //ค่าที่ระบุตอนเรียกฟังก์ชั่น เป็นค่าในหน่วยเดือน เช่น ค่าปรับหมดอายุใน 1 เดือน ก็จะระบุเป็น 1
+    return (getDateData(1));
+}
+
 setData = (init, desti) => {
 
-    traffic.getTotalTicketByUnit(unitNo, (error, result) => {
+    traffic.getTotalTicketByUnit(uno, (error, result) => {
 
         for (let i = init; i < desti; i++) {
 
-            traffic.getTicketNo(unitNo, i, (error, result) => {
+            traffic.getTicketNo(uno, i, (error, result) => {
                 if (!error) {
 
                     if (result !== "") {
                         let ticketNo, conveyName;
                         ticketNo = result;
                         $("#reportcase_trafficNo" + i).html(ticketNo);
-                        traffic.getTicket(unitNo, ticketNo, (error, res) => {
+                        traffic.getTicket(uno, ticketNo, (error, res) => {
                             if (!error) {
                                 $("#convey_name" + i).html(res[0]);
                                 payTicket.isPay(ticketNo, (error, result) => {
@@ -198,7 +230,7 @@ setData = (init, desti) => {
 
 createDataTable = (init, desti) => {
 
-    traffic.getTotalTicketByUnit(unitNo, (error, result1) => {
+    traffic.getTotalTicketByUnit(uno, (error, result1) => {
 
         if (!error) {
             totalTicket = result1.c[0];
@@ -206,22 +238,30 @@ createDataTable = (init, desti) => {
             page += 5;
             for (let i = init; i < desti; i++) {
 
-                traffic.getTicketNo(unitNo, i, (error, res) => {
+                traffic.getTicketNo(uno, i, (error, res) => {
 
                     if (!error) {
                         if (res !== "") {
 
-                            traffic.getTicket(unitNo, res, (error, result) => {
+                            traffic.getTicket(uno, res, (error, result) => {
                                 console.log(result);
                                 persno = result[1];
                                 if (!error) {
-                                    tableCode += "<tr style='text-align: center'>"
-                                    tableCode += " <td> <label id='reportcase_trafficNo" + i + "'> </label> </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
-                                    tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
-                                    tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
-                                    tableCode += "</tr> "
-                                    $("#trafficList").html(tableCode);
-                                    key++;
+
+                                    payTicket.isPay(res, (error, result) => {
+                                        if (!error) {
+                                            tableCode += "<tr style='text-align: center'>"
+                                            tableCode += " <td> <label>"+res+ "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                            tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
+                                            if (!result) {
+                                                tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
+                                            }
+                                            tableCode += "</tr>"
+                                            $("#trafficList").html(tableCode);
+                                            key++;
+                                        }
+                                    });
+
                                 }
                             });
                         }
@@ -234,29 +274,10 @@ createDataTable = (init, desti) => {
     });
 }
 
-
-login = () => {
-    if ($("#username").val() == "" && $("#password").val() == "") {
-        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
-    }
-    else {
-        officer.login($("#username").val(), $("#password").val(), (error, result) => {
-            if (!error) {
-                if (result[0]) {
-                    window.location.replace("dashboard.html?username=" + $("#username").val() + "&unitno=" + result[1]);
-                }
-                else {
-                    alert("เข้าสู่ระบบผิดพลาด");
-                }
-            }
-        });
-    }
-}
-
 submitOffender = () => {
     let fine = parseInt($("#fineTotal").val());
     traffic.setReport_case.sendTransaction(
-        unitNo
+        uno
         , $("#chargeInfo").val()
         , $("#placeOfIncident").val()
         , $("#speedDetection").val()
@@ -265,7 +286,7 @@ submitOffender = () => {
         , function (error, result) {
             if (!error) {
 
-                traffic.getReportcasePoint(unitNo, (error, res) => {
+                traffic.getReportcasePoint(uno, (error, res) => {
                     if (!error) {
                         let offenderNo = parseInt(res.c[0]) + 1;
                         window.location.replace("./create-tf-carnumref-info.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter + "&offenderNo=" + offenderNo);
@@ -299,17 +320,16 @@ checkForm = () => {
 
 newTicket = () => {
 
-    traffic.getTotalTicketByUnit(unitNo, (error, res) => {
+    traffic.getTotalTicketByUnit(uno, (error, res) => {
         if (!error) {
             secondParam = res.c[0] + 1;
-
             ticketNo = firstParam + secondParam;
-
             traffic.newTrafficTicket.sendTransaction(
-                unitNo
+                uno
                 , parseInt(reporter)
                 , parseInt(offender)
                 , parseInt(convey)
+                , $("#expiredDate").val()
                 , ticketNo
                 , function (error, result) {
                     if (!error) {

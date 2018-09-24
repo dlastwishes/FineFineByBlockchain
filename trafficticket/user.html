@@ -19,7 +19,6 @@
   <script src="connect.js"></script>
   <script src="main.js"></script>
   <script>
-
     $(function () {
       $("#header").load("./header.html");
     });
@@ -98,7 +97,7 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label class="bmd-label-floating" >ชื่อผู้ใช้ : </label>
+                          <label class="bmd-label-floating">ชื่อผู้ใช้ : </label>
                         </div>
                       </div>
                       <div class="col-md-10">
@@ -171,17 +170,21 @@
             <div class="col-md-4">
               <div class="card card-profile">
                 <div class="card-avatar">
-                  <a href="#pablo">
+                  <a href="#">
                     <img class="img" src="assets/img/1.png" />
 
                   </a>
                 </div>
 
-                <div class="card-body"><br>
+                <div class="card-body" ><br>
 
                   <h3 class="card-category" id="officeDesc"></h3>
                   <h4 class="card-title" id="usernameofficerDesc"></h4>
+<<<<<<< HEAD
               
+=======
+
+>>>>>>> cfffa91e9dabb8be305d228ac6106ff277ff25cf
                   <p class="card-description" id="description"></p>
                 </div>
               </div>
@@ -192,7 +195,7 @@
 
     </div>
   </div>
-  
+
   <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
@@ -203,28 +206,27 @@
   <script src="assets/demo/demo.js"></script>
 
   <script>
+    officer.getUnitInfo(uno, (error, result) => {
 
-    officer.getUnitInfo(unitNo, (error, result) => {
-      if (!error) {
-
-      }
-      officer.getOfficerInfo(unitNo, username, (err, result) => {
+      officer.getOfficerInfo(uno, user, (err, res) => {
         if (!error) {
-          document.getElementById("officername").placeholder = result;
+          document.getElementById("officername").placeholder = res;
         }
       });
-      document.getElementById("username").placeholder = username;
-      
-       document.getElementById("office").placeholder = result[0];
-       
-        document.getElementById("address").placeholder =result[1];
-        document.getElementById("tel").placeholder =result[2];
-        document.getElementById("zipcode").placeholder =result[3];
-        $("#usernameofficerDesc").html(username);
+      if (!error) {
+        document.getElementById("username").placeholder = user;
+        $("#usernameofficerDesc").html(user);
+
+        document.getElementById("office").placeholder = result[0];
         $("#officeDesc").html(result[0]);
+        document.getElementById("address").placeholder = result[1];
+        document.getElementById("tel").placeholder = result[2];
+        document.getElementById("zipcode").placeholder = result[3];
 
         $("#description").html(result[1] + " " + result[3] + " <br/>" + result[2]);
-      
+
+      }
+
     });
   </script>
 </body>

@@ -23,11 +23,6 @@
   <script src="connect.js"></script>
   <script src='main.js'></script>
   <script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var username = urlParams.get('username');
-    var unitNo = urlParams.get('unitno');
-    var ticketno = urlParams.get('ticketno');
-    var persno = urlParams.get('persno');
 
     $(function () {
       $("#header").load("header.html");
@@ -226,8 +221,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="charge"></label>
-                          <input type="text" class="form-control" id="edit_charge">
+  
+                          <input type="text" class="form-control" id="charge">
                         </div>
                       </div>
                       <div class="col-md-1.2">
@@ -240,8 +235,8 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="place"></label>
-                          <input type="text" class="form-control" id="edit_place">
+                  
+                          <input type="text" class="form-control" id="place">
                         </div>
                       </div>
 
@@ -256,8 +251,8 @@
                       </div>
                       <div class="col-md-9">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="description"></label>
-                          <input type="text" class="form-control" id="edit_description">
+                  
+                          <input type="text" class="form-control" id="description">
                         </div>
                       </div>
                     </div>
@@ -273,8 +268,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="speed"></label>
-                          <input type="text" class="form-control" id="edit_speed">
+                  
+                          <input type="text" class="form-control"  id="speed">
                         </div>
                       </div>
                       <div class="col-md-2.1">
@@ -297,8 +292,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group" contenteditable="true">
-                          <label class="bmd-label-floating" id="fine"></label>
-                          <input type="text" class="form-control" id="edit_fine">
+      
+                          <input type="text" class="form-control" id="fine">
                         </div>
                       </div>
                       <div class="col-md-2.1">
@@ -335,7 +330,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          
+        
                           <input type="text" class="form-control" id="persno">
                         </div>
                       </div>
@@ -423,7 +418,7 @@
 
           <script>
 
-            traffic.getReporter(unitNo, ticketno, persno, (error, result) => {
+            traffic.getReporter(uno, ticketno, persno, (error, result) => {
 
               if (!error) {
 
@@ -439,7 +434,7 @@
                   $("#zipcode").html(res[3] + "");
                 });
 
-                traffic.getConveyance(unitNo, ticketno, persno, (error, result) => {
+                traffic.getConveyance(uno, ticketno, persno, (error, result) => {
                   document.getElementById("persno").placeholder = result[0];
                   document.getElementById("plate").placeholder = result[1];
                   document.getElementById("conveyname").placeholder = result[2];
@@ -448,13 +443,13 @@
                   
                 });
 
-                traffic.getReportCase(unitNo, ticketno, persno, (error, res) => {
+                traffic.getReportCase(uno, ticketno, persno, (error, res) => {
                   if (!error) {
-                    document.getElementById("charge").placeholder = result[0];
-                    document.getElementById("place").placeholder = result[1];
-                    document.getElementById("speed").placeholder = result[2];
-                    document.getElementById("fine").placeholder = result[3];
-                    document.getElementById("description").placeholder = result[4];
+                    document.getElementById("charge").placeholder = res[0];
+                    document.getElementById("place").placeholder = res[1];
+                    document.getElementById("speed").placeholder = res[2];
+                    document.getElementById("fine").placeholder = res[3];
+                    document.getElementById("description").placeholder = res[4];
                     
                   }
                 });

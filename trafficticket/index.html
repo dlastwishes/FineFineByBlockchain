@@ -14,7 +14,27 @@
     <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
     <script src="connect.js"></script>
-    <script src="main.js"></script>
+    <script>
+    login = () => {
+    if ($("#username").val() == "" && $("#password").val() == "") {
+        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+    }
+    else {
+        officer.login($("#username").val(), $("#password").val(), (error, result) => {
+            if (!error) {
+                if (result[0]) {
+                    let username = web3.toHex($("#username").val());
+                    let unitno = web3.toHex(result[1]);
+                    window.location.replace("dashboard.html?username=" + username + "&unitno=" +unitno );
+                }
+                else {
+                    alert("เข้าสู่ระบบผิดพลาด");
+                }
+            }
+        });
+    }
+}
+    </script>
     <style>body{padding-top: 60px;}</style>
 </head>
 
