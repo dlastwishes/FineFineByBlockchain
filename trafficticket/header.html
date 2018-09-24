@@ -1,26 +1,14 @@
 <script>
-  $("#showUsername").html(username);
+ 
 
-  var headerMsg;
-  officer.getUnitInfo(unitNo, (error, result) => {
-
-    officer.getOfficerInfo(unitNo, username, (err, result) => {
+  officer.getUnitInfo(uno, (error, result) => {
+    var headerMsg;
+    officer.getOfficerInfo(uno, user, (err, res) => {
       if (!error) {
-        headerMsg += result;
+        headerMsg = res+ " " + result[0]+ " "+ result[1] + " " + result[3]
+      $("#showUsername").html(headerMsg);
       }
     });
-
-      $("#username").html(username);
-      $("#usernameofficerDesc").html(username);
-
-      $("#office").html(result[0]);
-      $("#officeDesc").html(result[0]);
-
-      $("#address").html(result[1] + "");
-      $("#tel").html(result[2] + "");
-      $("#zipcode").html(result[3] + "");
-
-      $("#description").html(result[1] + " " + result[3] + " <br/>" + result[2]);
     
   });
 </script>
@@ -28,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand" href="#pablo"> <label id="showUsername"> </label></a>
+      <a class="navbar-brand" href="#"> <label id="showUsername"> </label></a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false"
       aria-label="Toggle navigation">
@@ -38,9 +26,10 @@
       <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end">
-      <form class="navbar-form">
+        <label> </label>
+      <form action="" class="navbar-form">
         <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="ค้นหาใบสั่ง...">
+          <input type="text" value="" class="form-control" name="keyword" placeholder="ระบุรหัสบัตรประชาชน">
           <button type="submit" class="btn btn-white btn-round btn-just-icon">
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>

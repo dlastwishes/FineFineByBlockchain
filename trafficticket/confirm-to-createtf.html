@@ -22,10 +22,7 @@
     crossorigin="anonymous"></script>
     <script src="connect.js"></script>
   <script>
-
     var urlParams = new URLSearchParams(window.location.search);
-    var username = urlParams.get('username');
-    var unitNo = urlParams.get('unitno');
     var reporter = urlParams.get('reporter');
     var offender = urlParams.get('offenderNo');
     var convey = urlParams.get('convNo');
@@ -99,6 +96,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
+                
                 <div class="card-header card-header-info">
                   <h4 class="card-title">ยืนยันการสร้างใบสั่ง</h4>
                   <p class="card-category" style="color:white">ช้อมูลสถานีตำรวจ</p>
@@ -134,6 +132,8 @@
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-1.2">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -180,9 +180,7 @@
                       </div>
                     </div>
                 </div>
-
-                <!-- <a href="create-tf-offender-info.html"> <button type="submit" class="btn btn-primary pull-right" >ถัดไป</button></a> -->
-                <div class="clearfix"></div>
+                  <div class="clearfix"></div>
                 </form>
               </div>
             </div>
@@ -190,7 +188,7 @@
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">ข้อมูลความผิด</h4>
-                  <!-- <p class="card-category"></p> -->
+             
                 </div>
                 <div class="card-body">
                   <form>
@@ -294,7 +292,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-info">
-                  <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
+                  <h4 class="card-title">ข้อมูลใบสั่งเพิ่มเติม</h4>
                  
                 </div>
                 <div class="card-body">
@@ -303,14 +301,13 @@
                       <div class="col-md-2.3">
                         <div class="form-group">
                           <label class="bmd-label-floating">
-                            <font size="4">เลขที่บัตรประชาชน : </font>
+                            <font size="4">วันที่สร้างใบสั่ง : </font>
                           </label>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="persno"></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="createDate"></label>
                         </div>
                       </div>
 
@@ -318,71 +315,118 @@
                       <div class="col-md-1.8">
                         <div class="form-group">
                           <label class="bmd-label-floating">
-                            <font size="4">เลขทะเบียนรถ : </font>
+                            <font size="4">วันหมดของใบสั่ง : </font>
                           </label>
 
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating" id="plate"></label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating" id="expiredDate"></label>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-1.9">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">
-                            <font size="4">ชื่อ-นามสกุล : </font>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyname"></label>
-                          <input type="password" class="form-control" disabled>
-                        </div>
-                      </div>
-
-                      <div class="col-md-2.5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">
-                            <font size="4">เบอร์โทร : </font>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating" id="conveytel"></label>
-                          <input type="text" class="form-control" disabled>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-1.8">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">
-                            <font size="4">ที่อยู่ : </font>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-md-11">
-                        <div class="form-group">
-                          <label class="bmd-label-floating" id="conveyaddr"></label>
-                          <input type="text" class="form-control" disabled>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button type="button" onclick="JSalert('ยืนยันการสร้างใบสั่ง' , 4)" class="btn btn-info pull-right">ยืนยันสร้างใบสั่ง</button>
-                    
+              
                     <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-info">
+                    <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
+                   
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-2.3">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">
+                              <font size="4">เลขที่บัตรประชาชน : </font>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" id="persno"></label>
+                            <input type="text" class="form-control" disabled>
+                          </div>
+                        </div>
+  
+  
+                        <div class="col-md-1.8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">
+                              <font size="4">เลขทะเบียนรถ : </font>
+                            </label>
+  
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" id="plate"></label>
+                            <input type="text" class="form-control" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-1.9">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">
+                              <font size="4">ชื่อ-นามสกุล : </font>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" id="conveyname"></label>
+                            <input type="password" class="form-control" disabled>
+                          </div>
+                        </div>
+  
+                        <div class="col-md-2.5">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">
+                              <font size="4">เบอร์โทร : </font>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" id="conveytel"></label>
+                            <input type="text" class="form-control" disabled>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-md-1.8">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">
+                              <font size="4">ที่อยู่ : </font>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-11">
+                          <div class="form-group">
+                            <label class="bmd-label-floating" id="conveyaddr"></label>
+                            <input type="text" class="form-control" disabled>
+                          </div>
+                        </div>
+                      </div>
+  
+                      
+  
+                      <button type="button" onclick="JSalert('ยืนยันการสร้างใบสั่ง' , 4)" class="btn btn-info pull-right">ยืนยันสร้างใบสั่ง</button>
+                      
+                      <div class="clearfix"></div>
+                    </form>
+                  </div>
+                </div>
+
           </div>
 
           <!-- script notification------------------------------------------------------------------------------------------ -->
@@ -402,8 +446,12 @@
             var firstParam = "";
             var secondParam = "";
 
-            traffic.getMapReportcase(unitNo, offender, (error, res) => {
+       
+
+            traffic.getMapReportcase(uno, offender, (error, res) => {
               if (!error) {
+                $("#createDate").html(getRightnowDate());
+               $("#expiredDate").html(getExpired());
                 $("#charge").html(res[0]);
                 $("#place").html(res[1]);
                 $("#speed").html(res[2]);
@@ -412,12 +460,11 @@
               }
             });
 
-            traffic.getMapReporter(unitNo, reporter, (error, result) => {
+            traffic.getMapReporter(uno, reporter, (error, result) => {
               if (!error) {
 
                 $("#officename").html(result[0] + "");
                 firstParam = result[1]
-
                 officer.getUnitInfo(result[1], (error, res) => {
                   $("#unitname").html(res[0]);
                   $("#officeaddr").html(res[1] + "");
@@ -426,17 +473,19 @@
                 })
               }
             });
-
-            traffic.getMapConvey(unitNo, convey, (error, res) => {
+          
+              traffic.getMapConvey(uno, convey, (error, res) => {
               if (!error) {
-
                 $("#persno").html(res[0]);
                 $("#plate").html(res[1]);
                 $("#conveyname").html(res[2]);
                 $("#conveytel").html(res[3]);
                 $("#conveyaddr").html(res[4]);
+                
               }
             });
+            
+         
 
           </script>
 </body>
