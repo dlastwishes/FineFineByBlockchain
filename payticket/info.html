@@ -201,10 +201,8 @@
                         <td><label id="reporter_tel"> </label></td>
                     </tr>
                     <tr>
-                            <th scope="row">คำชี้แจงเพิ่มเติม</th>
+                            <th scope="row" colspan="2"> <a href="#" onclick="goToPolicy()"> <h5> คำชี้แจงเพิ่มเติม </h5> </a></th>
                         </tr>
-
-
 
                     <tr>
                             <th scope="row" colspan="2"><h5>โปรดตรวจสอบข้อมูลให้ถูกต้อง </h5></th>
@@ -295,12 +293,17 @@
                     $("#reportcase_description").html(result[4] + "")
 
                     traffic.getReporter(unitno, trafficno, personno, (error, result) => {
-                        $("#reporter_name").html(result[0]);
-                        $("#expired_date").html(result[2]);
+                        if( !error){
+                            console.log(result)
+                            $("#reporter_name").html(result[0]);
+                            $("#expired_date").html(result[2]);
+
                         officer.getUnitInfo(unitno , (error, res) => {
                             $("#reporter_office").html(res[0])
                             $("#reporter_tel").html(res[2])
-                        })
+                        });
+                        }
+                       
                     });
 
                 }

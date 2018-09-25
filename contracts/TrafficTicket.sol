@@ -1,18 +1,14 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.22;
 
 import "github.com/Arachnid/solidity-stringutils/src/strings.sol";
 
 contract trafficTicket {
     using strings for *;
     string[] trafficTicketNo;
-    
-    address owner = msg.sender;
-	
     struct reporter {
         string  rep_name;
         string rep_unit;
     }
-	
     struct report_case {
         string  _charge;
         string  _placeOfIncident;
@@ -20,7 +16,6 @@ contract trafficTicket {
         uint  _amountOfFine;
         string _description;
     }
-    
 	   struct conveyanceOwner{
 			string conv_personalNo;
 			string conv_plateNo;
@@ -28,61 +23,43 @@ contract trafficTicket {
 			string conv_tele;
 			string conv_address;
 		}
-	
     struct TrafficTicket{
         conveyanceOwner conveyList;
         reporter reporterList;
         report_case reportList;
+        string expire;
     }
-    
      mapping (string => uint) totalTicketInUnit;
-    
     mapping( string => mapping(string => TrafficTicket)) trafficList;
     mapping ( string => mapping(uint => string)) mapTargetPointToTicket;
-    
     conveyanceOwner private convey;
     reporter private reportInfo;
     report_case private report;
-    
     mapping(string => uint) numConvey;
     mapping(string => uint) numReportCase;
     mapping(string => uint) numReporter;
-    
     mapping( string => mapping (uint => conveyanceOwner)) mapConvey;
    mapping( string =>  mapping (uint => reporter)) mapReporter;
     mapping(string => mapping (uint => report_case)) mapReportCase;
     
-    modifier onlyOwner() {
-        require(msg.sender == owner);
-        _;
-    }
-	
 	modifier checkShowTicket(string unitNo , string _trafficticket , string personid ) {
-
 		require(_trafficticket.toSlice().len() > 0);
 		require(personid.toSlice().len() >0);
 		require(personid.toSlice().equals(trafficList[unitNo][_trafficticket].conveyList.conv_personalNo.toSlice()));
 	_;
 	}
-	
 	function getTotalTicketByUnit(string report_unit) public view returns (uint) {
 	    return (totalTicketInUnit[report_unit]);
 	}
-	
 	function getTotalTicket() public view returns (uint) {
 	    return (trafficTicketNo.length);
 	}
-	
 	function getTicket(string unitNo , string ticketNo) public view returns (string ,string){
 	    return (trafficList[unitNo][ticketNo].conveyList.conv_name , trafficList[unitNo][ticketNo].conveyList.conv_personalNo);
 	}
-	
 	function getTicketNo(string unitNo,uint num) public view returns (string) {
 	    return (mapTargetPointToTicket[unitNo][num]);
 	}
-	
-	//get point of data in map of ticket data
-	
 	function getReporterPoint(string unitNo) public view returns (uint) {
 	    return (numReporter[unitNo]);
 	}
@@ -95,7 +72,7 @@ contract trafficTicket {
 	    return (numReportCase[unitNo]);
 	}
 	
-	function getMapReportcase(string unitNo , uint pointer) public view returns (string , string , string ,uint,string) {
+	function getMapReportcase(string unitNo , uint8 pointer) public view returns (string , string , string ,uint,string) {
 	    return
 	       (mapReportCase[unitNo][pointer]._charge 
 	    , mapReportCase[unitNo][pointer]._placeOfIncident
@@ -108,15 +85,14 @@ contract trafficTicket {
 	    return (numConvey[unitNo]);
 	}
 	
-	function getMapConvey(string unitNo , uint pointer) public view returns (string , string ,string ,string ,string){
+	function getMapConvey(string unitNo , uint8 pointer) public view returns (string , string ,string ,string ,string){
 	    return(mapConvey[unitNo][pointer].conv_personalNo,
           mapConvey[unitNo][pointer].conv_plateNo,
           mapConvey[unitNo][pointer].conv_name,
         mapConvey[unitNo][pointer].conv_tele,
         mapConvey[unitNo][pointer].conv_address);
 	}
-    
-    function getConveyance(string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns (string , string , string , string , string)  {
+    function getConveyance(string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) view returns (string , string , string , string , string)  {
         return (trafficList[unitNo][id].conveyList.conv_personalNo
         , trafficList[unitNo][id].conveyList.conv_plateNo
         , trafficList[unitNo][id].conveyList.conv_name
@@ -124,12 +100,13 @@ contract trafficTicket {
         , trafficList[unitNo][id].conveyList.conv_address);
     }
     
-    function getReporter(string unitNo , string id , string _personalid) public checkShowTicket(unitNo ,id , _personalid) constant returns (string , string){
+    function getReporter(string unitNo , string id , string _personalid) public checkShowTicket(unitNo ,id , _personalid) view returns (string , string , string ){
         return (trafficList[unitNo][id].reporterList.rep_name
-         , trafficList[unitNo][id].reporterList.rep_unit);
+         , trafficList[unitNo][id].reporterList.rep_unit
+         , trafficList[unitNo][id].expire);
     }
     
-    function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) constant returns ( string ,string ,string , uint ,string){
+    function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) view returns ( string ,string ,string , uint ,string){
         
         return (trafficList[unitNo][id].reportList._charge , 
         trafficList[unitNo][id].reportList._placeOfIncident
@@ -138,17 +115,16 @@ contract trafficTicket {
         , trafficList[unitNo][id].reportList._description);
     }
 
-    function newTrafficTicket( string unitNo , uint reporterPoint , uint reportcasePoint , uint conveyPoint ,string trafficID) public{
-	
+    function newTrafficTicket( string unitNo , uint reporterPoint 
+    , uint reportcasePoint , uint conveyPoint 
+    ,string expired ,string trafficID) public{
 	    require(unitNo.toSlice().len() > 0);
-
          trafficList[unitNo][trafficID].conveyList =  mapConvey[unitNo][conveyPoint];
          trafficList[unitNo][trafficID].reporterList = mapReporter[unitNo][reporterPoint];
         trafficList[unitNo][trafficID].reportList = mapReportCase[unitNo][reportcasePoint];
-       
+        trafficList[unitNo][trafficID].expire = expired;
         uint totalTicketUnitIns = totalTicketInUnit[unitNo];
-        uint None = uint(0); 
-        if( totalTicketUnitIns == None ) {
+        if( totalTicketUnitIns == uint(0) ) {
             totalTicketUnitIns = 0;
         }
         totalTicketInUnit[unitNo] = totalTicketUnitIns+1;
@@ -159,61 +135,52 @@ contract trafficTicket {
        function setReport_case(string unitNo , string charge , string placeOfIncident , string speedDetection , uint amountOfFine , string description) public {
 	    require(unitNo.toSlice().len() > 0);
 	    require(amountOfFine > 0);
-	    uint None = uint(0); 
-	    if( numReportCase[unitNo] == None ) {
+	    if( numReportCase[unitNo] == uint(0) ) {
               uint init = 0;	
 	    	numReportCase[unitNo] = init;
         }
         uint reportcasePoint = numReportCase[unitNo];
-        report_case memory reportObject;
-        reportObject._charge = charge;
-        reportObject._placeOfIncident = placeOfIncident;
-        reportObject._speedDetection = speedDetection;
-        reportObject._amountOfFine = amountOfFine;
-        reportObject._description = description;
-        uint lastPoint = reportcasePoint+1;
+         uint lastPoint = reportcasePoint+1;
+        mapReportCase[unitNo][lastPoint]._charge = charge;
+        mapReportCase[unitNo][lastPoint]._placeOfIncident = placeOfIncident;
+        mapReportCase[unitNo][lastPoint]._speedDetection = speedDetection;
+        mapReportCase[unitNo][lastPoint]._amountOfFine = amountOfFine;
+        mapReportCase[unitNo][lastPoint]._description = description;
+       
         numReportCase[unitNo] = lastPoint;
-        mapReportCase[unitNo][lastPoint] = reportObject;
         
     }
    
-    
     function setReporter(string re_name , string re_unit) public {
         require(re_unit.toSlice().len() > 0);
         require(re_name.toSlice().len() > 0);
-        uint None = uint(0); 
-	    if( numReporter[re_unit] == None ) {
+	    if( numReporter[re_unit] == uint(0) ) {
               uint init = 0;	
 	         numReporter[re_unit] = init;
         }
         uint reporterPoint = numReporter[re_unit];
-        reporter memory reportObject;
-        reportObject.rep_name = re_name;
-        reportObject.rep_unit = re_unit;
-        uint lastPoint =reporterPoint +1;
+         uint lastPoint =reporterPoint +1;
+         mapReporter[re_unit][lastPoint].rep_name = re_name;
+         mapReporter[re_unit][lastPoint].rep_unit = re_unit;
+       
         numReporter[re_unit] = lastPoint;
-       mapReporter[re_unit][lastPoint] = reportObject;
       
     }
  
     function setConveyanceOwner(string unitNo , string conv_persNo , string _plate , string conv_na,string conv_tel,string conv_addr) public{
 		require(unitNo.toSlice().len() > 0);
-		 uint None = uint(0); 
-	    if( numConvey[unitNo] == None ) {
+	    if(numConvey[unitNo] == uint(0) ) {
               uint init = 0;	
 	         numConvey[unitNo] = init;
         }
          uint conveyPoint = numConvey[unitNo];
-        conveyanceOwner memory conveyIns;
-         conveyIns.conv_personalNo = conv_persNo;
-         conveyIns.conv_plateNo = _plate;
-        conveyIns.conv_name=conv_na;
-        conveyIns.conv_tele=conv_tel;
-        conveyIns.conv_address=conv_addr;
-       uint lastPoint = conveyPoint+1;
+          uint lastPoint = conveyPoint+1;
+         mapConvey[unitNo][lastPoint].conv_personalNo = conv_persNo;
+         mapConvey[unitNo][lastPoint].conv_plateNo = _plate;
+        mapConvey[unitNo][lastPoint].conv_name=conv_na;
+        mapConvey[unitNo][lastPoint].conv_tele=conv_tel;
+        mapConvey[unitNo][lastPoint].conv_address=conv_addr;
         numConvey[unitNo] = lastPoint;
-        mapConvey[unitNo][lastPoint] = conveyIns;
-   
     }
     
       function editReportCase( string unitNo , string id , string new_charge , string new_placeOfIncident , string new_speedDetection , uint new_amountOfFine , string new_description) public{
@@ -235,14 +202,6 @@ contract trafficTicket {
          trafficList[unitNo][id].conveyList.conv_name = new_conv_na;
         trafficList[unitNo][id].conveyList.conv_tele = new_conv_tel;
         trafficList[unitNo][id].conveyList.conv_address = new_conv_addr;
-    }
-    
-    function destroyTrafficTicket(string unitNo) public onlyOwner{
-        uint i = 0;
-        TrafficTicket memory ticketNull;
-        for (i ; i<trafficTicketNo.length;i++){
-            trafficList[unitNo][trafficTicketNo[i]] = ticketNull;
-        }
     }
     
 }

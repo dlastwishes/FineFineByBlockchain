@@ -87,7 +87,7 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <a href="dashboard.html">
+         
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                   <div class="card-header  card-header-info card-header-icon">
@@ -105,10 +105,10 @@
                     </div>
 
                   </div>
-            </a>
+            
           </div>
         </div>
-        <a href="dashboard-paid.html">
+      
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-header card-header-success card-header-icon">
@@ -121,11 +121,11 @@
               <div class="card-footer">
 
               </div>
-        </a>
+        
       </div>
     </div>
 
-    <a href="dashboard-not-pay.html">
+  
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
@@ -139,10 +139,10 @@
           <div class="card-footer">
 
           </div>
-    </a>
+    
   </div>
   </div>
-  <a href="dashboard-report.html">
+ 
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header  card-header-danger card-header-icon">
@@ -156,7 +156,7 @@
         <div class="card-footer">
        
         </div>
-  </a>
+  
   </div>
   </div>
   </div>
@@ -177,7 +177,7 @@
                     <th> เลขที่ใบสั่ง </th>
                     <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th>
                     <th> สถานะใบสั่ง </th>
-                    <th> วัน/เวลาที่ออกใบสั่ง </th>
+                    <th> วันครบกำหนดชำระ </th>
                     <th style='text-align: center'> ตัวเลือก</th>
                   </thead>
                   <tbody id='trafficList'>
@@ -188,8 +188,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
 
@@ -212,8 +210,15 @@
       payTicket.getTotalPayedTicketByUnit(uno, (error, result) => {
         let pay = result.c[0];
         $("#totalPay").html(pay);
+        $("#totalReport").html("0");
         let notpay = totalTicket - pay;
-        $("#totalNotPay").html(notpay);
+        if(notpay > 0){
+          $("#totalNotPay").html(notpay);
+        }
+        else {
+          $("#totalNotPay").html("0");
+        }
+       
       });
 
       $(document).ready(function () {

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.22;
 
 import "github.com/Arachnid/solidity-stringutils/src/strings.sol";
 
@@ -28,18 +28,16 @@ contract payTrafficTicket{
     function getPayerTraffic(string _trafficNo) public view returns (address){
         return ownerPayTraffic[_trafficNo];
     }
+    
     function isPay(string _trafficNo) public view returns (bool){
         require(_trafficNo.toSlice().len() >= 0);
-        
-        for (uint i = 0; i <= allTrafficListPay.length ; i++){
-           
+        bool status = false;
+        for (uint i = 0; i < allTrafficListPay.length ; i++){
             if(_trafficNo.toSlice().equals(allTrafficListPay[i].toSlice())){
-                return true;
-                      }
-            else {
-                return false;
+                status = true;
             }
         }
+        return status;
     }
     
     function checkBalance() public onlyOwner view returns (uint){
@@ -47,7 +45,7 @@ contract payTrafficTicket{
     }
     
     function getTotalPayTicket() public view returns (uint) {
-        return (allTrafficListPay.length+1);
+        return (allTrafficListPay.length);
     }
     
     function withdraw() public onlyOwner payable returns (bool){
@@ -71,17 +69,11 @@ contract payTrafficTicket{
             uint init = 0;
             totalTicketByUnit[unitNo] = init;
         }
-        
         uint numTicketInUnit = totalTicketByUnit[unitNo];
-    
          if(ownerPayTraffic[_trafficNo] == address(0)){
              allTrafficListPay.push(_trafficNo);
              totalTicketByUnit[unitNo] = numTicketInUnit+1;
              ownerPayTraffic[_trafficNo] = msg.sender;
          }
-        
-        
-       
         }
-    
 }

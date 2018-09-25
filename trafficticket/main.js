@@ -1,5 +1,5 @@
 var urlParams = new URLSearchParams(window.location.search);
-var username =  urlParams.get('username');
+var username = urlParams.get('username');
 var user = web3.toUtf8(username);
 var unitNo = urlParams.get('unitno');
 var uno = web3.toUtf8(unitNo);
@@ -9,7 +9,9 @@ var page = 30;
 var key = 0;
 var totalTicket = 0;
 var persno = urlParams.get('persno');
-var ticketno =  urlParams.get('ticketno');
+var ticketno = urlParams.get('ticketno');
+
+
 
 goToDashboard = () => {
     window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
@@ -59,9 +61,6 @@ JSalert = (textshow, choice) => {
                 else if (choice == 7) {
                     deleteTicket();
                 }
-                else if (choice == 8) {
-                    editUser();
-                }
             }
             else {
                 swal("ยกเลิกเรียบร้อย", "", "error");
@@ -70,7 +69,16 @@ JSalert = (textshow, choice) => {
 }
 
 editUser = () => {
-
+    officer.editOfficer.sendTransaction( uno , user , $("#officername").val() , (error , result) => {
+        if(!error)
+        {
+            alert('แก้ไขข้อมูลเสร็จสิ้น');
+            location.reload();
+        }
+        else{
+            alert("การแก้ไขผิดพลาด");
+        }
+    });
 }
 
 editReportcase = () => {
@@ -159,7 +167,7 @@ submitConveyance = () => {
 }
 
 getRightnowDate = () => {
-   return (getDateData(0));
+    return (getDateData(0));
 }
 
 getDateData = (delayTimeMonth) => {
@@ -180,7 +188,7 @@ getDateData = (delayTimeMonth) => {
 
     var day = date.getDate();
     var year = date.getFullYear() + 543;
-    return (day+" "+month[date.getMonth()+delayTimeMonth]+" "+year);
+    return (day + " " + month[date.getMonth() + delayTimeMonth] + " " + year);
 }
 
 getExpired = () => {
@@ -189,32 +197,33 @@ getExpired = () => {
 }
 
 setData = (init, desti) => {
-
     traffic.getTotalTicketByUnit(uno, (error, result) => {
-
         for (let i = init; i < desti; i++) {
-
             traffic.getTicketNo(uno, i, (error, result) => {
                 if (!error) {
-
                     if (result !== "") {
                         let ticketNo, conveyName;
                         ticketNo = result;
                         $("#reportcase_trafficNo" + i).html(ticketNo);
+
                         traffic.getTicket(uno, ticketNo, (error, res) => {
                             if (!error) {
                                 $("#convey_name" + i).html(res[0]);
+                                functionTicket.getExpired(uno , ticketNo, res[1], (error, result) => {
+                                    if (!error) {
+                                        console.log(result)
+                                        $("#expired"+i).html(result);
+                                    }
+                                });
                                 payTicket.isPay(ticketNo, (error, result) => {
                                     if (!error) {
                                         let status = "";
-
                                         if (result) {
                                             status = "จ่ายแล้ว";
                                         }
                                         else {
                                             status = "ยังไม่จ่าย";
                                         }
-                                        console.log(status);
                                         $("#status" + i).html(status);
                                     }
                                 })
@@ -226,7 +235,6 @@ setData = (init, desti) => {
         }
     })
 }
-
 
 createDataTable = (init, desti) => {
 
@@ -244,14 +252,14 @@ createDataTable = (init, desti) => {
                         if (res !== "") {
 
                             traffic.getTicket(uno, res, (error, result) => {
-                                console.log(result);
+                               
                                 persno = result[1];
                                 if (!error) {
 
                                     payTicket.isPay(res, (error, result) => {
                                         if (!error) {
                                             tableCode += "<tr style='text-align: center'>"
-                                            tableCode += " <td> <label>"+res+ "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='ticketDate" + i + "'> Not Available </label> </td>"
+                                            tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
                                             tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
                                             if (!result) {
                                                 tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
@@ -275,13 +283,12 @@ createDataTable = (init, desti) => {
 }
 
 submitOffender = () => {
-    let fine = parseInt($("#fineTotal").val());
     traffic.setReport_case.sendTransaction(
         uno
         , $("#chargeInfo").val()
         , $("#placeOfIncident").val()
         , $("#speedDetection").val()
-        , fine
+        , $("#fineTotal").val()
         , $("#description").val()
         , function (error, result) {
             if (!error) {
@@ -319,7 +326,6 @@ checkForm = () => {
 }
 
 newTicket = () => {
-
     traffic.getTotalTicketByUnit(uno, (error, res) => {
         if (!error) {
             secondParam = res.c[0] + 1;
@@ -329,7 +335,7 @@ newTicket = () => {
                 , parseInt(reporter)
                 , parseInt(offender)
                 , parseInt(convey)
-                , $("#expiredDate").val()
+                , document.getElementById("expiredDate").textContent
                 , ticketNo
                 , function (error, result) {
                     if (!error) {
@@ -346,6 +352,13 @@ newTicket = () => {
 }
 
 searchPersonByTicket = () => {
-    
-    $("#search_ticketinput").val()
+    functionTicket.searchPersonByTicket(uno, $("#search_ticketinput").val(), (error, res) => {
+        if (!error) {
+            if (res !== "")
+                window.location.replace("./view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + $("#search_ticketinput").val() + "&persno=" + res);
+            else
+                alert("ไม่พบข้อมูลใบสั่ง");
+        }
+
+    });
 }

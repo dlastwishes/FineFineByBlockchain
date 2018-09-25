@@ -1,3 +1,4 @@
+<script src="connect.js"> </script>
 <script src="main.js"></script>
 <script>
 
@@ -27,10 +28,10 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end">
         <label> </label>
-      <form action="#" onclick="" class="navbar-form">
+      <form action="#" class="navbar-form">
         <div class="input-group no-border">
           <input type="text" id="search_ticketinput" value="" class="form-control" name="keyword" placeholder="ระบุรหัสใบสั่ง">
-          <button type="submit" class="btn btn-white btn-round btn-just-icon">
+          <button type="button" onclick="searchPersonByTicket()" class="btn btn-white btn-round btn-just-icon">
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>
           </button>

@@ -1,4 +1,4 @@
-pragma solidity^0.4.17;
+pragma solidity^0.4.22;
 
 import "github.com/Arachnid/solidity-stringutils/src/strings.sol";
 
@@ -95,10 +95,12 @@ contract officer{
             prevLogin[msg.sender] = user;
     }
     
-    function editOfficer (string unitNo , string _usr 
-    , string _name) public checkPermission(_usr) checkOffice(_usr) returns (bool) {
+    function editOfficer (
+    string unitNo 
+    , string _usr 
+    , string _name) public checkPermission(_usr) checkOffice(_usr) {
         officerUser[unitNo][_usr].name = _name;
-        return true;
+        
     }
         
     function recoverUsr(string _usr , string _pass,string _repass) public checkOffice(_usr) returns (bool,string){
