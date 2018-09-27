@@ -17,6 +17,10 @@
         var personno = urlParams.get('personalno');
         var unitno = urlParams.get('unitno');
 
+        if(trafficno == "" || personno == "" || unitno == ""){
+            window.location.replace("index.html");
+        }
+
     </script>
     <style type="text/css">
      

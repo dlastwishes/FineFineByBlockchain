@@ -11,20 +11,10 @@ var totalTicket = 0;
 var persno = urlParams.get('persno');
 var ticketno = urlParams.get('ticketno');
 
-
-
-goToDashboard = () => {
-    window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-}
-goToCreateTicket = () => {
-    window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);
-}
-goToUserProfile = () => {
-    window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);
-}
-logout = () => {
-    window.location.replace("./index.html");
-}
+goToDashboard = () => {window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);}
+goToCreateTicket = () => {window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);}
+goToUserProfile = () => {window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);}
+logout = () => {window.location.replace("./index.html");}
 
 JSalert = (textshow, choice) => {
     swal({
@@ -133,7 +123,6 @@ submitReporter = () => {
                         window.location.replace("./create-tf-offender-info.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter);
                     }
                 })
-
             }
             else {
                 alert("เพิ่มข้อมูลผิดพลาด");
@@ -151,10 +140,8 @@ submitConveyance = () => {
         , $("#conv_addr").val()
         , function (error, result) {
             if (!error) {
-
                 traffic.getConveyancePoint(uno, (error, res) => {
                     if (!error) {
-
                         let conveyNo = parseInt(res.c[0]) + 1;
                         window.location.replace("./confirm-to-createtf.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter + "&offenderNo=" + offenderNo + "&convNo=" + conveyNo);
                     }
@@ -185,7 +172,6 @@ getDateData = (delayTimeMonth) => {
     month[9] = "ตุลาคม";
     month[10] = "พฤศจิกายน";
     month[11] = "ธันวาคม";
-
     var day = date.getDate();
     var year = date.getFullYear() + 543;
     return (day + " " + month[date.getMonth() + delayTimeMonth] + " " + year);
@@ -237,9 +223,7 @@ setData = (init, desti) => {
 }
 
 createDataTable = (init, desti) => {
-
     traffic.getTotalTicketByUnit(uno, (error, result1) => {
-
         if (!error) {
             totalTicket = result1.c[0];
             $("#totalTicket").html(totalTicket);
@@ -250,12 +234,9 @@ createDataTable = (init, desti) => {
 
                     if (!error) {
                         if (res !== "") {
-
-                            traffic.getTicket(uno, res, (error, result) => {
-                               
+                            traffic.getTicket(uno, res, (error, result) => {    
                                 persno = result[1];
                                 if (!error) {
-
                                     payTicket.isPay(res, (error, result) => {
                                         if (!error) {
                                             tableCode += "<tr style='text-align: center'>"
@@ -349,6 +330,10 @@ newTicket = () => {
         }
     });
 
+}
+
+generateQR = () => {
+    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmX4J9XhfcA7ipNh86mnKeDhxgUF1TaWS4xtNK1HW2xwSY/info.html?id="+ticketno+"&personalno="+personalno+"&unitno="+uno);
 }
 
 searchPersonByTicket = () => {
