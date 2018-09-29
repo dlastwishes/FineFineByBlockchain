@@ -29,9 +29,9 @@
     });
 
     if (username == null) {
-    alert("Error");
-    window.location.replace("index.html");
-}
+      alert("Error");
+      window.location.replace("index.html");
+    }
 
   </script>
 </head>
@@ -83,149 +83,157 @@
     <div class="main-panel">
 
       <div id='header'></div>
-   
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-         
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                  <div class="card-header  card-header-info card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons">content_copy</i>
-                    </div>
-                    <p class="card-category">ใบสั่งทั้งหมด</p>
-                    <h3 class="card-title" id="totalTicket">
-                      <small></small>
-                    </h3>
-                  </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                
-                    </div>
 
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header  card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
                   </div>
-            
-          </div>
-        </div>
-      
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon">
-                  <i class="fa fa-edit fa fa-check-square-o"></i>
+                  <p class="card-category">ใบสั่งทั้งหมด</p>
+                  <h3 class="card-title" id="totalTicket">
+                    <small></small>
+                  </h3>
                 </div>
-                <p class="card-category">ใบสั่งที่จ่ายแล้ว</p>
-                <h3 class="card-title" id="totalPay"></h3>
-              </div>
-              <div class="card-footer">
+                <div class="card-footer">
+                  <div class="stats">
+
+                  </div>
+
+                </div>
 
               </div>
-        
-      </div>
-    </div>
-
-  
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-warning card-header-icon">
-
-            <div class="card-icon">
-              <i class="fa fa-exclamation"></i>
             </div>
-            <p class="card-category">ใบสั่งที่ยังไม่จ่าย</p>
-            <h3 class="card-title" id="totalNotPay"></h3>
-          </div>
-          <div class="card-footer">
 
-          </div>
-    
-  </div>
-  </div>
- 
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header  card-header-danger card-header-icon">
-          <div class="card-icon">
-            <i class="material-icons">info_outline</i>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-edit fa fa-check-square-o"></i>
+                  </div>
+                  <p class="card-category">ใบสั่งที่จ่ายแล้ว</p>
+                  <h3 class="card-title" id="totalPay"></h3>
+                </div>
+                <div class="card-footer">
 
-          </div>
-          <p class="card-category">ใบสั่งที่ถูกรายงาน</p>
-          <h3 class="card-title" id="totalReport"></h3>
-        </div>
-        <div class="card-footer">
-       
-        </div>
-  
-  </div>
-  </div>
-  </div>
+                </div>
 
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-info">
-              <h4 class="card-title ">ใบสั่งทั้งหมด</h4>
-            
+              </div>
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class='table'>
-                  <thead class='' style='text-align: center'>
-                    <th> เลขที่ใบสั่ง </th>
-                    <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th>
-                    <th> สถานะใบสั่ง </th>
-                    <th> วันครบกำหนดชำระ </th>
-                    <th style='text-align: center'> ตัวเลือก</th>
-                  </thead>
-                  <tbody id='trafficList'>
-                  </tbody>
-                </table>
-                <button type="button" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+
+                  <div class="card-icon">
+                    <i class="fa fa-exclamation"></i>
+                  </div>
+                  <p class="card-category">ใบสั่งที่ยังไม่จ่าย</p>
+                  <h3 class="card-title" id="totalNotPay"></h3>
+                </div>
+                <div class="card-footer">
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header  card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">info_outline</i>
+
+                  </div>
+                  <p class="card-category">ใบสั่งที่ถูกรายงาน</p>
+                  <h3 class="card-title" id="totalReport"></h3>
+                </div>
+                <div class="card-footer">
+
+                </div>
+
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <script src="j.js"></script>
-          <link rel="stylesheet" href="c.css">
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-info">
+                      <h4 class="card-title ">ใบสั่งทั้งหมด</h4>
 
-    <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
-    <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class='table'>
+                          <thead class='' style='text-align: center'>
+                            <th> เลขที่ใบสั่ง </th>
+                            <th> ชื่อ-นามสกุล ผู้กระทำความผิด </th>
+                            <th> สถานะใบสั่ง </th>
+                            <th> วันครบกำหนดชำระ </th>
+                            <th style='text-align: center'> ตัวเลือก</th>
+                          </thead>
+                          <tbody id='trafficList'>
+                          </tbody>
+                        </table>
+                        <button type="button" class="btn btn-info pull-right" onclick="createDataTable(0,50)">ดูเพิ่ม</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <script src="assets/js/plugins/bootstrap-notify.js"></script>
+            <script src="j.js"></script>
+            <link rel="stylesheet" href="c.css">
 
-    <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+            <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+            <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-    <script src="assets/demo/demo.js"></script>
+            <script src="assets/js/plugins/bootstrap-notify.js"></script>
 
-    <script>
+            <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
 
-      payTicket.getTotalPayedTicketByUnit(uno, (error, result) => {
-        let pay = result.c[0];
-        $("#totalPay").html(pay);
-        $("#totalReport").html("0");
-        let notpay = totalTicket - pay;
-        if(notpay > 0){
-          $("#totalNotPay").html(notpay);
-        }
-        else {
-          $("#totalNotPay").html("0");
-        }
-       
-      });
+            <script src="assets/demo/demo.js"></script>
 
-      $(document).ready(function () {
-        md.initDashboardPageCharts();
-      });
+            <script>
+              traffic.getTotalTicketByUnit(uno, (error, result1) => {
+                if (!error) {
+                  var total = result1.c[0];
+                  
+                  payTicket.getTotalPayedTicketByUnit(uno, (error, result2) => {
+                    let pay = result2.c[0];
+                    $("#totalTicket").html(totalTicket);
+                    $("#totalPay").html(pay);
+                    let notpay = total - pay;
+                    if (notpay > 0) {
+                      $("#totalNotPay").html(notpay);
+                    }
+                    else {
+                      $("#totalNotPay").html("0");
+                    }
+                  });
+                  $("#totalReport").html("0");
+                }
 
-    </script>
+              });
+
+
+
+              $(document).ready(function () {
+                md.initDashboardPageCharts();
+              });
+
+            </script>
 </body>
 
 </html>

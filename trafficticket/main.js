@@ -196,7 +196,7 @@ setData = (init, desti) => {
                                 $("#convey_name" + i).html(res[0]);
                                 functionTicket.getExpired(uno, ticketNo, res[1], (error, result) => {
                                     if (!error) {
-                                        console.log(result)
+
                                         $("#expired" + i).html(result);
                                     }
                                 });
@@ -211,7 +211,7 @@ setData = (init, desti) => {
                                         }
                                         $("#status" + i).html(status);
                                     }
-                                })
+                                });
                             }
                         });
                     }
@@ -225,33 +225,40 @@ createDataTable = (init, desti) => {
     traffic.getTotalTicketByUnit(uno, (error, result1) => {
         if (!error) {
             totalTicket = result1.c[0];
-            $("#totalTicket").html(totalTicket);
+           
             page += 5;
             for (let i = init; i < desti; i++) {
-
+                var edit_status = false;
                 traffic.getTicketNo(uno, i, (error, res) => {
 
                     if (!error) {
                         if (res !== "") {
-                            traffic.getTicket(uno, res, (error, result) => {
-                                persno1 = result[1];
-                                if (!error) {
-                                    payTicket.isPay(res, (error, result) => {
-                                        if (!error) {
-                                            tableCode += "<tr style='text-align: center'>"
-                                            tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
-                                            tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno1 + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
-                                            if (!result) {
-                                                tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno1 + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
-                                            }
-                                            tableCode += "</tr>"
-                                            $("#trafficList").html(tableCode);
-                                            key++;
-                                        }
-                                    });
 
+
+                            payTicket.isPay(res, (error, result12) => {
+                                if (!error) {
+                                   
+                                        traffic.getTicket(uno, res, (error, result) => {
+                                            if (!error) {
+                                                console.log("person " + result);
+                                                tableCode += "<tr style='text-align: center'>"
+                                                tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
+                                                tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
+                                                if (!result12) {
+                                                    tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
+                                                }
+
+                                                tableCode += "</tr>"
+                                                $("#trafficList").html(tableCode);
+                                                key++;
+                                            }
+                                        });
+                                    
                                 }
                             });
+
+
+
                         }
                     }
                     index++;
@@ -332,7 +339,7 @@ newTicket = () => {
 }
 
 generateQR = () => {
-    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmX4J9XhfcA7ipNh86mnKeDhxgUF1TaWS4xtNK1HW2xwSY/info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
+    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmUrdqxwZpS2goQm8kzKY5SE52wkLaTnr3UmFLPqwvJcaF/info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
 }
 
 searchPersonByTicket = () => {
