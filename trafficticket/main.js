@@ -11,10 +11,10 @@ var totalTicket = 0;
 var persno = urlParams.get('persno');
 var ticketno = urlParams.get('ticketno');
 
-goToDashboard = () => {window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);}
-goToCreateTicket = () => {window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo);}
-goToUserProfile = () => {window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo);}
-logout = () => {window.location.replace("./index.html");}
+goToDashboard = () => { window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo); }
+goToCreateTicket = () => { window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo); }
+goToUserProfile = () => { window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo); }
+logout = () => { window.location.replace("./index.html"); }
 
 JSalert = (textshow, choice) => {
     swal({
@@ -59,13 +59,12 @@ JSalert = (textshow, choice) => {
 }
 
 editUser = () => {
-    officer.editOfficer.sendTransaction( uno , user , $("#officername").val() , (error , result) => {
-        if(!error)
-        {
+    officer.editOfficer.sendTransaction(uno, user, $("#officername").val(), (error, result) => {
+        if (!error) {
             alert('แก้ไขข้อมูลเสร็จสิ้น');
             location.reload();
         }
-        else{
+        else {
             alert("การแก้ไขผิดพลาด");
         }
     });
@@ -195,10 +194,10 @@ setData = (init, desti) => {
                         traffic.getTicket(uno, ticketNo, (error, res) => {
                             if (!error) {
                                 $("#convey_name" + i).html(res[0]);
-                                functionTicket.getExpired(uno , ticketNo, res[1], (error, result) => {
+                                functionTicket.getExpired(uno, ticketNo, res[1], (error, result) => {
                                     if (!error) {
                                         console.log(result)
-                                        $("#expired"+i).html(result);
+                                        $("#expired" + i).html(result);
                                     }
                                 });
                                 payTicket.isPay(ticketNo, (error, result) => {
@@ -234,16 +233,16 @@ createDataTable = (init, desti) => {
 
                     if (!error) {
                         if (res !== "") {
-                            traffic.getTicket(uno, res, (error, result) => {    
-                                persno = result[1];
+                            traffic.getTicket(uno, res, (error, result) => {
+                                persno1 = result[1];
                                 if (!error) {
                                     payTicket.isPay(res, (error, result) => {
                                         if (!error) {
                                             tableCode += "<tr style='text-align: center'>"
                                             tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
-                                            tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
+                                            tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno1 + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button>   </a>"
                                             if (!result) {
-                                                tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
+                                                tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + persno1 + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
                                             }
                                             tableCode += "</tr>"
                                             $("#trafficList").html(tableCode);
@@ -333,7 +332,7 @@ newTicket = () => {
 }
 
 generateQR = () => {
-    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmX4J9XhfcA7ipNh86mnKeDhxgUF1TaWS4xtNK1HW2xwSY/info.html?id="+ticketno+"&personalno="+personalno+"&unitno="+uno);
+    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmX4J9XhfcA7ipNh86mnKeDhxgUF1TaWS4xtNK1HW2xwSY/info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
 }
 
 searchPersonByTicket = () => {
