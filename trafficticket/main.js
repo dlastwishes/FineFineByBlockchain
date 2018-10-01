@@ -247,18 +247,13 @@ createDataTable = (init, desti) => {
                                                 if (!result12) {
                                                     tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
                                                 }
-
                                                 tableCode += "</tr>"
                                                 $("#trafficList").html(tableCode);
                                                 key++;
                                             }
                                         });
-                                    
                                 }
                             });
-
-
-
                         }
                     }
                     index++;
@@ -279,7 +274,6 @@ submitOffender = () => {
         , $("#description").val()
         , function (error, result) {
             if (!error) {
-
                 traffic.getReportcasePoint(uno, (error, res) => {
                     if (!error) {
                         let offenderNo = parseInt(res.c[0]) + 1;
