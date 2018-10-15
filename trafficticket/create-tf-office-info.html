@@ -18,7 +18,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  <script src="connect.js"></script> 
+  <script src="connect.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script>
@@ -34,46 +34,48 @@
   <div class="wrapper ">
 
     <script src="main.js"></script>
-  
-    
-    
-    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/">
-   
+
+
+
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="assets/img/sidebar-2.jpg">
+
       <div class="logo">
         <a href="" class="simple-text logo-normal">
-          FineFine
+            <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
+              FineFine
+            </center>
         </a>
       </div>
       <div class="sidebar-wrapper">
-          <ul class="nav ">
-            <li class="nav-item  ">
-              <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
-                <i class="fa fa-clone"></i>
-                <p>ใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item  active">
-              <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
-                <i class="fa fa-edit fa"></i>
-                <p>สร้างใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="#" onclick="goToUserProfile()">
-                <i class="material-icons">person</i>
-                <p>ข้อมูลผู้ใช้</p>
-              </a>
-            </li>
-  
-            <li class="nav-item active-pro ">
-              <a class="nav-link" href="#" onclick="logout()">
-                <i class="fa fa-sign-out"></i>
-                <p>ออกจากระบบ</p>
-              </a>
-            </li>
-          </ul>
-        </div>
-      
+        <ul class="nav ">
+          <li class="nav-item  ">
+            <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
+              <i class="fa fa-clone"></i>
+              <p>ใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item  active">
+            <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
+              <i class="fa fa-edit fa"></i>
+              <p>สร้างใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="goToUserProfile()">
+              <i class="material-icons">person</i>
+              <p>ข้อมูลผู้ใช้</p>
+            </a>
+          </li>
+
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="#" onclick="logout()">
+              <i class="fa fa-sign-out"></i>
+              <p>ออกจากระบบ</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <div class="main-panel">
@@ -204,9 +206,9 @@
                 $("#nameUnit").html(res[0]);
                 $("#addrOfficer").html(res[1]);
                 $("#telOfficer").html(res[2]);
-              $("#zipcodeOfficer").html(res[3]);
+                $("#zipcodeOfficer").html(res[3]);
               });
-            
+
             }
           });
 

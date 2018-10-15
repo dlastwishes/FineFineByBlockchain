@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="connect.js"></script>
-  
+
   <script>
     $(function () {
       $("#header").load("./header.html");
@@ -26,13 +26,15 @@
 </head>
 
 <body>
-    <script src="main.js"></script>
+  <script src="main.js"></script>
   <div class="wrapper">
-    <div class="sidebar" data-color="azure" data-background-color="white" data-image="assets/img/">
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="assets/img/sidebar-2.jpg">
 
       <div class="logo">
         <a href="" class="simple-text logo-normal">
+         <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
           FineFine
+        </center>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -160,7 +162,7 @@
                     </div>
 
                     <button type="button" onclick="editUser()" class="btn btn-info pull-right">แก้ไขข้อมูล</button>
-  
+
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -176,11 +178,11 @@
                   </a>
                 </div>
 
-                <div class="card-body" ><br>
+                <div class="card-body"><br>
 
                   <h3 class="card-category" id="officeDesc"></h3>
                   <h4 class="card-title" id="usernameofficerDesc"></h4>
-              
+
                   <p class="card-description" id="description"></p>
                 </div>
               </div>
