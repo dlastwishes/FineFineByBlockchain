@@ -20,7 +20,7 @@
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
-    <script src="connect.js"></script>
+  <script src="connect.js"></script>
   <script>
     var urlParams = new URLSearchParams(window.location.search);
     var reporter = urlParams.get('reporter');
@@ -39,7 +39,7 @@
 <body>
   <div class="wrapper">
 
-      <script src="main.js"></script>
+    <script src="main.js"></script>
     <!-- Navbar for header  -->
 
 
@@ -51,41 +51,47 @@
         -->
       <div class="logo">
         <a href="" class="simple-text logo-normal">
-            <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
-              FineFine
-            </center>
+          <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
+            FineFine
+          </center>
         </a>
       </div>
 
       <div class="sidebar-wrapper">
-          <ul class="nav ">
-            <li class="nav-item ">
-              <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
-                <i class="fa fa-clone"></i>
-                <p>ใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item  active">
-              <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
-                <i class="fa fa-edit fa"></i>
-                <p>สร้างใบสั่ง</p>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="#" onclick="goToUserProfile()">
-                <i class="material-icons">person</i>
-                <p>ข้อมูลผู้ใช้</p>
-              </a>
-            </li>
-  
-            <li class="nav-item active-pro ">
-              <a class="nav-link" href="#" onclick="logout()">
-                <i class="fa fa-sign-out"></i>
-                <p>ออกจากระบบ</p>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class="nav ">
+          <li class="nav-item ">
+            <a class="nav-link" id="dashboardNav" href="#" onclick="goToDashboard()">
+              <i class="fa fa-clone"></i>
+              <p>ใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item  active">
+            <a class="nav-link" id="createTicketNav" href="#" onclick="goToCreateTicket()">
+              <i class="fa fa-edit fa"></i>
+              <p>สร้างใบสั่ง</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="goToUserProfile()">
+              <i class="material-icons">person</i>
+              <p>ข้อมูลผู้ใช้</p>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link" href="./ADMINcreate-new-ofiicer.html">
+              <i class="fa fa-user-plus"></i>
+              <p>เพิ่มเจ้าหน้าที่</p>
+            </a>
+          </li>
+
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="#" onclick="logout()">
+              <i class="fa fa-sign-out"></i>
+              <p>ออกจากระบบ</p>
+            </a>
+          </li>
+        </ul>
+      </div>
 
     </div>
 
@@ -98,7 +104,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                
+
                 <div class="card-header card-header-info">
                   <h4 class="card-title">ยืนยันการสร้างใบสั่ง</h4>
                   <p class="card-category" style="color:white">ช้อมูลสถานีตำรวจ</p>
@@ -182,7 +188,7 @@
                       </div>
                     </div>
                 </div>
-                  <div class="clearfix"></div>
+                <div class="clearfix"></div>
                 </form>
               </div>
             </div>
@@ -190,7 +196,7 @@
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">ข้อมูลความผิด</h4>
-             
+
                 </div>
                 <div class="card-body">
                   <form>
@@ -224,7 +230,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row"> 
+                    <div class="row">
                       <div class="col-md-1.2">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -295,7 +301,7 @@
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">ข้อมูลใบสั่งเพิ่มเติม</h4>
-                 
+
                 </div>
                 <div class="card-body">
                   <form>
@@ -328,7 +334,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -336,159 +342,159 @@
             </div>
 
             <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-info">
-                    <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
-                   
-                  </div>
-                  <div class="card-body">
-                    <form>
-                      <div class="row">
-                        <div class="col-md-2.3">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">
-                              <font size="4">เลขที่บัตรประชาชน : </font>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" id="persno"></label>
-                            <input type="text" class="form-control" disabled>
-                          </div>
-                        </div>
-  
-  
-                        <div class="col-md-1.8">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">
-                              <font size="4">เลขทะเบียนรถ : </font>
-                            </label>
-  
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" id="plate"></label>
-                            <input type="text" class="form-control" disabled>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-1.9">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">
-                              <font size="4">ชื่อ-นามสกุล : </font>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" id="conveyname"></label>
-                            <input type="password" class="form-control" disabled>
-                          </div>
-                        </div>
-  
-                        <div class="col-md-2.5">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">
-                              <font size="4">เบอร์โทร : </font>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-md-5">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" id="conveytel"></label>
-                            <input type="text" class="form-control" disabled>
-                          </div>
-                        </div>
-                      </div>
-  
-                      <div class="row">
-                        <div class="col-md-1.8">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">
-                              <font size="4">ที่อยู่ : </font>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-md-11">
-                          <div class="form-group">
-                            <label class="bmd-label-floating" id="conveyaddr"></label>
-                            <input type="text" class="form-control" disabled>
-                          </div>
-                        </div>
-                      </div>
-  
-                      
-  
-                      <button type="button" onclick="JSalert('ยืนยันการสร้างใบสั่ง' , 4)" class="btn btn-info pull-right">ยืนยันสร้างใบสั่ง</button>
-                      
-                      <div class="clearfix"></div>
-                    </form>
-                  </div>
+              <div class="card">
+                <div class="card-header card-header-info">
+                  <h4 class="card-title">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</h4>
+
                 </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-2.3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">เลขที่บัตรประชาชน : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="persno"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
 
-          </div>
 
-          <!-- script notification------------------------------------------------------------------------------------------ -->
+                      <div class="col-md-1.8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">เลขทะเบียนรถ : </font>
+                          </label>
 
-          <script src="j.js"></script>
-          <link rel="stylesheet" href="c.css">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="plate"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-1.9">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">ชื่อ-นามสกุล : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="conveyname"></label>
+                          <input type="password" class="form-control" disabled>
+                        </div>
+                      </div>
 
-          <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
-          <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
-          <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-          <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-          <script src="assets/js/plugins/chartist.min.js"></script>
-          <script src="assets/js/plugins/bootstrap-notify.js"></script>
-          <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-          <script src="assets/demo/demo.js"></script>
-          <script>
-            var firstParam = "";
-            var secondParam = "";
+                      <div class="col-md-2.5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">เบอร์โทร : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="conveytel"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
 
-       
+                    <div class="row">
+                      <div class="col-md-1.8">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">ที่อยู่ : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-11">
+                        <div class="form-group">
+                          <label class="bmd-label-floating" id="conveyaddr"></label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
 
-            traffic.getMapReportcase(uno, offender, (error, res) => {
-              if (!error) {
-                $("#createDate").html(getRightnowDate());
-               $("#expiredDate").html(getExpired());
-                $("#charge").html(res[0]);
-                $("#place").html(res[1]);
-                $("#speed").html(res[2]);
-                $("#fine").html(res[3] + "");
-                $('#description').html(res[4]);
-              }
-            });
 
-            traffic.getMapReporter(uno, reporter, (error, result) => {
-              if (!error) {
 
-                $("#officename").html(result[0] + "");
-                firstParam = result[1]
-                officer.getUnitInfo(result[1], (error, res) => {
-                  $("#unitname").html(res[0]);
-                  $("#officeaddr").html(res[1] + "");
-                  $("#officetel").html(res[2] + "");
-                  $("#zipcode").html(res[3] + "");
-                })
-              }
-            });
-          
+                    <button type="button" onclick="JSalert('ยืนยันการสร้างใบสั่ง' , 4)" class="btn btn-info pull-right">ยืนยันสร้างใบสั่ง</button>
+
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- script notification------------------------------------------------------------------------------------------ -->
+
+            <script src="j.js"></script>
+            <link rel="stylesheet" href="c.css">
+
+            <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+            <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+            <script src="assets/js/plugins/chartist.min.js"></script>
+            <script src="assets/js/plugins/bootstrap-notify.js"></script>
+            <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+            <script src="assets/demo/demo.js"></script>
+            <script>
+              var firstParam = "";
+              var secondParam = "";
+
+
+
+              traffic.getMapReportcase(uno, offender, (error, res) => {
+                if (!error) {
+                  $("#createDate").html(getRightnowDate());
+                  $("#expiredDate").html(getExpired());
+                  $("#charge").html(res[0]);
+                  $("#place").html(res[1]);
+                  $("#speed").html(res[2]);
+                  $("#fine").html(res[3] + "");
+                  $('#description').html(res[4]);
+                }
+              });
+
+              traffic.getMapReporter(uno, reporter, (error, result) => {
+                if (!error) {
+
+                  $("#officename").html(result[0] + "");
+                  firstParam = result[1]
+                  officer.getUnitInfo(result[1], (error, res) => {
+                    $("#unitname").html(res[0]);
+                    $("#officeaddr").html(res[1] + "");
+                    $("#officetel").html(res[2] + "");
+                    $("#zipcode").html(res[3] + "");
+                  })
+                }
+              });
+
               traffic.getMapConvey(uno, convey, (error, res) => {
-              if (!error) {
-                $("#persno").html(res[0]);
-                $("#plate").html(res[1]);
-                $("#conveyname").html(res[2]);
-                $("#conveytel").html(res[3]);
-                $("#conveyaddr").html(res[4]);
-              }
-            });
-            
-         
+                if (!error) {
+                  $("#persno").html(res[0]);
+                  $("#plate").html(res[1]);
+                  $("#conveyname").html(res[2]);
+                  $("#conveytel").html(res[3]);
+                  $("#conveyaddr").html(res[4]);
+                }
+              });
 
-          </script>
+
+
+            </script>
 </body>
 
 </html>
