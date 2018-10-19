@@ -14,6 +14,7 @@ var ticketno = urlParams.get('ticketno');
 goToDashboard = () => { window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo); }
 goToCreateTicket = () => { window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo); }
 goToUserProfile = () => { window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo); }
+gotoCreateOfficer = () => {window.location.replace("./create-new-ofiicer.html?username=" + username + "&unitno=" + unitNo); }
 logout = () => { window.location.replace("./index.html"); }
 
 JSalert = (textshow, choice) => {
@@ -50,6 +51,15 @@ JSalert = (textshow, choice) => {
                 }
                 else if (choice == 7) {
                     deleteTicket();
+                }
+                else if(choice == 8) {
+                    if($("#pass").val() == $("#repass").val()){
+                        newOfficer();
+                        
+                    }
+                else {
+                    swal("รหัสผ่านไม่ตรงกัน", "", "error");
+                }
                 }
             }
             else {
@@ -304,6 +314,22 @@ checkForm = () => {
     else {
         JSalert()
     }
+}
+
+newOfficer = () => {
+    officer.newOfficer.sendTransaction(
+        uno 
+        , $("#username").val()
+        , $("#pass").val()
+        , $("#officername").val() 
+        , function (error, result) {
+            if (!error) {
+                window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
+            }
+            else {
+                alert("การสร้างใบสั่งผิดพลาด");
+                console.log(result + error)
+            }});
 }
 
 newTicket = () => {

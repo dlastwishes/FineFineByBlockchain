@@ -21,13 +21,8 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="connect.js"></script>
+  <script src="main.js"></script>
   <script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var reporter = urlParams.get('reporter');
-    var offender = urlParams.get('offenderNo');
-    var convey = urlParams.get('convNo');
-
-    var ticketNo = "";
 
     $(function () {
       $("#header").load("header.html");
@@ -39,7 +34,7 @@
 <body>
   <div class="wrapper">
 
-    <script src="main.js"></script>
+    
     <!-- Navbar for header  -->
 
 
@@ -78,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item  active">
-            <a class="nav-link" href="./ADMINcreate-new-ofiicer.html">
+            <a class="nav-link" href="#" onclick="gotoCreateOfficer()">
               <i class="fa fa-user-plus"></i>
               <p>เพิ่มเจ้าหน้าที่</p>
             </a>
@@ -121,9 +116,12 @@
                       <div class="col-md-5">
                         <div class="form-group">
 
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="username" placeholder="ป้อนชื่อผู้ใช้ของเจ้าหน้าที่ใหม่" required>
                         </div>
                       </div>
+               
+                    </div>
+                    <div class="row">
                       <div class="col-md-1.5">
                         <div class="form-group">
                           <label class="bmd-label-floating">
@@ -134,10 +132,23 @@
                       <div class="col-md-5">
                         <div class="form-group">
 
-                          <input type="text" class="form-control" required>
+                          <input type="password" class="form-control" id="pass" placeholder="ป้อนรหัสผ่านของเจ้าหน้าที่ใหม่" required>
+                        </div>
+                      </div>
+                      <div class="col-md-1.5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">รหัสผ่านอีกครั้ง : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <input type="password" class="form-control" id="repass" placeholder="ป้อนรหัสผ่านของเจ้าหน้าที่ใหม่อีกครั้ง" required>
                         </div>
                       </div>
                     </div>
+
                     <div class="row">
                       <div class="col-md-1.5">
                         <div class="form-group">
@@ -149,7 +160,7 @@
                       <div class="col-md-11">
                         <div class="form-group">
 
-                          <input type="password" class="form-control" required>
+                          <input type="text" class="form-control" id="officername" placeholder="ชื่อ-นามสกุล ของเจ้าหน้าที่ใหม่" required>
                         </div>
                       </div>
                     </div>
@@ -164,7 +175,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
 
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="office" disabled>
                         </div>
                       </div>
                       <div class="col-md-1.5">
@@ -176,7 +187,7 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control"id="address" disabled>
                         </div>
                       </div>
                     </div>
@@ -190,7 +201,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="tel" disabled>
                         </div>
                       </div>
                       <div class="col-md-1.5">
@@ -203,12 +214,12 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           
-                          <input type="text" class="form-control" required>
+                          <input type="text" class="form-control" id="zipcode" disabled>
                         </div>
                       </div>
                     </div>
-
-                    <a href=""> <button type="submit" class="btn btn-light pull-right">เพิ่มเจ้าหน้าที่</button></a>
+                  
+                    <button type="button" onclick="JSalert('ยืนยันการเพิ่มเจ้าหน้าที่ใหม่' ,8)" class="btn btn-light pull-right">เพิ่มเจ้าหน้าที่</button>
 
                     <div class="clearfix"></div>
                   </form>
@@ -220,21 +231,33 @@
 
           </div>
         </div>
-        <!--   Core JS Files   -->
+        <script src="j.js"></script>
+         <link rel="stylesheet" href="c.css">
+
         <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
         <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
         <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
         <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-        <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <!-- Chartist JS -->
         <script src="assets/js/plugins/chartist.min.js"></script>
-        <!--  Notifications Plugin    -->
         <script src="assets/js/plugins/bootstrap-notify.js"></script>
-        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-        <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
+        <script>
+          officer.getUnitInfo(uno, (error, result) => {
+
+            if (!error) {
+             
+      
+              document.getElementById("office").placeholder = result[0];
+             
+              document.getElementById("address").placeholder = result[1];
+              document.getElementById("tel").placeholder = result[2];
+              document.getElementById("zipcode").placeholder = result[3];
+      
+            }
+      
+          });
+        </script>
 </body>
 
 </html>

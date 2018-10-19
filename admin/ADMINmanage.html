@@ -22,11 +22,7 @@
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
-  <script> 
-    $(function () {
-      $("#header").load("header.html");
-    });
-  </script>
+
 </head>
 
 <body>
@@ -120,33 +116,84 @@
 
       
 
-      <div class="content">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-warning">
-                    <h4 class="card-title">เพิ่มเจ้าหน้าที่</h4>
-                    <!-- <p class="card-category">ข้อมูลอ้างอิงตามเลขทะเบียนรถ</p> -->
-                  </div>
-                  <div class="card-body">
-                    <form>
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-warning">
+                      <h4 class="card-title ">ข้อมูลเจ้าหน้าที่</h4>
+                      <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="" style="text-align: center">
+                            <th>
+                              ลำดับที่
+                            </th>
+                            <th>
+                              ชื่อผู้ใช้
+                            </th>
+                            <th>
+                              รหัสผ่าน
+                            </th>
+                            <th>
+                              ชื่อ-นามสกุล
+                            </th>
+                            <th>
+                              หน่วยงาน
+                            </th>
+                            <th>
+                              วัน/เวลาที่เพิ่ม
+                            </th>
+                            <th>
+                              เบอร์โทร
+                            </th>
+                            <th style="text-align: center">
+                              ตัวเลือก
+                            </th>
+
+
+                          </thead>
+                          <tbody>
+                            <tr style="text-align: center">
+                              <td>
+                                1
+                              </td>
+                              <td>
+                                Dakota Rice
+                              </td>
+                              <td>
+                                Niger
+                              </td>
+                              <td>16/12/22 15:21:21</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+
+                              <td>
+                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                                </button>
+                              </td>
+
+
+                            </tr>
                       
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            
-                            <input type="text" class="form-control" required>
-                          </div>
-                        </div>
+                          </tbody>
+                        </table>
                       </div>
-  
-                      <a href=""> <button type="submit" class="btn btn-light pull-right">เพิ่มเจ้าหน้าที่</button></a>
-  
-                      <div class="clearfix"></div>
-                    </form>
+                    </div>
                   </div>
                 </div>
+
+                
               </div>
+            </div>
             <!--   Core JS Files   -->
             <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
             <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
