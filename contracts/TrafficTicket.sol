@@ -24,6 +24,7 @@ contract trafficTicket {
 			string conv_address;
 		}
     struct TrafficTicket{
+        
         conveyanceOwner conveyList;
         reporter reporterList;
         report_case reportList;

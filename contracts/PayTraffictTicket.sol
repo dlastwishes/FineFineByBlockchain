@@ -19,12 +19,10 @@ contract payTrafficTicket{
         require(msg.sender == payOwner);
         _;
     }
-    
     modifier checkDuplicateTransaction(string trafficno) {
         require(ownerPayTraffic[trafficno] == address(0));
         _;
     }
-    
     function getPayerTraffic(string _trafficNo) public view returns (address){
         return ownerPayTraffic[_trafficNo];
     }
