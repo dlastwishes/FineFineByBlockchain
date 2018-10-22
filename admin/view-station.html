@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    เพิ่มสถานีตำรวจ
+    ดูข้อมูลสถานีตำรวจ
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -20,6 +20,11 @@
     <script src="connect.js"> </script>
     <script src="main-admin.js"> </script>
 </head>
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+var unitparam = urlParams.get('searchUnit');
+
+</script>
 
 <body>
   <div class="wrapper">
@@ -56,9 +61,9 @@
       </div>
     </div>
     <div class="main-panel">
-
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="#">ยินดีต้อนรับสู่ระบบบริหารจัดการทรัพยากรมวลมนุษยชาติ</a>
@@ -104,7 +109,6 @@
       </nav>
       <!-- End Navbar -->
 
-
       <div class="content">
           <div class="container-fluid">
                 
@@ -112,22 +116,11 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header card-header-warning">
-                    <h4 class="card-title">เพิ่มสถานีตำรวจใหม่</h4>
+                    <h4 class="card-title">ข้อมูสลถานีตำรวจ</h4>
                     
                   </div>
                   <div class="card-body">
                       <form>
-                          <div class="row"> 
-                              <div class="col-md-5">
-                                  <div class="form-group">
-                                    <center>
-                                    <label class="bmd-label-floating">
-                                        <font size="4" color="red"> ** มีแค่เจ้าหน้าที่สูงสุดเท่านั้น ที่จะมีสิทธิ์ในการเพิ่มสถานีตำรวจ </font>
-                                    </label>
-                                    </center>
-                                  </div>
-                                </div>
-                           </div>
                           <div class="row">
                             <div class="col-md-2">
                               <div class="form-group">
@@ -139,7 +132,7 @@
                             <div class="col-md-3">
                               <div class="form-group">
       
-                                <input type="text" class="form-control" id="stationid" required>
+                                <input type="text" class="form-control" id="stationid" disabled>
                               </div>
                             </div>
                             <div class="col-md-1.5">
@@ -152,7 +145,7 @@
                             <div class="col-md-5">
                               <div class="form-group">
       
-                                <input type="text" class="form-control" id="stationname" required>
+                                <input type="text" class="form-control" id="stationname" disabled>
                               </div>
                             </div>
                           </div>
@@ -167,7 +160,7 @@
                             <div class="col-md-9">
                               <div class="form-group">
       
-                                <input type="text" class="form-control" id="stationaddr" required>
+                                <input type="text" class="form-control" id="stationaddr" disabled>
                               </div>
                             </div>
                           </div>
@@ -182,7 +175,7 @@
                             <div class="col-md-4">
                               <div class="form-group">
       
-                                <input type="text" class="form-control" id="stationtel" required>
+                                <input type="text" class="form-control" id="stationtel" disabled>
                               </div>
                             </div>
                             <div class="col-md-1.5">
@@ -194,18 +187,11 @@
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
-                                <input type="text" class="form-control" id="stationzipcode" required>
+                                <input type="text" class="form-control" id="stationzipcode" disabled>
                               </div>
                             </div>
                           </div>
-                          
-      
-                          <button type="button" onclick="newUnit()" class="btn btn-light pull-right">เพิ่มสถานีตำรวจใหม่</button>
-      
                           <div class="clearfix"></div>
-      
-                              <div class="col-md-12" id="usertemp">
-                          
                         </form>
                   </div>
                 </div>
@@ -222,5 +208,16 @@
               <script src="assets/demo/demo.js"></script>
 
 </body>
+
+<script>
+
+officer.getUnitInfo(unitparam , (error , result) => { 
+    document.getElementById("stationid").value = unitparam;
+    document.getElementById("stationname").value = result[0];
+    document.getElementById("stationaddr").value = result[1];
+    document.getElementById("stationtel").value = result[2];
+    document.getElementById("stationzipcode").value = result[3];
+});
+</script>
 
 </html>

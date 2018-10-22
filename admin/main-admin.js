@@ -8,6 +8,23 @@ goToStation = () => { window.location.replace("./admincreate-new-station.html?us
 goToOfficer = () => { window.location.replace("./adminmanage.html?username=" + username + "&unitno=" + unitNo); }
 logout = () => { window.location.replace("./index.html"); }
 
+searchUnit = () => {
+    officer.getUnitInfo($("#unitno").val() , (error , result ) => {
+        if(!error){
+            if(!result[0] == ""){
+                if(!$("#unitno").val() == ""){
+                    window.location.replace("./view-station.html?username=" + username + "&unitno=" + unitNo+"&searchUnit="+$("#unitno").val());
+                }
+                else{
+                    alert("ไม่พบข้อมูลสถานีตำรวจ");
+                }
+            }
+            else {
+                alert("กรุณากรอกรหัสสถานี");
+            }
+        }
+    });
+}
 
 showOfficer = () => {
     officer.getUnitByOfficer($("#username").val(), (error, res) => {
@@ -17,26 +34,32 @@ showOfficer = () => {
                     alert('ไม่สามารถแก้สิทธิ์ของตัวเองได้');
                 }
                 else {
-                    let station = res;
-                    officer.getOfficerInfo(station, $("#username").val(), (error, result) => {
-                        if (!error) {
-                            let name = result;
-                            officer.getPermission($("#username").val(), (error, res) => {
+                    let stationid = res;
+                    officer.getUnitInfo(stationid , (error , result ) => {
+                        if(!error){
+                            let station = result[0];
+                            officer.getOfficerInfo(stationid, $("#username").val(), (error, result1) => {
                                 if (!error) {
-                                    let show = "";
-                                    show += "<div class='col-md-12'><div class='card'><div class='card-header card-header-info'><h4 class='card-title'>ข้อมูลเจ้าหน้าที่</h4></div><div class='card-body'><form><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='4'>ชื่อผู้ใช้ : </font></label></div></div><div class='col-md-9'><div class='form-group'><input type='text' class='form-control' value='" + $("#username").val() + "' disabled></div></div></div><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='4'>ชื่อ-นามสกุล : </font></label></div> </div><div class='col-md-9'><div class='form-group'><input type='text' class='form-control' id='name' value='" + name + "' disabled></div></div></div><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='3'>ชื่อสถานีตำรวจ : </font></label></div></div><div class='col-md-9'><div class='form-group'><input type='text' id='station' value='" + station + "' class='form-control' disabled></div></div></div>"
-                                    if (res) {
-                                        show += "<button type='button' onclick='disPermis()' class='btn btn-danger pull-right'>ยกเลิกสิทธิ์เจ้าหน้าที่</button><div class='clearfix'></div></form></div></div></div>"
-                                    }
-                                    else {
-                                        show += "<button type='button' onclick='setPermis()' class='btn btn-info pull-right'>ให้สิทธิ์เจ้าหน้าที่</button><div class='clearfix'></div></form></div></div></div>"
-                                    }
-                                    $("#officer-info").html(show);
+                                    let name = result1;
+                                    officer.getPermission($("#username").val(), (error, res) => {
+                                        if (!error) {
+                                            let show = "";
+                                            show += "<div class='col-md-12'><div class='card'><div class='card-header card-header-info'><h4 class='card-title'>ข้อมูลเจ้าหน้าที่</h4></div><div class='card-body'><form><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='4'>ชื่อผู้ใช้ : </font></label></div></div><div class='col-md-9'><div class='form-group'><input type='text' class='form-control' value='" + $("#username").val() + "' disabled></div></div></div><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='4'>ชื่อ-นามสกุล : </font></label></div> </div><div class='col-md-9'><div class='form-group'><input type='text' class='form-control' id='name' value='" + name + "' disabled></div></div></div><div class='row'><div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='3'>ชื่อสถานีตำรวจ : </font></label></div></div><div class='col-md-9'><div class='form-group'><input type='text' id='station' value='" + station + "' class='form-control' disabled></div></div></div>"
+                                            if (res) {
+                                                show += "<button type='button' onclick='disPermis()' class='btn btn-danger pull-right'>ยกเลิกสิทธิ์เจ้าหน้าที่</button><div class='clearfix'></div></form></div></div></div>"
+                                            }
+                                            else {
+                                                show += "<button type='button' onclick='setPermis()' class='btn btn-info pull-right'>ให้สิทธิ์เจ้าหน้าที่</button><div class='clearfix'></div></form></div></div></div>"
+                                            }
+                                            $("#officer-info").html(show);
+                                        }
+                                    })
                                 }
-                            })
+        
+                            });
                         }
-
                     });
+              
                 }
             }
             else {
@@ -44,7 +67,6 @@ showOfficer = () => {
             }
         }
     });
-
 }
 
 setPermis = () => {
