@@ -24,7 +24,6 @@ contract trafficTicket {
 			string conv_address;
 		}
     struct TrafficTicket{
-        
         conveyanceOwner conveyList;
         reporter reporterList;
         report_case reportList;
@@ -64,6 +63,12 @@ contract trafficTicket {
 	function getReporterPoint(string unitNo) public view returns (uint) {
 	    return (numReporter[unitNo]);
 	}
+	
+	 function getExpired(string unitno , string id , string personalid) public view returns (string) {
+        string memory expire;
+        (,,expire) = getReporter(unitno , id , personalid);
+        return expire;
+    }
 	
 	function getMapReporter(string unitNo , uint pointer) public view returns (string , string) {
 	    return(mapReporter[unitNo][pointer].rep_name , mapReporter[unitNo][pointer].rep_unit);
@@ -105,6 +110,25 @@ contract trafficTicket {
         return (trafficList[unitNo][id].reporterList.rep_name
          , trafficList[unitNo][id].reporterList.rep_unit
          , trafficList[unitNo][id].expire);
+    }
+    
+    function searchPersonByTicket(string unitno , string ticketno) public view returns (string) {
+        string memory personid;
+        (,personid) = getTicket(unitno , ticketno);
+        return personid;
+    }
+    
+    function searchTicketByPerson(string unitno ,string personid) public view returns (string){
+        string memory ticketNo;
+        uint size = getConveyancePoint(unitno);
+        string memory person;
+        for (uint8 i = 0 ; i<=size ; i++){
+        (person,,,,) = getMapConvey(unitno , i);
+              if(person.toSlice().equals(personid.toSlice())){
+                  ticketNo = getTicketNo(unitno , i);
+              }
+        }
+        return ticketNo;
     }
     
     function getReportCase( string unitNo , string id , string _personalid) public checkShowTicket( unitNo , id , _personalid) view returns ( string ,string ,string , uint ,string){
