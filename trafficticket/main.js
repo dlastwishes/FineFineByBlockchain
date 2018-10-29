@@ -14,7 +14,6 @@ var ticketno = urlParams.get('ticketno');
 goToDashboard = () => { window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo); }
 goToCreateTicket = () => { window.location.replace("./create-tf-office-info.html?username=" + username + "&unitno=" + unitNo); }
 goToUserProfile = () => { window.location.replace("./user.html?username=" + username + "&unitno=" + unitNo); }
-gotoCreateOfficer = () => {window.location.replace("./create-new-ofiicer.html?username=" + username + "&unitno=" + unitNo); }
 logout = () => { window.location.replace("./index.html"); }
 
 JSalert = (textshow, choice) => {
@@ -69,7 +68,7 @@ JSalert = (textshow, choice) => {
 }
 
 editUser = () => {
-    officer.editOfficer.sendTransaction(uno, user, $("#officername").val(), (error, result) => {
+    officer.editOfficer.sendTransaction(user, $("#officername").val(), (error, result) => {
         if (!error) {
             alert('แก้ไขข้อมูลเสร็จสิ้น');
             location.reload();
@@ -89,6 +88,7 @@ editReportcase = () => {
         , $("#speed").val()
         , $("#fine").val()
         , $("#description").val()
+        , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 location.reload();
@@ -108,6 +108,7 @@ editConvey = () => {
         , $("#conveyname").val()
         , $("#conveytel").val()
         , $("#conveyaddr").val()
+        , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 location.reload();
@@ -118,11 +119,11 @@ editConvey = () => {
         });
 }
 
-
 submitReporter = () => {
     traffic.setReporter.sendTransaction(
         document.getElementById("nameOfficer").textContent
         , uno
+        , {gas : 30000000}
         , function (error, result) {
             if (!error) {
 
@@ -147,6 +148,7 @@ submitConveyance = () => {
         , $("#conv_name").val()
         , $("#conv_tel").val()
         , $("#conv_addr").val()
+        , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 traffic.getConveyancePoint(uno, (error, res) => {
@@ -200,13 +202,11 @@ setData = (init, desti) => {
                         let ticketNo, conveyName;
                         ticketNo = result;
                         $("#reportcase_trafficNo" + i).html(ticketNo);
-
                         traffic.getTicket(uno, ticketNo, (error, res) => {
                             if (!error) {
                                 $("#convey_name" + i).html(res[0]);
-                                functionTicket.getExpired(uno, ticketNo, res[1], (error, result) => {
+                                traffic.getExpired(uno, ticketNo, res[1], (error, result) => {
                                     if (!error) {
-
                                         $("#expired" + i).html(result);
                                     }
                                 });
@@ -235,16 +235,11 @@ createDataTable = (init, desti) => {
     traffic.getTotalTicketByUnit(uno, (error, result1) => {
         if (!error) {
             totalTicket = result1.c[0];
-           
             page += 5;
             for (let i = init; i < desti; i++) {
-                var edit_status = false;
                 traffic.getTicketNo(uno, i, (error, res) => {
-
                     if (!error) {
                         if (res !== "") {
-
-
                             payTicket.isPay(res, (error, result12) => {
                                 if (!error) {
                                    
@@ -282,6 +277,7 @@ submitOffender = () => {
         , $("#speedDetection").val()
         , $("#fineTotal").val()
         , $("#description").val()
+        , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 traffic.getReportcasePoint(uno, (error, res) => {
@@ -289,7 +285,7 @@ submitOffender = () => {
                         let offenderNo = parseInt(res.c[0]) + 1;
                         window.location.replace("./create-tf-carnumref-info.html?username=" + username + "&unitno=" + unitNo + "&reporter=" + reporter + "&offenderNo=" + offenderNo);
                     }
-                })
+                });
             }
             else {
                 alert("เพิ่มข้อมูลผิดพลาด");
@@ -316,22 +312,6 @@ checkForm = () => {
     }
 }
 
-newOfficer = () => {
-    officer.newOfficer.sendTransaction(
-        uno 
-        , $("#username").val()
-        , $("#pass").val()
-        , $("#officername").val() 
-        , function (error, result) {
-            if (!error) {
-                window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
-            }
-            else {
-                alert("การสร้างใบสั่งผิดพลาด");
-                console.log(result + error)
-            }});
-}
-
 newTicket = () => {
     traffic.getTotalTicketByUnit(uno, (error, res) => {
         if (!error) {
@@ -344,6 +324,7 @@ newTicket = () => {
                 , parseInt(convey)
                 , document.getElementById("expiredDate").textContent
                 , ticketNo
+                , {gas : 30000000}
                 , function (error, result) {
                     if (!error) {
                         window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
@@ -359,17 +340,16 @@ newTicket = () => {
 }
 
 generateQR = () => {
-    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmUrdqxwZpS2goQm8kzKY5SE52wkLaTnr3UmFLPqwvJcaF/info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
+    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmcRwDmRFd6PmGGd9TfRXejE5jNMZtXRXhKBGiPmuNTkMe//info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
 }
 
 searchPersonByTicket = () => {
-    functionTicket.searchPersonByTicket(uno, $("#search_ticketinput").val(), (error, res) => {
+    traffic.searchPersonByTicket(uno, $("#search_ticketinput").val(), (error, res) => {
         if (!error) {
             if (res !== "")
                 window.location.replace("./view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + $("#search_ticketinput").val() + "&persno=" + res);
             else
                 alert("ไม่พบข้อมูลใบสั่ง");
         }
-
     });
 }

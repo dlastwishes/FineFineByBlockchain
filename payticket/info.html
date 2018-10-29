@@ -8,8 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script src="connect.js"> </script>
-
+    <script src="mainscript-pay.js"> </script>
     <script type="text/javascript">
 
         var urlParams = new URLSearchParams(window.location.search);
@@ -130,10 +129,8 @@
 <body>
     <div class="card text-center" style="padding-top: 80px;">
         <div class="card-body">
-            <!--Table-->
             <table class="table table-bordered">
 
-                <!--Table head-->
                 <thead>
                     <tr>
                         <th colspan="2">
@@ -141,9 +138,6 @@
                         </th>
                     </tr>
                 </thead>
-                <!--Table head-->
-
-                <!--Table body-->
                 <tbody>
                     <tr>
                         <th scope="row">ใบสั่งเลขที่</th>
@@ -210,7 +204,6 @@
 
                     <tr>
                             <th scope="row" colspan="2"><h5>โปรดตรวจสอบข้อมูลให้ถูกต้อง </h5></th>
-                        <!-- <th scope="row" colspan="2"><a href="report.html" class="btn btn-danger">แจ้งข้อมูลผิด</a></th> -->
                     </tr>
                 </tbody>
         </div>
@@ -257,7 +250,7 @@
         </div>
     </div>
 </body>
-<script src="mainscript.js"> </script>
+
 <script>
     traffic.getConveyance(unitno, trafficno, personno, (error, result) => {
         if (!error) {
@@ -269,19 +262,6 @@
             $("#convey_name").html(result[2]);
             $("#convey_tel").html(result[3])
             $("#convey_addr").html(result[4])
-
-            payTicket.isPay(trafficno, (error, result) => {
-                if (!error) {
-                    let status = "";
-
-                    if (result) {
-                        $("#ticket_status").html("จ่ายแล้ว")
-                    }
-                    else {
-                        $("#ticket_status").html("ยังไม่จ่าย")
-                    }
-                }
-            })
 
             traffic.getReportCase(unitno, trafficno, personno, (error, result) => {
                 if (!error) {
@@ -316,6 +296,22 @@
         }
 
     });
+</script>
+
+<script src="publicScript.js"></script>
+<script>
+    payTicket.isPay(trafficno, (error, result) => {
+                if (!error) {
+                    let status = "";
+
+                    if (result) {
+                        $("#ticket_status").html("จ่ายแล้ว")
+                    }
+                    else {
+                        $("#ticket_status").html("ยังไม่จ่าย")
+                    }
+                }
+            });
 
 </script>
 

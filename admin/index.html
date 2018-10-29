@@ -28,14 +28,13 @@
             else {
                 officer.login($("#username").val(), $("#password").val(), (error, result) => {
                     if (!error) {
-                        if (result[0]) {
+                        if (result) {
                             officer.getPermission($("#username").val(), (error, res) => {
                                 if (!error) {
                                     console.log(res)
                                     if (res) {
                                         let username = web3.toHex($("#username").val());
-                                        let unitno = web3.toHex(result[1]);
-                                        window.location.replace("adminmanage.html?username=" + username + "&unitno=" + unitno);
+                                        window.location.replace("adminmanage.html?username=" + username);
                                     }
                                     else {
                                         alert('คุณไม่มีสิทธิ์');

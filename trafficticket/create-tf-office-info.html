@@ -200,7 +200,7 @@
         <script src="assets/demo/demo.js"></script>
         <script>
 
-          officer.getOfficerInfo(uno, user, (error, res) => {
+          officer.getOfficerInfo(user, (error, res) => {
             if (!error) {
               $("#nameOfficer").html(res);
               officer.getUnitInfo(uno, (error, res) => {

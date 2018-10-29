@@ -4,7 +4,7 @@
 
   officer.getUnitInfo(uno, (error, result) => {
     var headerMsg;
-    officer.getOfficerInfo(uno, user, (err, res) => {
+    officer.getOfficerInfo(user, (err, res) => {
       if (!error) {
         headerMsg = res+ " " + result[0]+ " "+ result[1] + " " + result[3]
       $("#showUsername").html(headerMsg);

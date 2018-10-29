@@ -174,20 +174,11 @@
                       </div>
                       <div class="col-md-11">
                         <div class="form-group">
-
                           <input type="text" class="form-control" id="officername" placeholder="ชื่อ-นามสกุล ของเจ้าหน้าที่ใหม่" required>
                         </div>
                       </div>
-                    </div>
-                   
-                    <div class="row">
-                      
-                      
-                      
-                    </div>
-                  
-                    <button type="button" onclick="JSalert('ยืนยันการเพิ่มเจ้าหน้าที่ใหม่' ,8)" class="btn btn-light pull-right">เพิ่มเจ้าหน้าที่</button>
-
+                    </div>        
+                    <button type="button" onclick="newOfficer()" class="btn btn-light pull-right">เพิ่มเจ้าหน้าที่</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -209,22 +200,6 @@
         <script src="assets/js/plugins/bootstrap-notify.js"></script>
         <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
         <script src="assets/demo/demo.js"></script>
-        <script>
-          officer.getUnitInfo(uno, (error, result) => {
-
-            if (!error) {
-             
-      
-              document.getElementById("office").placeholder = result[0];
-             
-              document.getElementById("address").placeholder = result[1];
-              document.getElementById("tel").placeholder = result[2];
-              document.getElementById("zipcode").placeholder = result[3];
-      
-            }
-      
-          });
-        </script>
 </body>
 
 </html>

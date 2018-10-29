@@ -11,7 +11,6 @@ contract officer{
         string username;
         string name;
     }
-    mapping (string => string ) mapOfficerToUnit;
     struct unitInfo {
         string unitName;
         string unitAddr;
@@ -22,14 +21,14 @@ contract officer{
     mapping (string => unitInfo) unitNoToInfo;
     string[] private officerUsernameList;
     officerInfo private officerList;
-    mapping(string => mapping(string => officerInfo)) officerUser;
+    mapping(string => officerInfo) officerUser;
     
     modifier onlyOwner(){
         require(msg.sender == addrSAdmin);
         _;
     }
     
-    function addUnit(string unitNo , string unitName , string unitAddr , string unitTel , string unitZipcode) public onlyOwner{
+    function addUnit(string unitNo , string unitName , string unitAddr , string unitTel , string unitZipcode) public{
         unitList.push(unitNo);
         unitNoToInfo[unitNo].unitName = unitName;
         unitNoToInfo[unitNo].unitAddr = unitAddr;
@@ -48,14 +47,18 @@ contract officer{
         addrSAdmin = msg.sender;
     }
 
-    function login(string _user , string _pass) public view returns (bool , string){
+    function login(string _user , string _pass) public view returns (bool){
         string memory pass = userandpass[_user];
         if(pass.toSlice().equals(_pass.toSlice())){
-            return (true , mapOfficerToUnit[_user] );
+            return (true );
         }
         else {
-            return (false , "Not found" ) ;
+            return (false) ;
         }
+    }
+    
+    function getNumberStation() public view returns (uint) {
+        return (unitList.length);
     }
     
       function checkIn(string user) public checkPermission(user) returns (bool){
@@ -64,13 +67,12 @@ contract officer{
     } 
     
     function editOfficer (
-    string unitNo 
-    , string _usr 
+    string _usr 
     , string _name) public {
-        officerUser[unitNo][_usr].name = _name;
+        officerUser[_usr].name = _name;
     }
     
-    function newPermission(string _usr) public checkPermission(_usr) returns (bool){
+    function newPermission(string _usr) public returns (bool){
         permissionUser[_usr] = true;
     }
     
@@ -83,21 +85,19 @@ contract officer{
     }
     
     function newOfficer
-    ( string unitNo
-    , string _usr 
+    (string _usr 
     ,string _pass
     , string _name) public {
         userandpass[_usr] = _pass;
-        officerUser[unitNo][_usr].username = _usr;
-        officerUser[unitNo][_usr].name = _name;
+        officerUser[_usr].username = _usr;
+        officerUser[_usr].name = _name;
         permissionUser[_usr] = false;
         officerUsernameList.push(_usr);
-        mapOfficerToUnit[_usr] = unitNo;
     }
     
-        function getOfficerInfo(string unitNo , string username) public view returns (string){
+    function getOfficerInfo(string username) public view returns (string){
         return 
-        (officerUser[unitNo][username].name);
+        (officerUser[username].name);
     }
     
     function getUnitInfo (string unitNo) public view returns (string , string ,string ,string ){
@@ -107,15 +107,15 @@ contract officer{
          ,unitNoToInfo[unitNo].unitZipcode); 
     }
     
-    function getUnitByOfficer ( string username) public view returns (string){
-        return (mapOfficerToUnit[username]);
+    function getUnitByIndex(uint index) public view returns (string){
+        return unitList[index];
     }
     
-    function destroyOfficer(string unitNo) public onlyOwner returns (bool) {
+    function destroyOfficer() public onlyOwner returns (bool) {
                 uint i = 0;
         officerInfo memory officerNull;
         for (i ; i<officerUsernameList.length;i++){
-            officerUser[unitNo][officerUsernameList[i]] = officerNull;
+            officerUser[officerUsernameList[i]] = officerNull;
         }
     }
 }

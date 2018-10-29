@@ -206,7 +206,7 @@
   <script>
     officer.getUnitInfo(uno, (error, result) => {
 
-      officer.getOfficerInfo(uno, user, (err, res) => {
+      officer.getOfficerInfo(user, (err, res) => {
         if (!error) {
           document.getElementById("officername").value = res;
         }

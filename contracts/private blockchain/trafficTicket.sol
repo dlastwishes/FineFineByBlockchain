@@ -228,5 +228,4 @@ contract trafficTicket {
         trafficList[unitNo][id].conveyList.conv_tele = new_conv_tel;
         trafficList[unitNo][id].conveyList.conv_address = new_conv_addr;
     }
-    
 }
