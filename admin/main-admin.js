@@ -64,7 +64,6 @@ showOfficer = () => {
                     }
                 })
             }
-
         });
     }
 }
@@ -102,6 +101,7 @@ newUnit = () => {
                     username
                     , passtemp
                     , "user temp"
+                    , {gas : 30000000}
                     , function (error, result) {
                         if (!error) {
                             $("#usertemp").html(" <div class='card'> <div class='card-header card-header-warning'><h4 class='card-title'>ข้อมูลชั่วคราวสำหรับเข้าใช้งานสถานี</h4></div> <div class='card-body'><form> <div class='row'> <div class='col-md-2'><div class='form-group'><label class='bmd-label-floating'><font size='3'>ชื่อผู้ใช้ชั่วคราว  : </font></label></div></div><div class='col-md-4'><div class='form-group'><input type='text' class='form-control' id='usernametemp' value='"+username+"'></div></div><div class='col-md-1.5'><div class='form-group'><label class='bmd-label-floating'><font size='3'>รหัสผ่านชั่วคราว  : </font></label></div></div><div class='col-md-4'><div class='form-group'><input type='text' class='form-control' id='passtemp' value='"+passtemp+"' ></div></div></div></form></div></div>");

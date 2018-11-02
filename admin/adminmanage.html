@@ -7,39 +7,25 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    ADMIN
+    แก้ไขสิทธิ์เจ้าหน้าที่
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-  />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
-  />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- CSS Files -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <link href="assets/demo/demo.css" rel="stylesheet" />
-
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
-  <script> 
-    $(function () {
-      $("#header").load("header.html");
-    });
-  </script>
+  <script src="connect.js"> </script>
+  <script src="main-admin.js"> </script>
 </head>
 
-<body class="">
-  <div class="wrapper ">
-
-
+<body>
+  <div class="wrapper">
     <!-- Navbar for header  -->
-    <div class="sidebar" data-color="orange" data-background-color="black" data-image="../assets/img/">
-      <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-  
-          Tip 2: you can also add an image using data-image tag
-      -->
+    <div class="sidebar" data-color="orange" data-background-color="black" data-image="assets/img/sidebar-1.jpg">
       <div class="logo">
         <a href="" class="simple-text logo-normal">
           admin
@@ -48,20 +34,26 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="ADMINmanage.html">
+            <a class="nav-link" href="#" onclick="goToOfficer()">
               <i class="fa fa-clone"></i>
-              <p>จัดการเจ้าหน้าที่</p>
+              <p>แก้ไขสิทธิ์เจ้าหน้าที่</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./ADMINcreate-new-ofiicer.html">
+          <li class="nav-item  ">
+            <a class="nav-link" href="#" onclick="gotoCreateOfficer()">
               <i class="fa fa-user-plus"></i>
               <p>เพิ่มเจ้าหน้าที่</p>
             </a>
           </li>
-          
+          <li class="nav-item ">
+            <a class="nav-link" href="#" onclick="goToStation()">
+              <i class="fa fa-institution"></i>
+              <p>เพิ่มสถานีตำรวจ</p>
+            </a>
+          </li>
+
           <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
+            <a class="nav-link" href="#" onclick="logout()">
               <i class="fa fa-sign-out"></i>
               <p>ออกจากระบบ</p>
             </a>
@@ -71,276 +63,93 @@
     </div>
     <div class="main-panel">
       <!-- Init Navbar -->
-      
 
-
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-  <div class="container-fluid">
-    <div class="navbar-wrapper">
-      <a class="navbar-brand" href="#pablo">ยินดีต้อนรับสู่ระบบบริหารจัดการทรัพยากรมวลมนุดชาติ</a>
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end">
-      <form class="navbar-form">
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="ค้นหาเจ้าหน้าที่...">
-          <button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
-            <div class="ripple-container"></div>
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#">ยินดีต้อนรับสู่ระบบบริหารจัดการทรัพยากรมวลมนุษยชาติ</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
           </button>
-        </div>
-      </form>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="ADMINcreate-new-ofiicer.html" >
-            <i class="fa fa-user-plus"></i>
-            <p class="d-lg-none d-md-block">
-              Stats
-            </p>
-          </a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#pablo">
-            <i class="fa fa-sign-out"></i>
-            <p class="d-lg-none d-md-block">
-              Account
-            </p>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-      <!-- End Navbar -->
-
-      
-
-          <div class="content">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header card-header-warning">
-                      <h4 class="card-title ">ข้อมูลเจ้าหน้าที่</h4>
-                      <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <thead class="" style="text-align: center">
-                            <th>
-                              ลำดับที่
-                            </th>
-                            <th>
-                              ชื่อผู้ใช้
-                            </th>
-                            <th>
-                              รหัสผ่าน
-                            </th>
-                            <th>
-                              ชื่อ-นามสกุล
-                            </th>
-                            <th>
-                              หน่วยงาน
-                            </th>
-                            <th>
-                              วัน/เวลาที่เพิ่ม
-                            </th>
-                            <th>
-                              เบอร์โทร
-                            </th>
-                            <th style="text-align: center">
-                              ตัวเลือก
-                            </th>
-
-
-                          </thead>
-                          <tbody>
-                            <tr style="text-align: center">
-                              <td>
-                                1
-                              </td>
-                              <td>
-                                Dakota Rice
-                              </td>
-                              <td>
-                                Niger
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                2
-                              </td>
-                              <td>
-                                Minerva Hooper
-                              </td>
-                              <td>
-                                Curaçao
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                3
-                              </td>
-                              <td>
-                                Sage Rodriguez
-                              </td>
-                              <td>
-                                Netherlands
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                4
-                              </td>
-                              <td>
-                                Philip Chaney
-                              </td>
-                              <td>
-                                Korea, South
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                5
-                              </td>
-                              <td>
-                                Doris Greene
-                              </td>
-                              <td>
-                                Malawi
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                            <tr style="text-align: center">
-                              <td>
-                                6
-                              </td>
-                              <td>
-                                Mason Porter
-                              </td>
-                              <td>
-                                Chile
-                              </td>
-                              <td>16/12/22 15:21:21</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>
-                                <button type="button" rel="tooltip" title="แก้ไข" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="ลบ" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                
+          <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" id="unitno" class="form-control" placeholder="ระบุรหัสสถานีเพื่อค้นหา...">
+                <button type="button" onclick="searchUnit()" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
               </div>
-            </div>
-            <!--   Core JS Files   -->
-            <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
-            <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
-            <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-            <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-            <!--  Google Maps Plugin    -->
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-            <!-- Chartist JS -->
-            <script src="assets/js/plugins/chartist.min.js"></script>
-            <!--  Notifications Plugin    -->
-            <script src="assets/js/plugins/bootstrap-notify.js"></script>
-            <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-            <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
-            <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-            <script src="assets/demo/demo.js"></script>
-            <script>
-              $(document).ready(function () {
-                // Javascript method's body can be found in assets/js/demos.js
-                md.initDashboardPageCharts();
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="goToStation()">
+                  <i class="fa fa-institution"></i>
+                  <p class="d-lg-none d-md-block">
+                    Stats
+                  </p>
+                </a>
+              </li>
 
-              });
-            </script>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logout()">
+                  <i class="fa fa-sign-out"></i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">ค้นหาเจ้าหน้าที่เพื่อให้สิทธิ์</h4>
+
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">
+                            <font size="4">ชื่อผู้ใช้ของเจ้าหน้าที่ : </font>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group">
+
+                          <input type="text" id="username" class="form-control" required>
+                        </div>
+                      </div>
+                      <button type="button" onclick="showOfficer()" class="btn btn-warning pull-right">ค้นหา</button>
+                      <div class="clearfix"></div>
+                     
+                  </form>
+                 
+                </div>
+              
+              </div>
+              <div class='row' id='officer-info'> </div>
+                <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+                <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+                <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+                <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+                <script src="assets/js/plugins/bootstrap-notify.js"></script>
+                <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+                <script src="assets/demo/demo.js"></script>
 </body>
 
 </html>
