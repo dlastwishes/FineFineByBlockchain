@@ -44,9 +44,9 @@
 
       <div class="logo">
         <a href="" class="simple-text logo-normal">
-            <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
-              FineFine
-            </center>
+          <center> <img class="img" src="assets/img/1.png" style="width: 32px; height:32px" />
+            FineFine
+          </center>
         </a>
       </div>
 
@@ -153,7 +153,9 @@
 
                   </div>
                   <p class="card-category">ส่วนจัดการเจ้าหน้าที่</p>
-                 <a href="../admin/index.html"> <h3 class="card-title"> ไปยัง</h3> </a>
+                  <a href="../admin/index.html">
+                    <h3 class="card-title"> ไปยัง</h3>
+                  </a>
                 </div>
                 <div class="card-footer">
 
@@ -206,12 +208,28 @@
             <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
 
             <script src="assets/demo/demo.js"></script>
-            <script src="public-main.js"></script>
+
             <script>
+
               traffic.getTotalTicketByUnit(uno, (error, result1) => {
                 if (!error) {
                   var total = result1.c[0];
-                  getTotalPayed();
+
+                    payTicket.getTotalPayedTicketByUnit(uno, (error, result2) => {
+                      let pay = result2.c[0];
+                      $("#totalTicket").html(totalTicket);
+                      $("#totalPay").html(pay);
+                      let notpay = total - pay;
+                      if (notpay > 0) {
+                        $("#totalNotPay").html(notpay);
+                      }
+                      else {
+                        $("#totalNotPay").html("0");
+                      }
+                    });
+
+                  
+
                 }
               });
 

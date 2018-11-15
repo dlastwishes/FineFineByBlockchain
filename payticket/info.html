@@ -267,7 +267,7 @@
                 if (!error) {
                     let charge = "";
                     if (!(result[2] == "")) {
-                        charge = result[0] + " ความเร็วที่ตรวจวัด " + result[2];
+                        charge = result[0] + " ความเร็วที่ตรวจวัด " + result[2] +" กิโลเมตร/ชั่วโมง";
                     }
                     else charge = result[0];
                     console.log(result)
@@ -298,8 +298,8 @@
     });
 </script>
 
-<script src="publicScript.js"></script>
 <script>
+
     payTicket.isPay(trafficno, (error, result) => {
                 if (!error) {
                     let status = "";

@@ -51,14 +51,14 @@ JSalert = (textshow, choice) => {
                 else if (choice == 7) {
                     deleteTicket();
                 }
-                else if(choice == 8) {
-                    if($("#pass").val() == $("#repass").val()){
+                else if (choice == 8) {
+                    if ($("#pass").val() == $("#repass").val()) {
                         newOfficer();
-                        
+
                     }
-                else {
-                    swal("รหัสผ่านไม่ตรงกัน", "", "error");
-                }
+                    else {
+                        swal("รหัสผ่านไม่ตรงกัน", "", "error");
+                    }
                 }
             }
             else {
@@ -199,95 +199,92 @@ getExpired = () => {
 }
 
 setData = (init, desti) => {
-    traffic.getTotalTicketByUnit(uno, (error, result) => {
-        for (let i = init; i < desti; i++) {
-            traffic.getTicketNo(uno, i, (error, result) => {
-                if (!error) {
-                    if (result !== "") {
-                        let ticketNo, conveyName;
-                        ticketNo = result;
-                        $("#reportcase_trafficNo" + i).html(ticketNo);
-                        traffic.getTicket(uno, ticketNo, (error, res) => {
+
+                traffic.getTotalTicketByUnit(uno, (error, result) => {
+                    for (let i = init; i < desti; i++) {
+                        traffic.getTicketNo(uno, i, (error, result) => {
                             if (!error) {
-                                $("#convey_name" + i).html(res[0]);
-                                traffic.getExpired(uno, ticketNo, res[1], (error, result) => {
-                                    if (!error) {
-                                        $("#expired" + i).html(result);
-                                    }
-                                });
-                                payTicket.isPay(ticketNo, (error, result) => {
-                                    if (!error) {
-                                        let status = "";
-                                        if (result) {
-                                            status = "จ่ายแล้ว";
-                                        }
-                                        else {
-                                            status = "ยังไม่จ่าย";
-                                        }
-                                        $("#status" + i).html(status);
-                                    }
-                                });
+                                if (result !== "") {
+                                    let ticketNo, conveyName;
+                                    ticketNo = result;
+                                    $("#reportcase_trafficNo" + i).html(ticketNo);
+                                    traffic.getTicket(uno, ticketNo, (error, res) => {
+                                        if (!error) {
+                                            $("#convey_name" + i).html(res[0]);
+                                            traffic.getExpired(uno, ticketNo, res[1], (error, result) => {
+                                                if (!error) {
+                                                    $("#expired" + i).html(result);
+                                                }
+                                            });
+        
+                                                payTicket.isPay(ticketNo, (error, result) => {
+                                                    if (!error) {
+                                                        let status = "";
+                                                        if (result) {
+                                                            status = "จ่ายแล้ว";
+                                                        }
+                                                        else {
+                                                            status = "ยังไม่จ่าย";
+                                                        }
+                                                        $("#status" + i).html(status);
+                                                    }
+                                                });
+            
+                                            } else {
+                                                console.log('not connect');
+                                            }
+            
+                                    });
+                                }
                             }
                         });
                     }
-                }
-            });
-        }
-    })
+                })
+
 }
 
 createDataTable = (init, desti) => {
-    traffic.getTotalTicketByUnit(uno, (error, result1) => {
-        if (!error) {
-            totalTicket = result1.c[0];
-            page += 5;
-            for (let i = init; i < desti; i++) {
-                traffic.getTicketNo(uno, i, (error, res) => {
+
+                traffic.getTotalTicketByUnit(uno, (error, result1) => {
                     if (!error) {
-                        if (res !== "") {
-
-                            web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-                            console.log("new provider " + typeof web3);
-                            web3.eth.defaultAccount = web3.eth.coinbase;
-                        
-                        console.log("connected to rinkeby : "+web3.isConnected());
-                        
-                        if (web3.isConnected()) {
-                        
-                            var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getTargetAccount", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getOwner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "setTargetAccount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-                            var payTicketAddr = "0x3ae2525e70f5eaba2949d25f31cdd914498dadc0";
-                            var payTicket = payTrafficTicket.at(payTicketAddr);
-                        
-                        } else {
-                            console.log('not connect');
-                        }
-
-                            payTicket.isPay(res, (error, result12) => {
+                        totalTicket = result1.c[0];
+                        page += 5;
+                
+                        for (let i = init; i < desti; i++) {
+                            traffic.getTicketNo(uno, i, (error, res) => {
                                 if (!error) {
-                                        traffic.getTicket(uno, res, (error, result) => {
-                                            if (!error) {
-                                                console.log("person " + result);
-                                                tableCode += "<tr style='text-align: center'>"
-                                                tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
-                                                tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
-                                                if (!result12) {
-                                                    tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
+                                    if (res !== "") {
+
+                                            payTicket.isPay(res, (error, result12) => {
+                                                if (!error) {
+
+                                                    traffic.getTicket(uno, res, (error, result) => {
+                                                        if (!error) {
+                                                            console.log("person " + result);
+                                                            tableCode += "<tr style='text-align: center'>"
+                                                            tableCode += " <td> <label>" + res + "</label>  </td> <td> <label id='convey_name" + i + "'> </label> </td> <td> <label id='status" + i + "'> </label> </td> <td> <label id='expired" + i + "'> </label> </td>"
+                                                            tableCode += "<td><a href='view-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'> <button type='button' rel='tooltip' title='ดูใบสั่ง' class='btn btn-danger btn-link btn-sm'> <i class='fa fa-eye'></i></button> </a>"
+                                                            if (!result12) {
+                                                                tableCode += "<a href='edit-tf.html?username=" + username + "&unitno=" + unitNo + "&ticketno=" + res + "&persno=" + result[1] + "'><button type='button' rel='tooltip' title='แก้ไข' class='btn btn-danger btn-link btn-sm'><i class='material-icons'>edit</i></button></a> </td>"
+                                                            }
+                                                            tableCode += "</tr>"
+                                                            $("#trafficList").html(tableCode);
+                                                            key++;
+                                                        }
+                                                    });
                                                 }
-                                                tableCode += "</tr>"
-                                                $("#trafficList").html(tableCode);
-                                                key++;
-                                            }
-                                        });
+                                            });
+                
+                                        
+                
+                                    }
                                 }
+                                index++;
                             });
                         }
+                        setData(init, desti);
                     }
-                    index++;
                 });
-            }
-            setData(init, desti);
-        }
-    });
 }
 
 submitOffender = () => {
