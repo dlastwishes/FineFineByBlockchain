@@ -1,16 +1,16 @@
-// if (typeof web3 !== 'undefined') {
+if (typeof web3 !== 'undefined') {
 
-//     web3 = new Web3(web3.currentProvider);
-//     console.log("existing web3: provider " + web3);
-//     web3.eth.defaultAccount = web3.eth.accounts[0];
-// }
-
-// else {
-    // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
-    web3 = new Web3(new Web3.providers.HttpProvider("http://10.4.56.21:8545"));
-    console.log("new provider " + typeof web3);
+    web3 = new Web3(web3.currentProvider);
+    console.log("existing web3: provider " + web3);
     web3.eth.defaultAccount = web3.eth.accounts[0];
-// }
+}
+
+else {
+    // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
+    web3 = new Web3(new Web3.providers.HttpProvider("http://10.4.56.23:8545"));
+    console.log("new provider " + typeof web3);
+    web3.eth.defaultAccount = web3.eth.coinbase;
+}
 
 console.log(web3.isConnected());
 
@@ -22,10 +22,6 @@ if (web3.isConnected()) {
     // ของ private
     var ticketAddr = "0x73e894a13e656f665d0999ff5a038d5af7547671"; 
     var traffic = TrafficConstract.at(ticketAddr);
-
-    var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getTargetAccount", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getOwner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "setTargetAccount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
-    var payTicketAddr = "0x3ae2525e70f5eaba2949d25f31cdd914498dadc0";
-    var payTicket = payTrafficTicket.at(payTicketAddr);
 
   var officerContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"_usr","type":"string"},{"name":"_pass","type":"string"},{"name":"_name","type":"string"}],"name":"newOfficer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"username","type":"string"}],"name":"getOfficerInfo","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"unitNo","type":"string"}],"name":"getUnitInfo","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getUnitByIndex","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_usr","type":"string"}],"name":"newPermission","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_user","type":"string"},{"name":"_pass","type":"string"}],"name":"login","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"destroyOfficer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"username","type":"string"}],"name":"disPermission","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"setSuperAdmin","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_usr","type":"string"},{"name":"_name","type":"string"}],"name":"editOfficer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getNumberStation","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"username","type":"string"}],"name":"getPermission","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"unitNo","type":"string"},{"name":"unitName","type":"string"},{"name":"unitAddr","type":"string"},{"name":"unitTel","type":"string"},{"name":"unitZipcode","type":"string"}],"name":"addUnit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"user","type":"string"}],"name":"checkIn","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]);
                   // ของ rinkeby

@@ -75,6 +75,7 @@ editUser = () => {
         }
         else {
             alert("การแก้ไขผิดพลาด");
+            console.log(error);
         }
     });
 }
@@ -88,13 +89,14 @@ editReportcase = () => {
         , $("#speed").val()
         , $("#fine").val()
         , $("#description").val()
-        , {gas : 30000000}
+        // , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 location.reload();
             }
             else {
                 alert("การแก้ไขผิดพลาด");
+                console.log(error);
             }
         });
 }
@@ -108,22 +110,23 @@ editConvey = () => {
         , $("#conveyname").val()
         , $("#conveytel").val()
         , $("#conveyaddr").val()
-        , {gas : 30000000}
+        // , {gas : 30000000}
         , function (error, result) {
             if (!error) {
                 location.reload();
             }
             else {
                 alert("การแก้ไขผิดพลาด");
+                console.log(error);
             }
         });
 }
 
 submitReporter = () => {
-    traffic.setReporter.sendTransaction(
+    traffic.setReporter(
         document.getElementById("nameOfficer").textContent
         , uno
-        , {gas : 30000000}
+        // , {gas : 30000000}
         , function (error, result) {
             if (!error) {
 
@@ -136,19 +139,20 @@ submitReporter = () => {
             }
             else {
                 alert("เพิ่มข้อมูลผิดพลาด");
+                console.log(error);
             }
         });
 }
 
 submitConveyance = () => {
-    traffic.setConveyanceOwner.sendTransaction(
+    traffic.setConveyanceOwner(
         uno
         , $("#personalNo").val()
         , $("#plateNo").val()
         , $("#conv_name").val()
         , $("#conv_tel").val()
         , $("#conv_addr").val()
-        , {gas : 30000000}
+        // , {gas : 300000000}
         , function (error, result) {
             if (!error) {
                 traffic.getConveyancePoint(uno, (error, res) => {
@@ -160,6 +164,7 @@ submitConveyance = () => {
             }
             else {
                 alert("เพิ่มข้อมูลผิดพลาด");
+                console.log(error);
             }
         });
 }
@@ -240,9 +245,25 @@ createDataTable = (init, desti) => {
                 traffic.getTicketNo(uno, i, (error, res) => {
                     if (!error) {
                         if (res !== "") {
+
+                            web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
+                            console.log("new provider " + typeof web3);
+                            web3.eth.defaultAccount = web3.eth.coinbase;
+                        
+                        console.log("connected to rinkeby : "+web3.isConnected());
+                        
+                        if (web3.isConnected()) {
+                        
+                            var payTrafficTicket = web3.eth.contract([{ "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "getPayerTraffic", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getTargetAccount", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "unitNo", "type": "string" }, { "name": "_trafficNo", "type": "string" }], "name": "payFine", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "getOwner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "unitNo", "type": "string" }], "name": "getTotalPayedTicketByUnit", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "getTotalPayTicket", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "setTargetAccount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "checkBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "_trafficNo", "type": "string" }], "name": "isPay", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }]);
+                            var payTicketAddr = "0x3ae2525e70f5eaba2949d25f31cdd914498dadc0";
+                            var payTicket = payTrafficTicket.at(payTicketAddr);
+                        
+                        } else {
+                            console.log('not connect');
+                        }
+
                             payTicket.isPay(res, (error, result12) => {
                                 if (!error) {
-                                   
                                         traffic.getTicket(uno, res, (error, result) => {
                                             if (!error) {
                                                 console.log("person " + result);
@@ -270,14 +291,14 @@ createDataTable = (init, desti) => {
 }
 
 submitOffender = () => {
-    traffic.setReport_case.sendTransaction(
+    traffic.setReport_case(
         uno
         , $("#chargeInfo").val()
         , $("#placeOfIncident").val()
         , $("#speedDetection").val()
         , $("#fineTotal").val()
         , $("#description").val()
-        , {gas : 30000000}
+        // , {gas : 300000000}
         , function (error, result) {
             if (!error) {
                 traffic.getReportcasePoint(uno, (error, res) => {
@@ -289,6 +310,7 @@ submitOffender = () => {
             }
             else {
                 alert("เพิ่มข้อมูลผิดพลาด");
+                console.log(error);
             }
         });
 }
@@ -317,20 +339,21 @@ newTicket = () => {
         if (!error) {
             secondParam = res.c[0] + 1;
             ticketNo = firstParam + secondParam;
-            traffic.newTrafficTicket.sendTransaction(
+            traffic.newTrafficTicket(
                 uno
                 , parseInt(reporter)
                 , parseInt(offender)
                 , parseInt(convey)
                 , document.getElementById("expiredDate").textContent
                 , ticketNo
-                , {gas : 30000000}
+                // , {gas : 300000000}
                 , function (error, result) {
                     if (!error) {
                         window.location.replace("./dashboard.html?username=" + username + "&unitno=" + unitNo);
                     }
                     else {
                         alert("การสร้างใบสั่งผิดพลาด");
+                        console.log(error);
                     }
                 });
 

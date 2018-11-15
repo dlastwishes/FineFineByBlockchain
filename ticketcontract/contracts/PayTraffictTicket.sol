@@ -1,6 +1,6 @@
 pragma solidity ^0.4.22;
 
-import "github.com/Arachnid/solidity-stringutils/src/strings.sol";
+import "github.com/Arachnid/solidity-stringutils/strings.sol";
 
 contract payTrafficTicket{
     using strings for *;
@@ -11,7 +11,7 @@ contract payTrafficTicket{
     mapping ( string => string) ticketPayedToUnit;
     
     // this is sample eoa account police holding money for testing 
-    address addressToPolice = 0x81cC78719f42b0239Bc9D8067a19b1Bc56c19ddD;
+    address addressToPolice = 0xCf02d5Bf1Fb7BaE91a136837Ef7552b1322e77c8;
     mapping(string => address) ownerPayTraffic;
     uint private maxHolding = 50 ether;
     

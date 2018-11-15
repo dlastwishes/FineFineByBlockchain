@@ -1,5 +1,6 @@
 pragma solidity^0.4.22;
-import "github.com/Arachnid/solidity-stringutils/src/strings.sol";
+
+import "github.com/Arachnid/solidity-stringutils/strings.sol";
 
 contract officer{
      using strings for *;

@@ -206,24 +206,12 @@
             <script src="assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
 
             <script src="assets/demo/demo.js"></script>
-
+            <script src="public-main.js"></script>
             <script>
               traffic.getTotalTicketByUnit(uno, (error, result1) => {
                 if (!error) {
                   var total = result1.c[0];
-                  
-                  payTicket.getTotalPayedTicketByUnit(uno, (error, result2) => {
-                    let pay = result2.c[0];
-                    $("#totalTicket").html(totalTicket);
-                    $("#totalPay").html(pay);
-                    let notpay = total - pay;
-                    if (notpay > 0) {
-                      $("#totalNotPay").html(notpay);
-                    }
-                    else {
-                      $("#totalNotPay").html("0");
-                    }
-                  });
+                  getTotalPayed();
                 }
               });
 

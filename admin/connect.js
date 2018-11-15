@@ -1,16 +1,16 @@
-// if (typeof web3 !== 'undefined') {
+if (typeof web3 !== 'undefined') {
 
-//     web3 = new Web3(web3.currentProvider);
-//     console.log("existing web3: provider " + web3);
-//     web3.eth.defaultAccount = web3.eth.accounts[0];
-// }
+    web3 = new Web3(web3.currentProvider);
+    console.log("existing web3: provider " + web3);
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+}
 
-// else {
+else {
     // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/g5rWkSjjhx1LPmDch30E"));
     web3 = new Web3(new Web3.providers.HttpProvider("http://10.4.56.21:8545"));
     console.log("new provider " + typeof web3);
     web3.eth.defaultAccount = web3.eth.accounts[0];
-// }
+}
 
 console.log(web3.isConnected());
 
