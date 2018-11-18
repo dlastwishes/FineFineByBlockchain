@@ -40,30 +40,6 @@ if (web3.isConnected()) {
     console.log('not connect');
 }
 
-function checkID(id) {
-    if (id.length != 13) return false;
-
-    for (i = 0, sum = 0; i < 12; i++)
-        sum += parseFloat(id.charAt(i)) * (13 - i); if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12)))
-
-        return false; return true;
-}
-
-function checkForm () {
-    if (!checkID(document.getdataform.personalno.value)) {
-        alert("ป้อนข้อมูลไม่ครบ หรือ รหัสบัตรประชาชนไม่ถูกต้อง");
-        return false;
-    }
-    else {
-        let personalno = document.getdataform.personalno.value;
-        let ticketno = document.getdataform.id.value;
-        var unitno = (document.getdataform.id.value).substring(0, 4);
-        console.log(unitno);
-        $("#unit").html(unitno);
-        window.location.replace("./info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + unitno);
-    }
-}
-
 
 gotoConfirm = () => {
     var fineTotal = document.getElementById("reportcase_fine").innerHTML;
