@@ -4,10 +4,16 @@ var fine = urlParams.get('fine');
 var personno = urlParams.get('personalno');
 var unitno = urlParams.get('unitno');
 
+if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+    console.log("existing web3: provider " + web3);
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+}
+
+else {
 web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9462109ce6cf4f48ad46671ce04f461f"));
-// web3 = new Web3(new Web3.providers.HttpProvider("http://10.4.56.21:8545"));
 console.log("new provider " + typeof web3);
-// web3.eth.defaultAccount = web3.eth.accounts[0];
+}
 
 console.log(web3.isConnected());
 if (web3.isConnected()) {

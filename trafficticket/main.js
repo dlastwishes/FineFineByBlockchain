@@ -360,7 +360,7 @@ newTicket = () => {
 }
 
 generateQR = () => {
-    jQuery('#qrcode').qrcode("https://gateway.ipfs.io/ipfs/QmcRwDmRFd6PmGGd9TfRXejE5jNMZtXRXhKBGiPmuNTkMe//info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
+    jQuery('#qrcode').qrcode("http://finefine.tk/info.html?id=" + ticketno + "&personalno=" + personalno + "&unitno=" + uno);
 }
 
 searchPersonByTicket = () => {
