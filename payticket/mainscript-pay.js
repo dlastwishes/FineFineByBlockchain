@@ -49,7 +49,7 @@ function checkID(id) {
         return false; return true;
 }
 
-checkForm = () => {
+function checkForm () {
     if (!checkID(document.getdataform.personalno.value)) {
         alert("ป้อนข้อมูลไม่ครบ หรือ รหัสบัตรประชาชนไม่ถูกต้อง");
         return false;
